@@ -7,7 +7,7 @@
           <span>首页</span>
         </div>
       </router-link>
-      <router-link to="/goods" tag="div">
+      <router-link to="/category" tag="div">
         <div class="nav-list">
           <img src="./assets/img/nav/icon_category.png" alt="">
           <span>分类</span>
