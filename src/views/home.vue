@@ -1,17 +1,16 @@
 <template>
     <div>
-        <div>
-            this is 首页
-        </div>
+      this is home
     </div>
 </template>
 
 <script>
     export default {
-        name: "Home"
+        name: "home"
     }
 </script>
 
 <style lang="less" scoped>
+
 
 </style>
