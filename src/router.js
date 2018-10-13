@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from "./views/home"
-import Goods from "./views/goods"
+import Category from "./views/category"
 import Cart from "./views/cart"
 import User from "./views/user"
 
@@ -17,8 +17,8 @@ export default new Router({
           component:Home
       },
       {
-          path:'/goods',
-          component:Goods
+          path:'/category',
+          component:Category
       },
       {
           path:'/cart',
