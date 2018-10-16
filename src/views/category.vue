@@ -1,6 +1,10 @@
 <template>
     <div class="category">
         <Search/>
+<<<<<<< HEAD
+        this is 分类
+        <MyNav/>
+=======
         <div class="column">
             <h1>
                 <img src="../assets/img/category/caption-all.jpg" alt="">
@@ -108,10 +112,19 @@
 
         <MyNav/>
         <router-view></router-view>
+>>>>>>> a5500b82c0086da15bd3e5f7d2db30c9c2087ede
     </div>
 </template>
 
 <script>
+<<<<<<< HEAD
+    import Search from "../components/search";
+    import MyNav from "../common/myNav"
+    export default {
+        name: "Category",
+        components:{Search,MyNav},
+        name: "Category"
+=======
     import Search from "../components/search"
     import MyNav from "../common/myNav"
     export default {
@@ -120,6 +133,7 @@
             Search,
             MyNav
         }
+>>>>>>> a5500b82c0086da15bd3e5f7d2db30c9c2087ede
     }
 </script>
 

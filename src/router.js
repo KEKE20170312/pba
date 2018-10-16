@@ -4,6 +4,7 @@ import Home from "./views/home"
 import Category from "./views/category"
 import Cart from "./views/cart"
 import User from "./views/user"
+import Sp from "./components/sp"
 import Makeup from "./components/category/makeup"
 import Skin from "./components/category/skin"
 import Mask from "./components/category/mask"
@@ -33,6 +34,10 @@ export default new Router({
       {
           path:'/user',
           component:User
+      },
+      {
+          path: '/sp',
+          component: Sp
       },
       {
           path:'/category/makeup',
