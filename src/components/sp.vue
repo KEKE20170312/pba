@@ -1,5 +1,4 @@
 <template>
-
     <div class="m-body">
         <div class="headerTop">
             <span class="back2" id="back">
@@ -85,7 +84,7 @@
                 <li class="btn0 contact">客服</li>
                 <li class="btn1">分享</li>
             </ul>
-            <a class="nojoin" href="">暂无存货</a>
+            <a class="nojoin" href="">加入购物车</a>
         </div>
     </div>
 </template>
@@ -444,7 +443,7 @@
             }
         }
         .nojoin{
-            background-color: #b1b1b1;
+            background-color: #ff498c;
             width: 435px;
             height: 100px;
             line-height: 100px;
