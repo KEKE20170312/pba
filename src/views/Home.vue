@@ -4,14 +4,16 @@
         <!--轮播图部分-->
         <template>
             <swiper class="container" :options="swiperOption" ref="mySwiper">
-                <!-- slides -->
-                <swiper-slide class="imgBox"><img src="../assets/img/home/LB_1.jpg" alt=""/></swiper-slide>
-                <swiper-slide class="imgBox"><img src="../assets/img/home/LB_2.jpg" alt=""/></swiper-slide>
-                <swiper-slide class="imgBox"><img src="../assets/img/home/LB_3.jpg" alt=""/></swiper-slide>
-                <!-- Optional controls -->
-                <div class="swiper-pagination"  slot="pagination"></div>
-                <div class="swiper-button-prev" slot="button-prev"></div>
-                <div class="swiper-button-next" slot="button-next"></div>
+                <router-link to="sp" tag="swiper">
+                    <!-- slides -->
+                    <swiper-slide class="imgBox"><img src="../assets/img/home/LB_1.jpg" alt=""/></swiper-slide>
+                    <swiper-slide class="imgBox"><img src="../assets/img/home/LB_2.jpg" alt=""/></swiper-slide>
+                    <swiper-slide class="imgBox"><img src="../assets/img/home/LB_3.jpg" alt=""/></swiper-slide>
+                    <!-- Optional controls -->
+                    <div class="swiper-pagination"  slot="pagination"></div>
+                    <div class="swiper-button-prev" slot="button-prev"></div>
+                    <div class="swiper-button-next" slot="button-next"></div>
+                </router-link>
             </swiper>
 
         </template>
