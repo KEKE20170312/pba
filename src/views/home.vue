@@ -65,6 +65,9 @@
 </template>
 
 <script>
+    import Search from "../components/search";
+    import { swiper, swiperSlide } from 'vue-awesome-swiper';
+    import Sp from "../components/sp";
     import MyNav from "../common/myNav";
     export default {
         name: "home",

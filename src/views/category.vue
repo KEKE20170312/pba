@@ -1,8 +1,6 @@
 <template>
     <div class="category">
         <Search/>
-        this is 分类
-        <MyNav/>
         <div class="column">
             <h1>
                 <img src="../assets/img/category/caption-all.jpg" alt="">
