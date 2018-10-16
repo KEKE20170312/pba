@@ -5,8 +5,14 @@ import Category from "./views/category"
 import Cart from "./views/cart"
 import User from "./views/user"
 import Sp from "./components/sp"
+import Makeup from "./components/category/makeup"
+import Skin from "./components/category/skin"
+import Mask from "./components/category/mask"
+import Perfime from "./components/category/perfime"
+import Tools from "./components/category/tools"
+import Foods from "./components/category/foods"
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -30,8 +36,32 @@ export default new Router({
           component:User
       },
       {
-          path:'/sp',
-          component:Sp
+          path: '/sp',
+          component: Sp
+      },
+      {
+          path:'/category/makeup',
+          component:Makeup
+      },
+      {
+          path:'/category/skin',
+          component:Skin
+      },
+      {
+          path:'/category/mask',
+          component:Mask
+      },
+      {
+          path:'/category/perfime',
+          component:Perfime
+      },
+      {
+          path:'/category/tools',
+          component:Tools
+      },
+      {
+          path:'/category/foods',
+          component:Foods
       }
   ]
 })

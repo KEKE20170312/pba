@@ -3,6 +3,7 @@
 
     <router-view></router-view>
   </div>
+
 </template>
 
 <script>
@@ -29,5 +30,4 @@
   ::-webkit-scrollbar{
     display: none;
   }
-
 </style>
