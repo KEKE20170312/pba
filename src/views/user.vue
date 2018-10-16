@@ -1,8 +1,6 @@
 <template>
     <div>
-<<<<<<< HEAD
         this is 我的
-=======
         <div class="m-body">
             <div class="log">
                 <a href="#">
@@ -10,7 +8,6 @@
                 </a>
             </div>
         </div>
->>>>>>> a5500b82c0086da15bd3e5f7d2db30c9c2087ede
         <MyNav/>
     </div>
 </template>
@@ -19,13 +16,9 @@
     import MyNav from "../common/myNav";
     export default {
         name: "User",
-<<<<<<< HEAD
-        components:{MyNav}
-=======
         components:{
             MyNav
         }
->>>>>>> a5500b82c0086da15bd3e5f7d2db30c9c2087ede
     }
 </script>
 
