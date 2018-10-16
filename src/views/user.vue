@@ -1,12 +1,15 @@
 <template>
     <div>
         this is 我的
+        <MyNav/>
     </div>
 </template>
 
 <script>
+    import MyNav from "../common/myNav";
     export default {
-        name: "User"
+        name: "User",
+        components:{MyNav}
     }
 </script>
 

@@ -4,6 +4,7 @@ import Home from "./views/home"
 import Category from "./views/category"
 import Cart from "./views/cart"
 import User from "./views/user"
+import Sp from "./components/sp"
 
 Vue.use(Router)
 
@@ -27,6 +28,10 @@ export default new Router({
       {
           path:'/user',
           component:User
+      },
+      {
+          path:'/sp',
+          component:Sp
       }
   ]
 })
