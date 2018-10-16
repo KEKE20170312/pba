@@ -1,6 +1,5 @@
 <template>
     <div>
-<<<<<<< HEAD
         <Search></Search>
         <!--轮播图部分-->
         <template>
@@ -59,10 +58,6 @@
                 </li>
             </ul>
         </div>
-=======
-        <Search/>
-      this is home
->>>>>>> a5500b82c0086da15bd3e5f7d2db30c9c2087ede
         <MyNav/>
         <router-view></router-view>
     </div>
@@ -71,17 +66,13 @@
 
 <script>
     import Search from "../components/search";
-<<<<<<< HEAD
     import { swiper, swiperSlide } from 'vue-awesome-swiper';
     import Sp from "../components/sp";
-=======
->>>>>>> a5500b82c0086da15bd3e5f7d2db30c9c2087ede
     import MyNav from "../common/myNav";
     export default {
         name: "home",
         components:{
             Search,
-<<<<<<< HEAD
             swiper,
             swiperSlide,
             Sp,
@@ -105,11 +96,6 @@
                 return this.$refs.mySwiper.swiper
             }
         }
-
-=======
-            MyNav
-        }
->>>>>>> a5500b82c0086da15bd3e5f7d2db30c9c2087ede
     }
 </script>
 
