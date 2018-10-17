@@ -1,6 +1,7 @@
 <template>
     <div class="category">
         <Search/>
+        <MyNav/>
         <div class="column">
             <h1>
                 <img src="../assets/img/category/caption-all.jpg" alt="">

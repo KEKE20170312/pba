@@ -3,6 +3,9 @@
         <!-- 1 搜索框-->
         <Search></Search>
         <!-- 2 轮播图部分-->
+        <Search/>
+        <MyNav/>
+        <!--轮播图部分-->
         <template>
             <swiper class="container" :options="swiperOption" ref="mySwiper">
                 <router-link to="sp" tag="swiper">
@@ -228,6 +231,4 @@
             }
         }
     }
-
-
 </style>
