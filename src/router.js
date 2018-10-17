@@ -36,7 +36,7 @@ export default new Router({
           component:User
       },
       {
-          path: '/sp',
+          path: '/sp/:id',
           component: Sp
       },
       {

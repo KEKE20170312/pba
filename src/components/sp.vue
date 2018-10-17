@@ -1,39 +1,42 @@
 <template>
     <div class="m-body">
+        <!--头部nav区-->
         <div class="headerTop">
                 <span class="back2" id="back">
-                    <router-link to="home" tag="span">
-                        <img src="../assets/img/home/back2.jpg" alt="返回">
-                    </router-link>
+                    <img @click="back" src="../assets/img/home/back2.jpg" alt="返回">
                 </span>
             <span class="title">商品详情</span>
             <span class="right-icon">
             <a class="icon-link" href="#">
-                <img src="../assets/img/home/icon_shoppingcart@2x.png" alt="">
-                <label class="header-label">0</label>
+                <router-link to="cart" tag="a">
+                    <img src="../assets/img/home/icon_shoppingcart@2x.png" alt="">
+                    <label class="header-label">0</label>
+                </router-link>
             </a>
         </span>
         </div>
         <div class="m-body-cont">
+            <!--对应的图片详情区-->
             <div class="goods-box">
                 <div class="pic-box">
-                    <img src="http://appimg.pba.cn/2016/08/25/a2a780df3b71d4ceefe96dcdc496d10d.jpg!240.240" alt="">
+                    <img :src="this.data.largeImg" alt="">
                 </div>
-                <p class="goods-name">PBA 气垫BB</p>
-                <div style="display: none" class="type-box">
+                <p class="goods-name">PBA {{this.data.goodsName}}</p>
+                <div style="" class="type-box"  v-for="(item,index) in this.data.kinds">
                     <p>选择颜色分类</p>
                     <ul class="typelist">
-                        <li class="type-active">肤色</li>
+                        <li class="type-active">{{item}}</li>
                     </ul>
                 </div>
             </div>
+            <!--专享价和店铺优惠区-->
             <div class="section cf">
                 <p class="cf rm2">
                     <span class="sp_pri title-p">
                         <span>专享价：</span>
-                        <label class="good-price">￥49.90</label>
+                        <label class="good-price">￥{{this.data.price}}</label>
                     </span>
-                    <span class="sp_desc">6508人已购买</span>
+                    <span class="sp_desc">{{this.data.sales}}人已购买</span>
                 </p>
                 <p class="cf pr-resume rm3">
                     <span class="sp_pri title-p type">店铺优惠</span>
@@ -49,16 +52,15 @@
                     <div class="like-header">热门商品</div>
                     <div class="like-container">
                         <div class="like-wrapper cf">
-                            <div class="like-item">
+                            <div class="like-item" v-for="(item,index) in make_up" data-id="">
                                 <div class="like-goods-pic">
-                                    <img src="../assets/img/home/bbs.jpg" alt=""/>
+                                    <router-link :to="'/sp/'+item._id">
+                                        <img :src="item.largeImg" alt=""/>
+                                    </router-link>
                                 </div>
-                                <div class="like-goods-name">PBA 柔肤多效BB霜</div>
-                                <div class="like-goods-price">￥49.90</div>
+                                <div class="like-goods-name">PBA {{item.goodsName}}</div>
+                                <div class="like-goods-price">￥{{item.price}}</div>
                             </div>
-                            <div class="like-item"></div>
-                            <div class="like-item"></div>
-                            <div class="like-item"></div>
                         </div>
                     </div>
                     <div class="like-more">
@@ -69,32 +71,92 @@
                 <div class="detail-column">
                     <div class="detail-header">图文详情</div>
                     <ol class="detail-show">
-                        <div class="someImg">
-                            <img class="oneImg" src="../assets/img/home/face.jpg" alt=""/>
-                            <img class="oneImg" src="../assets/img/home/face.jpg" alt=""/>
-                            <img class="oneImg" src="../assets/img/home/face.jpg" alt=""/>
-                            <img class="oneImg" src="../assets/img/home/face.jpg" alt=""/>
-                            <img class="oneImg" src="../assets/img/home/face.jpg" alt=""/>
-                            <img class="oneImg" src="../assets/img/home/face.jpg" alt=""/>
+                        <div class="someImg" v-for="(item,index) in this.data.detailImgs">
+                            <img class="oneImg" :src="item" alt=""/>
                         </div>
                     </ol>
                 </div>
             </div>
+            <!--提示框区-->
+            <div v-show="ModifyPassword_pop_up" @hidden="hiddenShow" class="tip-wrap msgTip" style="display: table;">
+                <div class="cont-wrap">
+                    <div class="cont">
+                        <p>您好，请联系PBA微信客服，微信号：<br>PBA美容顾问</p>
+                        <div class="ok-cancel-wrap" style="display: none"></div>
+                            <div @click="Hidden()" class="tip-close">确定</div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!--底部组件-->
         <div class="btn-wrap">
             <ul class="left">
-                <li class="btn0 contact">客服</li>
+                <li @click="ModifyPassword()" class="btn0 contact">客服</li>
                 <li class="btn1">分享</li>
             </ul>
-            <a class="nojoin" href="">加入购物车</a>
+            <router-link to="cart" tag="a">
+                <a class="nojoin" href="">加入购物车</a>
+            </router-link>
         </div>
     </div>
 </template>
 
 <script>
+    import axios from "axios";
     export default {
         name: "sp",
+        props:{
+            goodsId:String
+        },
+        data(){
+            return{
+                data:{},
+                make_up:[],
+                ModifyPassword_pop_up:false,
+                history_pop_up:false,
+            }
+        },
+        methods:{
+            back(){
+                this.$router.go(-1);
+            },
+            ModifyPassword(){
+                this.ModifyPassword_pop_up=true
+            },
+            hiddenShow(){
+                let that = this;
+                that.ModifyPassword_pop_up = false
+            },
+            Hidden(){
+                this.hiddenShow();
+            },
 
+        },
+        created(){
+            // console.log("aaa");
+            var goodsId = this.$route.params.id;
+            axios.get("/api?id="+goodsId).then((data)=>{
+                console.log(data.data);
+                this.data = data.data[0];
+            });
+            axios.get("/api/make_up").then((data)=>{
+                console.log(data.data);
+                this.make_up = data.data;
+            })
+        },
+        watch:{
+            $route(){
+                var goodsId = this.$route.params.id;
+                axios.get("/api?id="+goodsId).then((data)=>{
+                    console.log(data.data);
+                    this.data = data.data[0];
+                });
+                axios.get("/api/make_up").then((data)=>{
+                    console.log(data.data);
+                    this.make_up = data.data;
+                })
+            }
+        }
     }
 </script>
 
@@ -315,8 +377,7 @@
                             text-align: center;
                             margin-left: 48px;
                             box-sizing: border-box;
-                            /*background-color: #fff;*/
-                            background-color: yellow;
+                            background-color: #fff;
                             .like-goods-pic{
                                 font-size: 0;
                                 img{
@@ -408,6 +469,49 @@
                     height: 0;
                     width: 750px;
                     display: block;
+                }
+            }
+        }
+        .tip-wrap{
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: none;
+            width: 750px;
+            height: 1334px;
+            z-index: 2;
+            .cont-wrap{
+                display: table-cell;
+                vertical-align: middle;
+                border-radius: 20px;
+                -webkit-border-radius: 20px;
+                .cont{
+                    background: #FF82AB;
+                    width: 637.5px;
+                    height: 268px;
+                    max-width: 1024px;
+                    margin: 0 auto;
+                    color: #FFF;
+                    font-size: 30px;
+                    text-align: center;
+                    -webkit-border-radius: 10px;
+                    border-radius: 10px;
+                    p{
+                        padding: 50px 0;
+                        padding-bottom: 40px;
+                        border-bottom: 1px solid #FFF;
+                        height: 96px;
+                    }
+                    .ok-cancel-wrap{
+                        overflow: hidden;
+                    }
+                    .tip-close{
+                        line-height: 80px;
+                        cursor: pointer;
+                    }
                 }
             }
         }

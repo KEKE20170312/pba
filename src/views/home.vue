@@ -1,58 +1,46 @@
 <template>
     <div>
+        <!-- 1 搜索框-->
         <Search></Search>
-        <!--轮播图部分-->
+        <!-- 2 轮播图部分-->
         <template>
             <swiper class="container" :options="swiperOption" ref="mySwiper">
                 <router-link to="sp" tag="swiper">
-                    <!-- slides -->
-                    <swiper-slide class="imgBox"><img src="../assets/img/home/LB_1.jpg" alt=""/></swiper-slide>
-                    <swiper-slide class="imgBox"><img src="../assets/img/home/LB_2.jpg" alt=""/></swiper-slide>
-                    <swiper-slide class="imgBox"><img src="../assets/img/home/LB_3.jpg" alt=""/></swiper-slide>
-                    <!-- Optional controls -->
+                    <!-- slides图片 -->
+                    <swiper-slide class="imgBox" v-for="(item,index) in swiper" data-id=""><img :src="item.swiperImg" alt=""/></swiper-slide>
+                </router-link>
+                    <!-- 三个小按钮 -->
                     <div class="swiper-pagination"  slot="pagination"></div>
                     <div class="swiper-button-prev" slot="button-prev"></div>
                     <div class="swiper-button-next" slot="button-next"></div>
-                </router-link>
+
             </swiper>
 
         </template>
-
-        <!--三个活动图-->
+        <!-- 3 三个活动图-->
         <ul class="main-product">
-            <li>
-                <router-link to="sp" tag="li">
-                    <img src="../assets/img/home/product_1.jpg" alt="">
-                </router-link>
-            </li>
-            <li>
-                <router-link to="sp" tag="li">
-                    <img src="../assets/img/home/product_2.jpg" alt="">
-                </router-link>
-            </li>
-            <li>
-                <router-link to="sp" tag="li">
-                    <img src="../assets/img/home/product_3.jpg" alt="">
+            <li v-for="(item,index) in active" data-id="">
+                <router-link @click.native="change(item._id)" :to="'/sp/'+item._id" tag="li">
+                    <img :src="item.actImg" alt="">
                 </router-link>
             </li>
         </ul>
-        <!--人气商品-->
+        <!-- 4 人气商品-->
         <div class="banner">
-            <img src="../assets/img/home/banner-hot.jpg" alt="人气商品"/>
+            <img src="../assets/img/home/banner-hot.jpg" alt="人气商品标"/>
         </div>
-        <!--所有推荐商品-->
+        <!-- 5 所有推荐商品-->
         <div class="classify-column">
             <ul>
-                <li>
-                    <div class="goods-box" tag="div">
-                        <router-link to="sp"><img src="http://appimg.pba.cn/2016/08/25/a2a780df3b71d4ceefe96dcdc496d10d.jpg!240.240
-" alt=""/></router-link>
-                        <img class="newProduct" src="../assets/img/home/new-product.png" alt="新品"/>
+                <li v-for="(item,index) in data">
+                    <div class="goods-box" tag="div" data-id="">
+                        <router-link @click.native="change(item._id)" :to="'/sp/'+item._id"><img :src="item.smallImg" alt=""/></router-link>
+                        <img class="newProduct" :src="item.new" alt=""/>
                     </div>
                     <div class="text">
-                        <p class="goods-name">气垫BB</p>
-                        <p class="goods-tag">水润清透 打造空气感裸妆</p>
-                        <p class="goods-price"><span>专享价：</span><span class="price">￥49.90</span></p>
+                        <p class="goods-name">{{item.goodsName}}</p>
+                        <p class="goods-tag">{{item.desc}}</p>
+                        <p class="goods-price"><span>专享价：</span><span class="price">￥{{item.price}}</span></p>
                         <a class="joinCart" href="#">
                             <img src="../assets/img/home/shopcart-unlight.png" alt="购物车">
                         </a>
@@ -61,7 +49,7 @@
             </ul>
         </div>
         <MyNav/>
-        <router-view></router-view>
+        <router-view goodsId="data.goodsId" ></router-view>
     </div>
 
 </template>
@@ -71,6 +59,7 @@
     import { swiper, swiperSlide } from 'vue-awesome-swiper';
     import Sp from "../components/sp";
     import MyNav from "../common/myNav";
+    import axios from "axios";
     export default {
         name: "home",
         components:{
@@ -90,13 +79,42 @@
                         nextEl: '.swiper-button-next',
                         prevEl: '.swiper-button-prev'
                     }
-                }
+                },
+                data:[],
+                swiper:[],
+                active:[],
+                goodsId:""
+            }
+        },
+        methods:{
+            change(i){
+                console.log(i);
+                this.$router.push(
+                    {
+                        path:`/sp/${i}`
+                    }
+                )
             }
         },
         computed: {
             swiper() {
                 return this.$refs.mySwiper.swiper
             }
+        },
+        created(){
+            axios.get("/api/").then((data)=>{
+                console.log(data.data);
+                this.data = data.data;
+
+            })
+            axios.get("/api/swiper").then((data)=>{
+                console.log(data.data);
+                this.swiper = data.data;
+            })
+            axios.get("/api/active").then((data)=>{
+                console.log(data.data);
+                this.active = data.data;
+            })
         }
     }
 </script>
