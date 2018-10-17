@@ -62,7 +62,7 @@
                 width: 710px;
                 height: 100px;
                 border-bottom: 1px solid #e2e2e2;
-                margin: 0 20px;
+                padding: 0 20px;
                 line-height: 86px;
                 font-size: 30px;
                 color: black;

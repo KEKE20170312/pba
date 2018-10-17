@@ -4,7 +4,6 @@
             <span v-on:click="back"><img src="../../assets/img/user/left-arrow.png" alt=""></span>
             <p>注册</p>
         </div>
-
         <div class="count">
             <p class="count-p">
                 这是一个神秘的花园，里面有无尽的财富和宝藏等着你去发现，现在就注册账号开启你的美丽探索之旅吧！
@@ -36,9 +35,7 @@
             </div>
         </div>
     </div>
-
 </template>
-
 <script>
     export default {
         name: "register",
@@ -49,7 +46,6 @@
         }
     }
 </script>
-
 <style lang="less" scoped>
     .register{
         width: 750px;
@@ -65,7 +61,6 @@
             p{
                 color:#535353;
             }
-
             span{
                 display: inline-block;
                 width: 90px;
@@ -90,9 +85,6 @@
             }
             .count-form{
                 width: 750px;
-
-
-
                 .cf{
                     width: 710px;
 
@@ -174,7 +166,6 @@
                 height: 30px;
                 vertical-align: bottom;
                 margin-right: 10px;
-
             }
             .agreement-to{
                 color: #969696;
@@ -182,5 +173,4 @@
             }
         }
     }
-
 </style>
