@@ -1,7 +1,10 @@
 <template>
     <div class="user">
         <div class="head">
-            <a href=""><img src="../../assets/img/user/pba-slogan.png" alt=""></a>
+            <router-link to="/home">
+                <img src="../../assets/img/user/pba-slogan.png" alt="">
+            </router-link>
+
         </div>
         <div class="count">
             <form  method="get">
