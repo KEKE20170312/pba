@@ -1,69 +1,55 @@
 <template>
     <div class="user">
         <div class="head">
-            <a href=""><img src="../assets/img/user/pba-slogan.png" alt=""></a>
+            <a href=""><img src="../../assets/img/user/pba-slogan.png" alt=""></a>
         </div>
         <div class="count">
             <form  method="get">
                 <input type="text"  placeholder="账号" ><br>
                 <input type="password" placeholder="密码">
             </form>
-            <router-link to="/user/loginbtn" class="loginbtn">
+            <router-link to="/user" class="loginbtn">
                 立即登录
             </router-link>
-
             <div class="help">
                 <a href="">忘记密码？</a>
             </div>
             <router-link to="/user/register" class="register">
                 注册PBA账号
             </router-link>
-
             <div class="thirdparty">
-                <img src="../assets/img/user/left-line.jpg" class="left-line" alt="">
+                <img src="../../assets/img/user/left-line.jpg" class="left-line" alt="">
                 <span>第三方登录</span>
-                <img src="../assets/img/user/right-line.jpg" class="right-line" alt="">
+                <img src="../../assets/img/user/right-line.jpg" class="right-line" alt="">
             </div>
             <div class="third-log">
                 <div>
                     <a href="">
-                        <img src="../assets/img/user/icon_qq.png" class="qq" alt="">
+                        <img src="../../assets/img/user/icon_qq.png" class="qq" alt="">
                         <span>QQ登录</span>
                     </a>
-
                 </div>
                 <div>
                     <a href="">
-                        <img src="../assets/img/user/icon_weibo.png" class="wb" alt="">
+                        <img src="../../assets/img/user/icon_weibo.png" class="wb" alt="">
                         <span>微博登录</span>
                     </a>
-
                 </div>
-
             </div>
         </div>
-
-
-
         <MyNav> </MyNav>
-
-
-
+        <router-view></router-view>
     </div>
-
-
 </template>
-
 <script>
-    import MyNav from "../common/myNav"
+    import MyNav from "../../common/myNav"
     export default {
-        name: "User",
+        name: "Loginbtn",
         components:{
             MyNav
         }
     }
 </script>
-
 <style lang="less" scoped>
     .user{
         width: 750px;
@@ -82,6 +68,8 @@
                 width: 672px;
                 height: 76px;
                 font-size: 28px;
+                border: 1px solid #e2e2e2;
+                outline:none;
             }
             .loginbtn{
                 display: inline-block;
@@ -106,7 +94,6 @@
                     text-decoration:none;
                     float: right;
                 }
-
             }
             .register {
                 width: 690px;
@@ -124,11 +111,9 @@
                 height: 1px;
                 margin: 70px 40px 40px 140px;
                 text-align: center;
-
                 .left-line{
                     width: 84px;
                     float: left;
-
                 }
                 .right-line{
                     float: right;
@@ -153,9 +138,6 @@
                     display:inline-block ;
                     text-align: center;
                     padding: 0 30px;
-
-
-
                 }
                 a{
                     text-decoration:none;
@@ -166,15 +148,10 @@
                     span{
                         font-size: 24px;
                         color: #969696;
-
                     }
                 }
 
-
-
             }
         }
-
     }
-
 </style>

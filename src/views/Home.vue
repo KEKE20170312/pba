@@ -1,12 +1,7 @@
 <template>
     <div>
-<<<<<<< HEAD
         <Search/>
-        <input type="text">
-      this is home
         <MyNav/>
-=======
-        <Search></Search>
         <!--轮播图部分-->
         <template>
             <swiper class="container" :options="swiperOption" ref="mySwiper">
@@ -68,28 +63,19 @@
         </div>
         <MyNav/>
         <router-view></router-view>
->>>>>>> 7f2680ea8db8080a4c7a08a0c74bf4b0998a3a0a
     </div>
 
 </template>
 
 <script>
-<<<<<<< HEAD
-    import Search from "../components/search"
-    import MyNav from "../common/myNav"
-=======
     import Search from "../components/search";
     import { swiper, swiperSlide } from 'vue-awesome-swiper';
     import Sp from "../components/sp";
     import MyNav from "../common/myNav";
->>>>>>> 7f2680ea8db8080a4c7a08a0c74bf4b0998a3a0a
     export default {
         name: "home",
         components:{
             Search,
-<<<<<<< HEAD
-            MyNav
-=======
             swiper,
             swiperSlide,
             Sp,
@@ -112,7 +98,6 @@
             swiper() {
                 return this.$refs.mySwiper.swiper
             }
->>>>>>> 7f2680ea8db8080a4c7a08a0c74bf4b0998a3a0a
         }
     }
 </script>

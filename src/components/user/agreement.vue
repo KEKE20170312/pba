@@ -120,6 +120,7 @@
             line-height: 90px;
             font-size: 30px;
             position: relative;
+            background-color:pink;
             p {
                 color: #535353;
             }
