@@ -2,7 +2,7 @@
     <div class="search">
         <div class="head">
             <div class="search_k">
-                <input type="text" class="search_val" placeholder="搜索产品">
+                <input type="text" class="search_val" placeholder="搜索商品">
                 <a href="#" class="search_a">
                     <img src="../assets/img/search-input.png" alt="">
                 </a>

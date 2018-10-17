@@ -3,6 +3,7 @@
 
     <router-view></router-view>
   </div>
+
 </template>
 
 <script>
@@ -20,5 +21,13 @@
 </script>
 
 <style lang="less">
-
+  #app{
+    width: 750px;
+    height: 1334px;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+  ::-webkit-scrollbar{
+    display: none;
+  }
 </style>
