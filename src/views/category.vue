@@ -6,22 +6,22 @@
                 <img src="../assets/img/category/caption-all.jpg" alt="">
             </h1>
             <div class="products">
-                <router-link to="/category/makeup">
+                <router-link :to="'/category/'+'彩妆'">
                         <img src="../assets/img/category/makeup.jpg" alt="">
                 </router-link>
-                <router-link to="/category/skin">
+                <router-link :to="'/category/' + '护肤'">
                         <img src="../assets/img/category/skin.jpg" alt="">
                 </router-link>
-                <router-link to="/category/mask">
+                <router-link :to="'/category/' + '面膜'">
                         <img src="../assets/img/category/mask.jpg" alt="">
                 </router-link>
-                <router-link to="/category/perfime">
+                <router-link :to="'/category/' + '香水洗护'">
                         <img src="../assets/img/category/perfume.jpg" alt="">
                 </router-link>
-                <router-link to="/category/tools">
+                <router-link :to="'/category/' + '工具仪器'">
                         <img src="../assets/img/category/tools.jpg" alt="">
                 </router-link>
-                <router-link to="/category/foods">
+                <router-link :to="'/category/' + '休闲食品'">
                         <img src="../assets/img/category/foods.jpg" alt="">
                 </router-link>
             </div>
@@ -29,83 +29,79 @@
                 <img src="../assets/img/category/caption-category.jpg" alt="">
             </h1>
             <div class="pinlei">
-                <a href="">
+                <router-link :to="'/category/find/' + '洁面'">
                     洁面
-                </a>
-
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + 'BB霜'">
                     BB霜
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '底妆'">
                     底妆
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '隔离'">
                     隔离
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '面霜'">
                     面霜
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '乳液'">
                     乳液
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '面膜'">
                     面膜
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '香水'">
                     香水
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '精华水'">
                     精华水
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '眼妆'">
                     眼妆
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '唇妆'">
                     唇妆
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '卸妆'">
                     卸妆
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '粉饼'">
                     粉饼
-                </a>
+                </router-link>
             </div>
             <h1>
                 <img src="../assets/img/category/caption-effect.jpg" alt="">
             </h1>
             <div class="pinlei">
-                <a href="">
+                <router-link :to="'/category/find/' + '补水'">
                     补水
-                </a>
-
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '保湿'">
                     保湿
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '祛痘'">
                     祛痘
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '美白'">
                     美白
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '控油'">
                     控油
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '遮瑕'">
                     遮瑕
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '去黑眼圈'">
                     去黑眼圈
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '淡斑'">
                     淡斑
-                </a>
-                <a href="">
+                </router-link>
+                <router-link :to="'/category/find/' + '去黑头'">
                     去黑头
-                </a>
+                </router-link>
             </div>
-
         </div>
-
         <MyNav/>
         <router-view></router-view>
     </div>

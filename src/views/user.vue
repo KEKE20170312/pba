@@ -1,6 +1,5 @@
 <template>
     <div>
-        this is 我的
         <div class="m-body">
             <div class="log">
                 <a href="#">

@@ -6,11 +6,7 @@ import Cart from "./views/cart"
 import User from "./views/user"
 import Sp from "./components/sp"
 import Makeup from "./components/category/makeup"
-import Skin from "./components/category/skin"
-import Mask from "./components/category/mask"
-import Perfime from "./components/category/perfime"
-import Tools from "./components/category/tools"
-import Foods from "./components/category/foods"
+import Find from "./components/category/find"
 
 Vue.use(Router);
 
@@ -40,28 +36,12 @@ export default new Router({
           component: Sp
       },
       {
-          path:'/category/makeup',
+          path:'/category/:type',
           component:Makeup
       },
       {
-          path:'/category/skin',
-          component:Skin
-      },
-      {
-          path:'/category/mask',
-          component:Mask
-      },
-      {
-          path:'/category/perfime',
-          component:Perfime
-      },
-      {
-          path:'/category/tools',
-          component:Tools
-      },
-      {
-          path:'/category/foods',
-          component:Foods
+          path:'/category/find/:type',
+          component:Find
       }
   ]
 })
