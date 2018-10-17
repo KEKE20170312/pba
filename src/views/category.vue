@@ -2,18 +2,16 @@
     <div>
         <Search/>
         this is 分类
+        <MyNav/>
     </div>
 </template>
 
 <script>
     import Search from "../components/search"
+    import MyNav from "../common/myNav"
     export default {
-<<<<<<< HEAD:src/views/category.vue
         name: "Category",
-        components:{Search}
-=======
-        name: "Category"
->>>>>>> 8e1c9463465b21aa39237867e2ca813a6c67e1f3:src/views/category.vue
+        components:{Search,MyNav}
     }
 </script>
 
