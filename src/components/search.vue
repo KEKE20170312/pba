@@ -12,7 +12,7 @@
 </template>
 <script>
     export default {
-        name: "search"
+        name: "Search"
     }
 </script>
 <style lang="less" scoped>

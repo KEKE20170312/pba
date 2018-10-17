@@ -3,6 +3,8 @@
         <!-- 1 搜索框-->
         <Search></Search>
         <!-- 2 轮播图部分-->
+        <MyNav/>
+        <!--轮播图部分-->
         <template>
             <swiper class="container" :options="swiperOption" ref="mySwiper">
                 <router-link to="sp" tag="swiper">
@@ -13,9 +15,11 @@
                 <div class="swiper-pagination"  slot="pagination"></div>
                 <div class="swiper-button-prev" slot="button-prev"></div>
                 <div class="swiper-button-next" slot="button-next"></div>
-
+                    <!-- 三个小按钮 -->
+                    <div class="swiper-pagination"  slot="pagination"></div>
+                    <div class="swiper-button-prev" slot="button-prev"></div>
+                    <div class="swiper-button-next" slot="button-next"></div>
             </swiper>
-
         </template>
         <!-- 3 三个活动图-->
         <ul class="main-product">
@@ -83,7 +87,8 @@
                 active:[],
                 goodsId:""
             }
-        },methods:{
+        },
+        methods:{
             change(i){
                 console.log(i);
                 this.$router.push(
