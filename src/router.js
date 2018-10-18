@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from "./views/home"
+import Home from "./views/Home"
 import Category from "./views/category"
 import Cart from "./views/cart"
 import Register from "./components/user/register"
@@ -26,7 +26,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
       {
-          path:'/home',
+          path:'/Home',
           alias:'/',
           component:Home
       },
