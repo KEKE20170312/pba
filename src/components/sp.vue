@@ -9,9 +9,9 @@
             <span class="title">商品详情</span>
             <span class="right-icon">
             <a class="icon-link" href="#">
-                <router-link to="cart" tag="a">
+                <router-link to="/cart" tag="div">
                     <img src="../assets/img/home/icon_shoppingcart@2x.png" alt="">
-                    <label class="header-label">0</label>
+                    <label v-model="oneAdd" class="header-label">{{oneAdd}}</label>
                 </router-link>
             </a>
         </span>
@@ -95,10 +95,12 @@
                 <li @click="ModifyPassword()" class="btn0 contact">客服</li>
                 <li class="btn1">分享</li>
             </ul>
-            <router-link to="cart" tag="a">
-                <a class="nojoin" href="">加入购物车</a>
-            </router-link>
+            <button @click="toggle" class="nojoin">加入购物车</button>
         </div>
+        <!--加入购物车的动画-->
+        <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+            <img v-show="isshow" src="../assets/img/home/bbs.jpg" class="show" alt="">
+        </transition>
     </div>
     </div>
 </template>
@@ -112,10 +114,12 @@
         },
         data(){
             return{
+                isshow: false,
                 data:{},
                 make_up:[],
                 ModifyPassword_pop_up:false,
                 history_pop_up:false,
+                oneAdd:0
             }
         },
         methods:{
@@ -132,7 +136,26 @@
             Hidden(){
                 this.hiddenShow();
             },
-
+            toggle: function () {//以下是动画
+                this.isshow = !this.isshow;
+                this.oneAdd++;
+            },
+            beforeEnter: function (el) {
+                console.log("beforeEnter");
+                el.style = "padding-left:-200px";
+                el.style = "width:300px";
+             },
+            enter: function (el, done) {
+                console.log("enter");
+                el.offsetHeight;
+                el.style = "padding-left:100px";
+                el.style = "width:0px";
+                done();
+            },
+            afterEnter: function (el) {
+                console.log("afterEnter");
+                this.isshow = false;
+            }
         },
         created(){
             // console.log("aaa");
@@ -163,6 +186,14 @@
 </script>
 
 <style lang="less" scoped>
+    .show{
+        position: fixed;
+        bottom: 1000px;
+        left: 300px;
+        width: 300px;
+        z-index: 19;
+        transition: all 1s;
+    }
     .blue{
         width: 210.56px;
         height: 38px;
