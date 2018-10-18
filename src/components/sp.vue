@@ -1,4 +1,5 @@
 <template>
+    <div class="sp">
     <div class="m-body">
         <!--头部nav区-->
         <div class="headerTop">
@@ -98,6 +99,7 @@
                 <a class="nojoin" href="">加入购物车</a>
             </router-link>
         </div>
+    </div>
     </div>
 </template>
 
