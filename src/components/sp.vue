@@ -1,4 +1,5 @@
 <template>
+    <div class="sp">
     <div class="m-body">
         <!--头部nav区-->
         <div class="headerTop">
@@ -100,6 +101,7 @@
         <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
             <img v-show="isshow" src="../assets/img/home/bbs.jpg" class="show" alt="">
         </transition>
+    </div>
     </div>
 </template>
 

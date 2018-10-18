@@ -15,10 +15,19 @@
                 </swiper-slide>
                 <!-- 三个小按钮 -->
                 <div class="swiper-pagination"  slot="pagination"></div>
-                <!--<div class="swiper-button-prev" slot="button-prev"></div>-->
-                <!--<div class="swiper-button-next" slot="button-next"></div>-->
+                <router-link to="sp" tag="swiper">
+                    <!-- slides图片 -->
+                    <swiper-slide class="imgBox" v-for="(item,index) in swipers" data-id=""><img :src="item.swiperImg" alt=""/></swiper-slide>
+                </router-link>
+                <!-- 三个小按钮 -->
+                <div class="swiper-pagination"  slot="pagination"></div>
+                <div class="swiper-button-prev" slot="button-prev"></div>
+                <div class="swiper-button-next" slot="button-next"></div>
+                    <!-- 三个小按钮 -->
+                    <div class="swiper-pagination"  slot="pagination"></div>
+                    <div class="swiper-button-prev" slot="button-prev"></div>
+                    <div class="swiper-button-next" slot="button-next"></div>
             </swiper>
-
         </template>
         <!-- 3 三个活动图-->
         <ul class="main-product">
@@ -26,7 +35,7 @@
                 <router-link @click.native="change(item._id)" :to="'/sp/'+item._id" tag="li">
                     <img :src="item.actImg" alt="">
                 </router-link>
-            </li>
+            </li>>
         </ul>
         <!-- 4 人气商品-->
         <div class="banner">
@@ -56,9 +65,7 @@
         <MyNav/>
         <router-view goodsId="data.goodsId" ></router-view>
     </div>
-
 </template>
-
 <script>
     import Search from "../components/search";
     import { swiper, swiperSlide } from 'vue-awesome-swiper';
@@ -128,7 +135,6 @@
         }
     }
 </script>
-
 <style lang="less" scoped>
     * {
         list-style: none;
@@ -143,7 +149,6 @@
             }
         }
     }
-
     .main-product{
         width: 750px;
         height: 300px;

@@ -1,18 +1,25 @@
 <template>
     <div>
         <Search/>
-        makeup
+        <SearchList/>
+        <MyNav/>
     </div>
 </template>
 
 <script>
     import Search from "../search";
+    import MyNav from "../../common/myNav";
+    import SearchList from "../../common/searchList";
     export default {
         name: "makeup",
-        components: {Search}
+        components: {
+            SearchList,
+            MyNav,
+            Search
+        },
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>
