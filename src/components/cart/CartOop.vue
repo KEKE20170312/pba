@@ -3,10 +3,10 @@
         <p class="demo">商品数量有限，请尽快付款哦</p>
         <Toiletry/>
         <div class="total">
-            <!--全选按钮未点击需要显示的状态-->
-            <img class="noSelect" src="../../assets/img/cart/noSelect.png" alt="">
             <!--全选按钮点击需要显示的状态-->
-            <!--<img class="select" src="../../assets/img/cart/select.png" alt="">-->
+            <img class="select" src="../../assets/img/cart/select.png" alt="">
+            <!--全选按钮未点击需要显示的状态-->
+            <!--<img class="noSelect" src="../../assets/img/cart/noSelect.png" alt="">-->
             <span class="allCheckText">全选</span>
             <span class="totalText">合计</span>
             <span class="totalMoney">￥520</span>

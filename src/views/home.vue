@@ -7,9 +7,17 @@
         <!--轮播图部分-->
         <template>
             <swiper class="container" :options="swiperOption" ref="mySwiper">
+                <!-- slides图片 -->
+                <swiper-slide class="imgBox" v-for="(item,index) in swipers" data-id="">
+                    <router-link @click.native="change(item._id)" :to="'/sp/'+item._id" >
+                        <img :src="item.swiperImg" alt=""/>
+                    </router-link>
+                </swiper-slide>
+                <!-- 三个小按钮 -->
+                <div class="swiper-pagination"  slot="pagination"></div>
                 <router-link to="sp" tag="swiper">
                     <!-- slides图片 -->
-                    <swiper-slide class="imgBox" v-for="(item,index) in swiper" data-id=""><img :src="item.swiperImg" alt=""/></swiper-slide>
+                    <swiper-slide class="imgBox" v-for="(item,index) in swipers" data-id=""><img :src="item.swiperImg" alt=""/></swiper-slide>
                 </router-link>
                 <!-- 三个小按钮 -->
                 <div class="swiper-pagination"  slot="pagination"></div>
@@ -37,18 +45,20 @@
         <div class="classify-column">
             <ul>
                 <li v-for="(item,index) in data">
-                    <div class="goods-box" tag="div" data-id="">
-                        <router-link @click.native="change(item._id)" :to="'/sp/'+item._id"><img :src="item.smallImg" alt=""/></router-link>
-                        <img class="newProduct" :src="item.new" alt=""/>
-                    </div>
-                    <div class="text">
-                        <p class="goods-name">{{item.goodsName}}</p>
-                        <p class="goods-tag">{{item.desc}}</p>
-                        <p class="goods-price"><span>专享价：</span><span class="price">￥{{item.price}}</span></p>
-                        <a class="joinCart" href="#">
-                            <img src="../assets/img/home/shopcart-unlight.png" alt="购物车">
-                        </a>
-                    </div>
+                    <router-link @click.native="change(item._id)" :to="'/sp/'+item._id">
+                        <div class="goods-box" tag="div" data-id="">
+                            <img class="smallImg" :src="item.smallImg" alt=""/>
+                            <img class="newProduct" :src="item.new" alt=""/>
+                        </div>
+                        <div class="text">
+                            <p class="goods-name">{{item.goodsName}}</p>
+                            <p class="goods-tag">{{item.desc}}</p>
+                            <p class="goods-price"><span>专享价：</span><span class="price">￥{{item.price}}</span></p>
+                            <a class="joinCart" href="#">
+                                <img src="../assets/img/home/shopcart-light.png" alt="购物车">
+                            </a>
+                        </div>
+                    </router-link>
                 </li>
             </ul>
         </div>
@@ -74,18 +84,23 @@
         data() {
             return {
                 swiperOption: {
-                    pagination: {
-                        el: '.swiper-pagination'
+                    pagination:{
+                        el:'.swiper-pagination'
                     },
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev'
-                    }
+                    slidesPerView:1,
+                    autoplay:{
+                        delay:2000,
+                        disableOnInteraction:false,
+
+                    },
+                    spaceBetween:30,
+                    grabCursor:true,
+                    loop:false
                 },
                 data:[],
-                swiper:[],
+                swipers:[],
                 active:[],
-                goodsId:""
+                goodsId:"",
             }
         },
         methods:{
@@ -111,7 +126,7 @@
             })
             axios.get("/api/swiper").then((data)=>{
                 console.log(data.data);
-                this.swiper = data.data;
+                this.swipers = data.data;
             })
             axios.get("/api/active").then((data)=>{
                 console.log(data.data);
@@ -142,6 +157,7 @@
         li{
             width: 250px;
             height: 298px;
+            border-right: 2px solid #e2e2e2;
             img{
                 width: 250px;
                 height: 298px;
@@ -176,13 +192,14 @@
                     display: inline-block;
                     vertical-align: middle;
                     position: relative;
+                    .smallImg{
+                        border: none;
+                        height: 211.5px;
+                    }
                     a{
                         display: inline-block;
                         text-decoration: none;
-                        img{
-                            border: none;
-                            height: 211.5px;
-                        }
+
                     }
                     .newProduct{
                         position: absolute;

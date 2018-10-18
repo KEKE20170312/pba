@@ -1,5 +1,29 @@
 <template>
     <div class="nav">
+        <router-link to="/home" tag="div" exact>
+            <div class="nav-list">
+                <img src="../assets/img/nav/icon_home.png" alt="">
+                <span>首页</span>
+            </div>
+        </router-link>
+        <router-link to="/category" tag="div" exact>
+            <div class="nav-list">
+                <img src="../assets/img/nav/icon_category.png" alt="">
+                <span>分类</span>
+            </div>
+        </router-link>
+        <router-link to="/cart" tag="div">
+            <div class="nav-list">
+                <img src="../assets/img/nav/icon_cart.png" alt="">
+                <span>购物车</span>
+            </div>
+        </router-link>
+        <router-link to="/user" tag="div">
+            <div class="nav-list">
+                <img src="../assets/img/nav/icon_my.png" alt="">
+                <span>我的</span>
+            </div>
+        </router-link>
         <div class="nav">
             <router-link to="/home" tag="div">
                 <div class="nav-list">
@@ -72,8 +96,4 @@
             }
         }
     }
-
-    /*.active{*/
-    /*color:#ff488c*/
-    /*}*/
 </style>

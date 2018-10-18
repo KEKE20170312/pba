@@ -2,10 +2,10 @@
     <div class="find">
         <Search/>
         <SearchList/>
-        <div class="menu">
+        <div @click="change" class="menu">
             <img src="../../assets/img/category/menu-icon.png" alt="">
         </div>
-        <ul class="litterNav">
+        <ul v-show="liter" class="litterNav">
             <router-link to="/home" tag="li">
                 <img src="../../assets/img/category/sy.png" alt="">
                 <span>首页</span>
@@ -34,7 +34,17 @@
     import SearchList from "../../common/searchList";
     export default {
         name: "find",
-        components: {SearchList, Search}
+        data(){
+            return{
+                liter:false
+            }
+        },
+        components: {SearchList, Search},
+        methods:{
+            change(liter){
+                this.liter = !this.liter;
+            }
+        }
     }
 </script>
 
@@ -50,7 +60,7 @@
             }
         }
         .litterNav{
-            display: none;
+            /*display: none;*/
             width: 216px;
             height: 280px;
             box-sizing: border-box;
