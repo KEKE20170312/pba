@@ -16,8 +16,8 @@
                    </li>
                    <li class="cf-pw">
                        <img src="../../assets/img/user/lock_icon.png" alt="">
-                       <input type="text"  placeholder="输入密码" >
-                       <span>显示</span>
+                       <input type="password"  placeholder="输入密码" >
+                       <!--<span>显示</span>-->
                    </li>
                    <li class="cf-referees">
                        <img src="../../assets/img/user/recom_icon.png" alt="">
@@ -119,22 +119,6 @@
                               width: 48px;
                               height: 48px;
                           }
-                        span{
-                            display: block;
-                            width: 64px;
-                            height: 42px;
-                            background-color: #ff498c;
-                            border-radius: 20px;
-                            padding: 12px;
-                            position: absolute;
-                            top: 12px;
-                            right: 10px;
-                            color: white;
-                            text-align: center;
-                            line-height: 42px;
-                            font-size: 32px ;
-                        }
-
                     }
                     .cf-referees{
                         img{
