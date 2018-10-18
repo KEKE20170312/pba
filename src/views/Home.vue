@@ -9,7 +9,7 @@
             <swiper class="container" :options="swiperOption" ref="mySwiper">
                 <router-link to="sp" tag="swiper">
                     <!-- slides图片 -->
-                    <swiper-slide class="imgBox" v-for="(item,index) in swiper" data-id=""><img :src="item.swiperImg" alt=""/></swiper-slide>
+                    <swiper-slide class="imgBox" v-for="(item,index) in swipers" data-id=""><img :src="item.swiperImg" alt=""/></swiper-slide>
                 </router-link>
                 <!-- 三个小按钮 -->
                 <div class="swiper-pagination"  slot="pagination"></div>
@@ -83,7 +83,7 @@
                     }
                 },
                 data:[],
-                swiper:[],
+                swipers:[],
                 active:[],
                 goodsId:""
             }
@@ -111,7 +111,7 @@
             })
             axios.get("/api/swiper").then((data)=>{
                 console.log(data.data);
-                this.swiper = data.data;
+                this.swipers = data.data;
             })
             axios.get("/api/active").then((data)=>{
                 console.log(data.data);
