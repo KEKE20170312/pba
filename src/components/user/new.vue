@@ -15,7 +15,16 @@
             </li>
             <li>
                 <span>省市区</span>
-                <input type="text"  placeholder="请输入收货人的地址" ><br>
+                <!--<input type="text"  placeholder="请输入收货人的地址" ><br>-->
+                <div class="right-r">
+                    <div class="city" @click="toAddress">{{city}}</div>
+                    <i class="arrow-r"> </i>
+                </div>
+                <v-distpicker type="mobile" @selected='selected' v-show="addInp"  class="ttt">
+                </v-distpicker>
+                <div class="mask" v-show="mask"></div>
+
+
             </li>
             <li>
                 <span>详细地址</span>
@@ -25,19 +34,47 @@
         <div class="save">
             <span>保存地址</span>
         </div>
+        <div v-show="show"  class="hazy"></div>
     </div>
 </template>
 <script>
+    import VDistpicker from 'v-distpicker'
     export default {
+        components: { VDistpicker },
         name: "new",
+        data(){
+            return{
+                city:'请选择',
+                addInp :false,
+                mask:false,
+                show:false
+            }
+        },
         methods:{
             back(){
                 this.$router.go(-1);//返回上一层
-            }
+            },
+            //在methodes中定义方法
+// 点击弹出三级联动
+            toAddress(){
+                this.mask = true;
+                this.addInp = true;
+                this.show = true;
+            },
+            // 省市区三级联动
+            selected(data){
+                this.mask =false;
+                this.addInp = false;
+                this.show = false;
+                this.city = data.province.value + ' ' + data.city.value +' ' + data.area.value
+
+            },
+
         }
     }
 </script>
 <style lang="less" scoped>
+    @deep: ~'>>>';
     .new {
         width: 750px;
         .head {
@@ -86,6 +123,28 @@
                     line-height: 84px;
                     margin-left: 50px;
                 }
+                .right-r{
+
+                    width: 580px;
+                    position: absolute;
+                    left:160px;
+                    top: 270px;
+
+                }
+                .ttt{
+                    z-index:5;
+                    width: 750px;
+                    height: 550px;
+                    position: absolute;
+                    top: 800px;
+                    left: 0;
+                    @{deep} .address-container {
+                        height: 410px;
+                        overflow: scroll;
+
+                    }
+                }
+
             }
         }
         .save{
@@ -102,6 +161,15 @@
                 margin-left: 150px;
                 border-radius: 30px;
             }
+        }
+        .hazy{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 750px;
+            height: 1334px;
+            background: rgba(0.2,0.2,0.2,0.5);
+
         }
     }
 </style>

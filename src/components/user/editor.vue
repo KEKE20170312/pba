@@ -13,14 +13,33 @@
                 <span>手机号码</span>
                 <input type="text"  placeholder="请输入收货人的手机号码" ><br>
             </li>
+
+
+
+
+
             <li>
                 <span>省市区</span>
-                <input type="text"  placeholder="请输入收货人的地址" ><br>
+                <!--<input type="text"  placeholder="请输入收货人的地址" ><br>-->
+                <div class="right-r">
+                    <div class="city" @click="toAddress">{{city}}</div>
+                    <i class="arrow-r"> </i>
+                </div>
+                <v-distpicker type="mobile" @selected='selected' v-show="addInp"  class="ttt">
+                </v-distpicker>
+                <div class="mask" v-show="mask"></div>
+
+
             </li>
+
             <li>
                 <span>详细地址</span>
-                <input type="text"  placeholder="请输入收货人的详细地址" ><br>
+                <input type="text"  placeholder="" ><br>
             </li>
+
+
+
+
 
 
         </ul>
@@ -30,21 +49,51 @@
         <div class="delete">
             <span>删除地址</span>
         </div>
+        <div class="hazy"  v-show="show"></div>
     </div>
+
 </template>
 
 <script>
+    import VDistpicker from 'v-distpicker'
     export default {
+        components: { VDistpicker },
         name: "editor",
-        methods:{
-            back(){
-                this.$router.go(-1);//返回上一层
+        data(){
+            return{
+                city:'请选择',
+                addInp :false,
+                mask:false,
+                show:false
             }
+        },
+        methods: {
+            back() {
+                this.$router.go(-1);//返回上一层
+            },
+            //在methodes中定义方法
+// 点击弹出三级联动
+            toAddress(){
+                this.mask = true;
+                this.addInp = true;
+                this.show=true;
+            },
+            // 省市区三级联动
+            selected(data){
+                this.mask =false;
+                this.addInp = false;
+                this.city = data.province.value + ' ' + data.city.value +' ' + data.area.value;
+                this.show=false;
+            },
+
+
         }
+
     }
 </script>
 
 <style lang="less" scoped>
+    @deep: ~'>>>';
     .editor {
         width: 750px;
 
@@ -87,6 +136,7 @@
                 line-height: 86px;
                 font-size: 30px;
                 color: gray;
+                position: relative;
                 input{
                     outline:none;
                     width: 548px;
@@ -97,6 +147,33 @@
                     line-height: 84px;
                     margin-left: 50px;
                 }
+               .right-r{
+                   width: 580px;
+                   position: absolute;
+                   left:160px;
+                   top: 0px;
+
+               }
+            .ttt{
+                   z-index: 5;
+                   width: 750px;
+                   height: 500px;
+                   position: absolute;
+                   top: 550px;
+                   left: -20px;
+                  @{deep} .address-container {
+                    height: 410px;
+                    overflow: scroll;
+
+                }
+
+
+
+
+
+             }
+
+
             }
         }
         .save{
@@ -130,6 +207,17 @@
                 border-radius: 30px;
             }
         }
+
+        .hazy{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 750px;
+            height: 1334px;
+            background: rgba(0.2,0.2,0.2,0.5);
+
+        }
+
     }
 
 </style>

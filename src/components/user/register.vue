@@ -81,6 +81,7 @@
                 ReginForm: {
                     password: '',
                     tel: '',
+                    validate:''
                 },
                 logining: false,
                 sendAuthCode:true,/*布尔值，通过v-show控制显示‘获取按钮'还是‘倒计时' */
@@ -140,7 +141,7 @@
                 this.$http.post(url,{填传入的参数},{emulateJSON:true}).then(function (response)
                 {
                     //登录后跳转的页面
-                    this.$router.push('/');
+                    this.$router.push('/user');
                 }, function (error) {
                     alert("请求失败",error);
                 })
