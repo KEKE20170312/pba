@@ -30,8 +30,16 @@
                 data:[]
             }
         },
+        watch:{
+            $route(){
+                var types = this.$route.params.type;
+                axios.get("/api/type?type=" + types).then((data)=>{
+                    console.log(data.data);
+                    this.data = data.data;
+                })
+            }
+        },
         created(){
-            console.log(this.$route.params.type);
             var types = this.$route.params.type;
             axios.get("/api/type?type=" + types).then((data)=>{
                 console.log(data.data);

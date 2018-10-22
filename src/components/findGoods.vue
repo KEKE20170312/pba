@@ -3,37 +3,17 @@
         <Search/>
         <SearchList/>
         <div @click="change" class="menu">
-            <img src="../../assets/img/category/menu-icon.png" alt="">
+            <img src="../assets/img/category/menu-icon.png" alt="">
         </div>
-        <ul v-show="liter" class="litterNav">
-            <router-link to="/home" tag="li">
-                <img src="../../assets/img/category/sy.png" alt="">
-                <span>首页</span>
-            </router-link>
-            <hr/>
-            <router-link to="/cart" tag="li">
-                <img src="../../assets/img/category/gwc.png" alt="">
-                <span>购物车</span>
-            </router-link>
-            <hr/>
-            <router-link to="/user" tag="li">
-                <img src="../../assets/img/category/wd.png" alt="">
-                <span>我的</span>
-            </router-link>
-            <hr/>
-            <router-link to="/category" tag="li">
-                <img src="../../assets/img/category/sp.png" alt="">
-                <span>所有商品</span>
-            </router-link>
-        </ul>
     </div>
 </template>
 
 <script>
-    import Search from "../search";
-    import SearchList from "../../common/searchList";
+    import Search from "./search";
+    import SearchList from "../common/searchList";
+    import axios from "axios"
     export default {
-        name: "find",
+        name: "findGoods",
         data(){
             return{
                 liter:false
@@ -44,16 +24,20 @@
             change(liter){
                 this.liter = !this.liter;
             }
+        },
+        created(){
+            var goodsName = this.$route.params.goodsName;
+            // console.log(goodsName);
+            axios.get("/api/goodsName?goodsName=" + goodsName).then((data)=>{
+                console.log(data.data);
+                this.data = data.data;
+            })
         }
     }
 </script>
 
 <style lang="less" scoped>
     .find{
-        position: absolute;
-        z-index: 30;
-        min-height: 100vh;
-        background-color: #fff;
         .menu{
             img{
                 width: 80px;

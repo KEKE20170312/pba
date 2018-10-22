@@ -16,6 +16,7 @@ import Binding from "./components/user/binding"
 import  New from  "./components/user/new"
 import  Editor from "./components/user/editor"
 import Opinion  from  "./components/user/opinion"
+import FindGoods from "./components/findGoods"
 Vue.use(Router);
 export default new Router({
   mode: 'history',
@@ -90,6 +91,10 @@ export default new Router({
       {
           path:'/category/find/:type',
           component:Find
+      },
+      {
+          path:'/category/findGoods/:goodsName',
+          component:FindGoods
       }
   ]
 })

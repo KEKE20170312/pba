@@ -53,6 +53,9 @@
                     <span class="calculate-count">(2)</span>
                 </div>
             </div>
+        <!--<CartOop/>-->
+        <NoCartOop/>
+        <div class="total">
         </div>
     </div>
 </template>
