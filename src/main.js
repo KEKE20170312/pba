@@ -6,7 +6,8 @@ import 'lib-flexible/flexible.js'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import RegionPicker from 'vue-region-picker'
 import REGION_DATA from 'china-area-data'
-
+import axios from 'axios'
+Vue.prototype.http=axios;
 Vue.use(RegionPicker, {
     region: REGION_DATA
 })
