@@ -10,7 +10,7 @@
                     <p class="goods-tag">{{item.desc}}</p>
                     <p class="goods-price"><span>专享价：</span><span class="price">￥{{item.price}}</span></p>
                     <a class="joinCart" href="#">
-                        <img src="../assets/img/home/shopcart-unlight.png" alt="购物车">
+                        <img src="../assets/img/home/shopcart-light.png" alt="购物车">
                     </a>
                 </div>
             </li>

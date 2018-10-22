@@ -554,6 +554,7 @@
         bottom: 0px;
         left: 0px;
         right: 0px;
+        z-index: 30;
         margin: 0 auto;
         height: 100px;
         background-color: #f9f9f9;

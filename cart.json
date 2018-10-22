@@ -1,0 +1,30 @@
+{
+  "message":"",
+  "status":"1",
+  "result":{
+    "totalMoney":0,
+    "productList":[
+      {
+        "productId":"10001",
+        "productName":"黄鹤楼香烟",
+        "productPrice":19.00,
+        "count":1,
+        "productImage":"http://pbaimage.pba.cn/2014/m.pba.cn/images/homepage/kwzx.jpg"
+      },
+      {
+        "productId":"10002",
+        "productName":"加多宝",
+        "productPrice":8.00,
+        "count":1,
+        "productImage":"http://pbaimage.pba.cn/2014/m.pba.cn/images/homepage/newzqr.jpg"
+      },
+      {
+        "productId":"10003",
+        "productName":"耳机",
+        "productPrice":39.00,
+        "count":1,
+        "productImage":"http://pbaimage.pba.cn/2014/m.pba.cn/images/homepage/bb-qd.jpg"
+      }
+    ]
+  }
+}

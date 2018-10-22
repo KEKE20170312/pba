@@ -26,6 +26,7 @@
                 <span>所有商品</span>
             </router-link>
         </ul>
+
     </div>
 </template>
 
@@ -50,6 +51,10 @@
 
 <style lang="less" scoped>
     .find{
+        position: absolute;
+        z-index: 30;
+        min-height: 100vh;
+        background-color: #fff;
         .menu{
             img{
                 width: 80px;
