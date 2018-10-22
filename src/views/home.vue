@@ -80,10 +80,7 @@
                         delay:2000,
                         disableOnInteraction:false,
 
-                    },
-                    spaceBetween:30,
-                    grabCursor:true,
-                    loop:false
+                    }
                 },
                 data:[],
                 swipers:[],

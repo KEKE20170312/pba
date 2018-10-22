@@ -10,6 +10,7 @@
     "axios": "^0.18.0",
     "better-scroll": "^1.13.2",
     "china-area-data": "^4.0.0",
+    "jquery": "^3.3.1",
     "lib-flexible": "^0.3.2",
     "postcss-pxtorem": "^4.0.1",
     "v-distpicker": "^1.0.20",
