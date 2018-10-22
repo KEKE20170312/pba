@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "better-scroll": "^1.13.2",
     "lib-flexible": "^0.3.2",
     "postcss-pxtorem": "^4.0.1",
     "vue": "^2.5.17",
@@ -16,6 +17,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@types/better-scroll": "^1.12.0",
     "@vue/cli-plugin-babel": "^3.0.5",
     "@vue/cli-service": "^3.0.5",
     "less": "^3.0.4",

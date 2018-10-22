@@ -2,7 +2,7 @@
     <div class="cartOop">
         <p class="demo">商品数量有限，请尽快付款哦</p>
         <Toiletry/>
-        <div class="total">
+        <div v-for="(item,index) in data" class="total">
             <!--全选按钮点击需要显示的状态-->
             <img class="select" src="../../assets/img/cart/select.png" alt="">
             <!--全选按钮未点击需要显示的状态-->

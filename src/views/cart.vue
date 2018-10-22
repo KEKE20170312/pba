@@ -4,8 +4,8 @@
             <img @click="back" src="../assets/img/home/back2.jpg" alt="">
             <span>购物车</span>
         </div>
-        <CartOop/>
-        <!--<NoCartOop/>-->
+        <!--<CartOop/>-->
+        <NoCartOop/>
         <div class="total">
             
         </div>

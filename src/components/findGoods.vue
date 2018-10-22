@@ -3,16 +3,17 @@
         <Search/>
         <SearchList/>
         <div @click="change" class="menu">
-            <img src="../../assets/img/category/menu-icon.png" alt="">
+            <img src="../assets/img/category/menu-icon.png" alt="">
         </div>
     </div>
 </template>
 
 <script>
-    import Search from "../search";
-    import SearchList from "../../common/searchList";
+    import Search from "./search";
+    import SearchList from "../common/searchList";
+    import axios from "axios"
     export default {
-        name: "find",
+        name: "findGoods",
         data(){
             return{
                 liter:false
@@ -23,6 +24,14 @@
             change(liter){
                 this.liter = !this.liter;
             }
+        },
+        created(){
+            var goodsName = this.$route.params.goodsName;
+            // console.log(goodsName);
+            axios.get("/api/goodsName?goodsName=" + goodsName).then((data)=>{
+                console.log(data.data);
+                this.data = data.data;
+            })
         }
     }
 </script>
