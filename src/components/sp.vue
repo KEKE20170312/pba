@@ -95,7 +95,7 @@
                 <li @click="ModifyPassword()" class="btn0 contact">客服</li>
                 <li class="btn1">分享</li>
             </ul>
-            <div @click="toggle();add(index)" class="nojoin">加入购物车</div>
+            <div @click="toggle()" class="nojoin">加入购物车</div>
         </div>
         <!--加入购物车的动画-->
         <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
@@ -554,6 +554,7 @@
         bottom: 0px;
         left: 0px;
         right: 0px;
+        z-index: 30;
         margin: 0 auto;
         height: 100px;
         background-color: #f9f9f9;

@@ -90,7 +90,7 @@
         },
         methods:{
             change(i){
-                console.log(i);
+                // console.log(i);
                 this.$router.push(
                     {
                         path:`/sp/${i}`
@@ -110,11 +110,11 @@
 
             })
             axios.get("/api/swiper").then((data)=>{
-                console.log(data.data);
+                // console.log(data.data);
                 this.swipers = data.data;
             })
             axios.get("/api/active").then((data)=>{
-                console.log(data.data);
+                // console.log(data.data);
                 this.active = data.data;
             })
         }

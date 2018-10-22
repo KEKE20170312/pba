@@ -1,23 +1,5 @@
 <template>
-    <div class="toiletry">
-        <img class="select" src="../../assets/img/cart/select.png" alt="">
-        <!--<img class="noSelect" src="../../assets/img/cart/noSelect.png" alt="">-->
-        <img class="picture" src="../../assets/img/home/product_1.jpg" alt="">
-        <p class="goodsName">BB霜</p>
-        <p class="desc">自然清香，健康安全</p>
-        <p class="goodsMoney">专享价
-            <span>￥49.90</span>
-        </p>
-        <div class="shopCart">
-            <span class="reduce" @click="reduce">
-                <img src="../../assets/img/cart/minus-circle.png" alt="">
-            </span>
-            <span class="counts">{{count}}</span>
-            <span class="add" @click="count++">
-                <img src="../../assets/img/cart/plus-circle.png" alt="">
-            </span>
-        </div>
-    </div>
+
 </template>
 
 <script>

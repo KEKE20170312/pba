@@ -1,72 +1,206 @@
 <template>
-    <div class="center">
-        <div class="head">
-            <router-link to="user/loginbtn" class="immediately">
-                立即登录/注册
-            </router-link>
-            <div class="enjoy">享受更多贴心服务</div>
-        </div>
-        <!--登录后的页面-->
-        <div class="head-two">
-            <div  class="immediately">
-                欢迎小主
-                <span>15981837003</span>
+    <div>
+        <div class="center" v-show="centerShow">
+            <div class="head" v-show="noheadShow">
+                <div class="immediately" @click="change">
+                    立即登录/注册
+                </div>
+                <div class="enjoy">享受更多贴心服务</div>
             </div>
-            <div class="enjoy">享受更多贴心服务</div>
-        </div>
-        <ul class="money">
-            <li class="wallet">
-                <span class="my">我的钱包</span>
-                <span  class="wallet-b">
-                    <span class=" balance ">余额:￥3000 </span>
+            <!--登录后的页面-->
+            <div class="head-two" v-show="headShow">
+                <div class="immediately">
+                    欢迎小主
+                    <span>{{this.$store.state.userInfo.name}}</span>
+                </div>
+                <div class="enjoy">享受更多贴心服务</div>
+            </div>
+            <ul class="money">
+                <li class="wallet">
+                    <span class="my">我的钱包</span>
+                    <span class="wallet-b">
+                    <span class=" balance ">余额:￥{{this.$store.state.userInfo.age}} </span>
                 </span>
-            </li>
-            <router-link to="user/goods" class="collection">
-                <li>
-                    <span>收货地址</span>
-                    <img src="../assets/img/user/timg.jpg" alt="">
                 </li>
-            </router-link>
-            <router-link to="user/center" class="collection">
-                <li>
-                    <span>服务中心</span>
-                    <img src="../assets/img/user/timg.jpg" alt="">
-                </li>
-            </router-link>
-            <router-link to="user/binding" class="collection">
-                <li>
-                    <span>修改登录密码</span>
-                    <img src="../assets/img/user/timg.jpg" alt="">
-                </li>
-            </router-link>
-            <router-link to="user/opinion" class="collection">
-                <li>
-                    <span>意见反馈</span>
-                    <img src="../assets/img/user/timg.jpg" alt="">
-                </li>
-            </router-link>
-            <li class="exit">退出登录</li>
-        </ul>
-        <MyNav></MyNav>
-        <router-view></router-view>
+                <router-link to="user/goods" class="collection">
+                    <li>
+                        <span>收货地址</span>
+                        <img src="../assets/img/user/timg.jpg" alt="">
+                    </li>
+                </router-link>
+                <router-link to="user/center" class="collection">
+                    <li>
+                        <span>服务中心</span>
+                        <img src="../assets/img/user/timg.jpg" alt="">
+                    </li>
+                </router-link>
+                <router-link to="user/binding" class="collection">
+                    <li>
+                        <span>修改登录密码</span>
+                        <img src="../assets/img/user/timg.jpg" alt="">
+                    </li>
+                </router-link>
+                <router-link to="user/opinion" class="collection">
+                    <li>
+                        <span>意见反馈</span>
+                        <img src="../assets/img/user/timg.jpg" alt="">
+                    </li>
+                </router-link>
+                <li class="exit" @click="logout">退出登录</li>
+            </ul>
+            <!--<router-view></router-view>-->
+        </div>
+        <div class="user" v-show="userShow">
+            <div class="head">
+                <router-link to="/home">
+                    <img src="./../assets/img/user/pba-slogan.png" alt="">
+                </router-link>
+
+            </div>
+            <div class="count">
+                <form method="get">
+                    <input type="text" placeholder="账号" v-model="mobile"><br>
+                    <input type="password" placeholder="密码" v-model="pwd">
+                </form>
+                <div to="/user" class="loginbtn" @click="login">
+                    立即登录
+                </div>
+                <div class="help">
+                    <a href="">忘记密码？
+                    </a>
+                </div>
+                <router-link to="/user/register" class="register">
+                    注册PBA账号
+                </router-link>
+                <div class="thirdparty">
+                    <img src="./../assets/img/user/left-line.jpg" class="left-line" alt="">
+                    <span>第三方登录</span>
+                    <img src="./../assets/img/user/right-line.jpg" class="right-line" alt="">
+                </div>
+                <div class="third-log">
+                    <div>
+                        <a href="">
+                            <img src="./../assets/img/user/icon_qq.png" class="qq" alt="">
+                            <span>QQ登录</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="">
+                            <img src="./../assets/img/user/icon_weibo.png" class="wb" alt="">
+                            <span>微博登录</span>
+                        </a>
+                    </div>
+                </div>
+                <p v-show="errTip1">账号或者密码不能为空</p>
+                <p v-show="errTip2">账号或密码错误</p>
+                <!--<MyNav></MyNav>-->
+                <!--<router-view></router-view>-->
+            </div>
+        </div>
     </div>
 </template>
 <script>
-    import MyNav from "../common/myNav";
+    import axios from "axios"
+    import {mapMutations} from "vuex"
+
     export default {
         name: "User",
-        components: {MyNav}
+        components: {},
+        data() {
+            return {
+                centerShow: true,
+                userShow: false,
+                noheadShow: true,
+                headShow: false,
+                mobile: "",
+                pwd: "",
+                errTip1: false,
+                errTip2: false,
+                userInfo: []
+            }
+        },
+        computed: {
+            nickName() {
+                return this.$store.state.userInfo.name;
+            },
+            money() {
+                return this.$store.state.userInfo.age;
+            }
+        },
+        watch: {
+            $route() {
+                this.login();
+            }
+        },
+        mounted() {
+            this.checkLogin();
+        },
+        methods: {
+            ...mapMutations(["updateUserInfo","updateUserId"]),
+            checkLogin() {
+                axios.get("/api/user/checklogin").then((data) => {
+                    let res = data.data;
+                    if (res.status === "0") {
+                        // this.userInfo = res.result.userInfo;
+                        // this.$store.commit("updateUserInfo", res.result.userInfo);
+                        this.headShow = true;
+                        this.noheadShow = false;
+                    }
+                })
+            },
+            login() {
+                if (!this.mobile || !this.pwd) {
+                    this.errTip1 = true;
+                    return;
+                }
+                axios.post("/api/user/login", {
+                    mobile: this.mobile,
+                    pwd: this.pwd
+                }).then((data) => {
+                    let res = data.data;
+                    console.log(res);
+                    // console.log("res" + res);
+                    if (res.status === "0") {
+                        this.errTip = false;
+                        this.updateUserId(res.result.userInfo._id);
+                        this.updateUserInfo(res.result.userInfo);
+                        this.centerShow = true;
+                        this.userShow = false;
+                        this.headShow = true;
+                        this.noheadShow = false;
+                    } else {
+                        this.errTip1 = false;
+                        this.errTip2 = true;
+                    }
+                })
+            },
+            logout() {
+                axios.post("/api/user/logout").then((data) => {
+                    let res = data.data;
+                    if (res.status === "0") {
+                        this.updateUserId("");
+                        this.updateUserInfo("");
+                        this.noheadShow = true;
+                        this.headShow = false;
+                    }
+                })
+            },
+            change() {
+                this.centerShow = false;
+                this.userShow = true;
+            }
+        }
     }
 </script>
 <style lang="less" scoped>
-    .center{
-        .head{
+    .center {
+        .head {
             width: 750px;
             height: 500px;
             background-color: #FFEEF3;
             overflow: hidden;
-            .immediately{
-                text-decoration:none;
+            .immediately {
+                text-decoration: none;
                 display: inline-block;
                 width: 400px;
                 height: 100px;
@@ -80,7 +214,7 @@
                 margin-left: 175px;
                 margin-top: 120px;
             }
-            .enjoy{
+            .enjoy {
                 width: 750px;
                 height: 100px;
                 font-size: 60px;
@@ -90,14 +224,14 @@
                 margin-top: 20px;
             }
         }
-        .head-two{
-            display: none;
+        .head-two {
+            /*display: none;*/
             width: 750px;
             height: 500px;
             background-color: #FFEEF3;
             overflow: hidden;
-            .immediately{
-                text-decoration:none;
+            .immediately {
+                text-decoration: none;
                 display: inline-block;
                 width: 400px;
                 height: 100px;
@@ -110,11 +244,11 @@
                 color: white;
                 margin-left: 175px;
                 margin-top: 120px;
-                span{
+                span {
                     color: gray;
                 }
             }
-            .enjoy{
+            .enjoy {
                 width: 750px;
                 height: 100px;
                 font-size: 60px;
@@ -124,54 +258,158 @@
                 margin-top: 20px;
             }
         }
-        .money{
+        .money {
             width: 750px;
             height: 200px;
-            border-top: 1px solid #f1f1f1 ;
+            border-top: 1px solid #f1f1f1;
             border-bottom: 1px solid #f1f1f1;
             margin-top: 20px;
-            li{
-                padding:0 20px;
+            li {
+                padding: 0 20px;
                 width: 710px;
                 height: 100px;
-                border-bottom:1px solid #f1f1f1 ;
+                border-bottom: 1px solid #f1f1f1;
                 line-height: 100px;
                 font-size: 30px;
                 overflow: hidden;
-                .wallet-b{
+                .wallet-b {
                     float: right;
                     overflow: hidden;
-                    .balance{
+                    .balance {
                         color: gray;
                     }
-                    img{
+                    img {
                         width: 25px;
                         height: 25px;
                         margin-left: 10px;
                         margin-top: 20px;
                     }
                 }
-                .my{
+                .my {
                     color: hotpink;
                 }
             }
-            .collection{
-                li{
-                    span{
+            .collection {
+                li {
+                    span {
                         color: hotpink;
                     }
-                    img{
+                    img {
                         float: right;
                         width: 25px;
-                        height:25px;
+                        height: 25px;
                         margin-top: 35px;
                     }
                 }
 
             }
-            .exit{
+            .exit {
                 text-align: center;
                 border-bottom: 1px solid #f1f1f1;
+            }
+        }
+    }
+
+    .user {
+        width: 750px;
+        /*height: 1334px;*/
+        .head {
+            width: 750px;
+            img {
+                margin: 60px 150px 0px 150px;
+                width: 450px;
+            }
+        }
+        .count {
+            margin: 24px 22px 0 24px;
+            input {
+                padding: 2px 14px;
+                width: 672px;
+                height: 76px;
+                font-size: 28px;
+                border: 1px solid #e2e2e2;
+                outline: none;
+            }
+            .loginbtn {
+                display: inline-block;
+                width: 702px;
+                height: 72px;
+                margin: 20px 0 10px 0;
+                background-color: #ff498c;
+                text-align: center;
+                line-height: 72px;
+                color: white;
+                font-size: 28px;
+                border: 1px solid #ff498c;
+                border-radius: 6px;
+                text-decoration: none;
+            }
+            .help {
+                overflow: hidden;
+                margin-bottom: 20px;
+                a {
+                    color: #969696;
+                    font-size: 24px;
+                    text-decoration: none;
+                    float: right;
+                }
+            }
+            .register {
+                width: 690px;
+                height: 72px;
+                border: 1px solid #e2e2e2;
+                color: #535353;
+                text-decoration: none;
+                display: block;
+                text-align: center;
+                font-size: 28px;
+                line-height: 72px;
+            }
+            .thirdparty {
+                width: 422px;
+                height: 1px;
+                margin: 70px 40px 40px 140px;
+                text-align: center;
+                .left-line {
+                    width: 84px;
+                    float: left;
+                }
+                .right-line {
+                    float: right;
+                    width: 84px;
+                }
+                span {
+                    text-align: center;
+                    line-height: 1px;
+                    font-size: 24px;
+                    color: #969696;
+                    vertical-align: top;
+                }
+            }
+            .third-log {
+                width: 508px;
+                height: 160px;
+                margin: 0 100px;
+                text-align: center;
+                div {
+                    width: 120px;
+                    height: 160px;
+                    display: inline-block;
+                    text-align: center;
+                    padding: 0 30px;
+                }
+                a {
+                    text-decoration: none;
+                    img {
+                        width: 120px;
+                        height: 120px;
+                    }
+                    span {
+                        font-size: 24px;
+                        color: #969696;
+                    }
+                }
+
             }
         }
     }
