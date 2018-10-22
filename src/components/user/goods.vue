@@ -15,7 +15,7 @@
                    <span>
                        上海市松江区泗泾镇
                        <router-link to="goods/editor" class="editor">
-                           <img src="../../assets/img/user/bianji.png" alt="">
+                           <span>编辑地址</span>
                        </router-link>
 
                    </span>
@@ -127,10 +127,15 @@
                         font-size: 30px;
                         color: gray;
                        .editor{
-                           img{
-                               width: 60px;
-                               height: 60px;
-                               vertical-align: middle;
+                          span{
+                              display: inline-block;
+                               width:150px;
+                               margin-bottom: 20px;
+                               background: hotpink;
+                               color: white;
+                              line-height: 60px;
+                              text-align: center;
+                              border-radius: 30px;
                                float: right;
 
                            }

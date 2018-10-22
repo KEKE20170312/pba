@@ -61,7 +61,7 @@
     import MyNav from "../common/myNav";
     import axios from "axios";
     export default {
-        name: "home",
+        name: "Home",
         components:{
             Search,
             swiper,

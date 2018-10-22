@@ -9,7 +9,7 @@
             <span>￥49.90</span>
         </p>
         <div class="shopCart">
-            <span class="reduce">
+            <span class="reduce" @click="reduce">
                 <img src="../../assets/img/cart/minus-circle.png" alt="">
             </span>
             <span class="counts">{{count}}</span>
