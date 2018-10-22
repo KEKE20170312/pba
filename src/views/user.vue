@@ -129,7 +129,7 @@
         },
         watch: {
             $route() {
-                this.checkLogin();
+                this.login();
             }
         },
         mounted() {

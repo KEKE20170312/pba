@@ -13,13 +13,13 @@
         <!--已登录，购物车已有商品-->
         <div v-show="showCarts" class="cartOop">
             <p class="demo">商品数量有限，请尽快付款哦</p>
-
-
             <!--中间商品-->
             <!--单选-->
             <div class="toiletry" v-for="(item,index) in data.goodsList">
-                <img :class="{isSelect:!item.isSelected}" @click="select(item)" class="select" src="../assets/img/cart/select.png" alt="">
-                <img :class="{isSelect:item.isSelected}" @click="select(item)" class="noSelect" src="../assets/img/cart/noSelect.png" alt="">
+                <img :class="{isSelect:!item.isSelected}" @click="select(item)" class="select"
+                     src="../assets/img/cart/select.png" alt="">
+                <img :class="{isSelect:item.isSelected}" @click="select(item)" class="noSelect"
+                     src="../assets/img/cart/noSelect.png" alt="">
                 <img class="picture" :src="item.smallImg" alt="">
                 <p class="goodsName">{{item.goodsName}}</p>
                 <p class="desc">{{item.desc}}</p>
@@ -27,35 +27,30 @@
                     <span>￥{{item.price}}</span>
                 </p>
                 <div class="shopCart">
-                    <span class="reduce" @click="reduce(item)">
+                    <span class="reduce" @click="changeNum(item,-1)">
                         <img src="../assets/img/cart/minus-circle.png" alt="">
                     </span>
                     <span class="counts">{{item.productNum}}</span>
-                    <span class="add" @click="plus(item)">
+                    <span class="add" @click="changeNum(item,1)">
                         <img src="../assets/img/cart/plus-circle.png" alt="">
                     </span>
                 </div>
-                <div class="del">删除</div>
+                <div @click="del(item,index)" class="del">删除</div>
             </div>
-
-
-            <div class="total">
+            <div v-for="(item,index) in data.goodsList" class="total">
                 <!--全选按钮点击需要显示的状态-->
-                <img v-show="isAllCheck" @click="change()" class="select" src="../assets/img/cart/select.png" alt="">
+                <img :class="{check:checkAllFlag}" @click="isCheckAll" class="select" src="../assets/img/cart/select.png" alt="">
                 <!--全选按钮未点击需要显示的状态-->
-                <img v-show="noAllCheck" @click="change()" class="noSelect" src="../assets/img/cart/noSelect.png"
+                <img :class="{check:!checkAllFlag}" @click="noCheckAll" class="noSelect" src="../assets/img/cart/noSelect.png"
                      alt="">
                 <span class="allCheckText">全选</span>
                 <span class="totalText">合计</span>
-                <span class="totalMoney">￥520</span>
+                <span class="totalMoney">￥{{totalMoney | currency}}</span>
                 <div class="calculate">
                     <span class="calculate-text">去结算</span>
-                    <span class="calculate-count">(2)</span>
+                    <span class="calculate-count">( {{totalCount}} )</span>
                 </div>
             </div>
-        <!--<CartOop/>-->
-        <NoCartOop/>
-        <div class="total">
         </div>
     </div>
 </template>
@@ -68,69 +63,100 @@
         components: {},
         data() {
             return {
-                // isSelect: true,
-                // noSelect: false,
-                isAllCheck: true,
-                noAllCheck: false,
-                // allSelect: true,
-                // isShow: true,
-                // count:1,
+                // isCheckAll:true,
+                // isAllCheck: true,
+                // noAllCheck: false,
+                checkAllFlag:true,
                 data: [],
-                // isChecked: [],
                 noCarts: true,
                 showCarts: false,
-                goodsList:[]
+                goodsList: [],
+                delIndex:-1
             }
         },
         methods: {
             back() {
                 this.$router.go(-1)
             },
+            //单选
             select(item) {
                 item.isSelected = !item.isSelected;
                 var tempBol = true;
-                for(var i = 0; i < this.goodsList.length; i++){
-                    if(!this.goodsList[i].isSelected){
+                for (var i = 0; i < this.goodsList.length; i++) {
+                    if (!this.goodsList[i].isSelected) {
                         tempBol = false;
                         break;
                     }
                 }
-                this.isAllCheck = tempBol;
+                this.checkAllFlag = tempBol;
             },
-
-            change() {
-                this.isAllCheck = !this.isAllCheck;
-                this.noAllCheck = !this.noAllCheck;
+            noCheckAll(checkAllFlag){
+                var _this = this;
+                this.goodsList.forEach(function (item,index) {
+                        if(typeof item.isSelected == "undefined"){
+                            _this.$set(item,"checked",false);
+                        }else {
+                            item.isSelected = true;
+                        }
+                    _this.checkAllFlag = true;
+                });
             },
-            //数量加一
-            plus(item) {
-                if(item.productNum >= 0){
+            isCheckAll(checkAllFlag){
+                var _this = this;
+                this.goodsList.forEach(function (item,index) {
+                    if(typeof item.isSelected == "undefined"){
+                        _this.$set(item,"checked",checkAllFlag);
+                    }else {
+                        item.isSelected = false;
+                    }
+                    _this.checkAllFlag = false;
+                });
+            },
+            //商品数量的加减
+            changeNum(item,num){
+                var id = item._id;
+                //商品数量加一
+                if(num > 0){
                     item.productNum++;
+                    axios.post("/api/addGoodsNum",{
+                        id:id
+                    }).then((data) => {
+
+                    })
+                }else {
+                    //商品数量减一
+                    if (item.productNum <= 1) {
+                        return;
+                    }
+                    item.productNum--;
+                    axios.post("/api/reduceGoodsNum",{
+                        id:id
+                    }).then((data) => {
+
+                    })
                 }
 
             },
-            // ...mapMutations(["reduce"]),
-            // 数量减一
-            reduce(item) {
-                //    减少所点这条的数量
-                if(item.productNum <= 1){
-                    return;
-                }
-                item.productNum--;
-            },
+            del(item,index){
+                var id = item._id;
+                this.delIndex = index;
+                this.goodsList.splice(this.delIndex,1);
+                axios.post("/api/delGoods",{
+                    id:id
+                }).then((data) => {
+
+                })
+            }
         },
         created() {
             var userId = this.$store.state.userInfo._id;
-            // console.log(userId);
             axios.get("/api/cart/userId").then((data) => {
-                // console.log(this.$store.state.userInfo._id);
-                // console.log(data.data.result);
                 let res = data.data;
-                console.log(res);
                 var goods = res.result[0];
-                console.log(goods);
                 if (res.status === "0") {
                     this.data = goods;
+                    console.log(goods);
+                    this.goodsList = res.result[0].goodsList;
                     this.noCarts = false;
                     this.showCarts = true;
                 } else {
@@ -138,23 +164,34 @@
                     this.showCarts = false;
                 }
             })
-
-
         },
         computed: {
-            // ...mapGetters(["selectGoods"])
+            totalMoney () {
+                //    被选中商品的总和
+                var totalMoney = 0;
+                this.goodsList.forEach((item) => {
+                    if(item.isSelected){
+                        totalMoney += Number(item.price * item.productNum);
+                    }
+                });
+                return totalMoney;
+            },
+            //被选中商品的个数
+            totalCount () {
+                var totalCount = 0;
+                this.goodsList.forEach((item) => {
+                    if(item.isSelected){
+                        totalCount += Number(item.productNum);
+                    }
+                });
+                return totalCount;
+            }
         },
-        watch: {
-            // isChecked: {
-            //     handler(isSelect) {
-            //         if (this.isSelect == true) {
-            //             this.isChecked.push(isSelect)
-            //             console.log(isChecked);
-            //         } else {
-            //         }
-            //     },
-            //     deep: true
-            // }
+        filters:{
+            currency (val) {
+                return val.toFixed(2);
+            }
+
         }
     }
 </script>
@@ -266,10 +303,10 @@
                 }
             }
             .toiletry {
-                .isSelect{
+                .isSelect {
                     display: none;
                 }
-                .select, .noSelect{
+                .select, .noSelect {
                     width: 40px;
                     height: 40px;
                     margin-left: 10px;
@@ -327,12 +364,60 @@
                     }
 
                 }
-                .del{
+                .del {
                     color: #888;
                     position: absolute;
                     right: 30px;
                     top: 186px;
                 }
+            }
+        }
+        .total {
+            width: 750px;
+            height: 100px;
+            box-sizing: border-box;
+            border: 2px #fff solid;
+            background-color: #fff;
+            line-height: 100px;
+            position: fixed;
+            left: 0;
+            bottom: 98px;
+            img {
+                display: none;
+                width: 40px;
+                height: 40px;
+                margin-left: 10px;
+                vertical-align: middle;
+            }
+            .allCheckText {
+                font-size: 28px;
+                margin-left: 20px;
+            }
+            .totalText {
+                color: #999;
+                margin-left: 20px;
+            }
+            .totalMoney {
+                color: #ff498c;
+                font-size: 28px;
+                margin-left: 10px;
+            }
+            .calculate {
+                display: inline-block;
+                width: 250px;
+                height: 72px;
+                background-color: #ff498c;
+                color: #fff;
+                line-height: 72px;
+                text-align: center;
+                font-size: 28px;
+                border-radius: 70px;
+                float: right;
+                margin-right: 26px;
+                margin-top: 14px;
+            }
+            .check{
+                display: inline-block;
             }
         }
     }
