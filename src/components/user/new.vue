@@ -212,7 +212,7 @@
                     width: 750px;
                     height: 550px;
                     position: absolute;
-                    top: 800px;
+                    top: 620px;
                     left: 0;
                     @{deep} .address-container {
                         height: 410px;

@@ -231,8 +231,8 @@
                     width: 750px;
                     height: 550px;
                     position: absolute;
-                    top: 800px;
-                    left: 0;
+                    top: 428px;
+                    left: -20px;
                     @{deep} .address-container {
                         height: 410px;
                         overflow: scroll;
