@@ -174,8 +174,9 @@
 <style lang="less" scoped>
     .register{
         width: 750px;
-        height: 1334px;
+        height: 100vh;
         position: relative;
+        background: white;
         .confirm-botton{
             width:510px;
             height: 100px;

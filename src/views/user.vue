@@ -70,6 +70,8 @@
                 <div to="/user" class="loginbtn" @click="login">
                     立即登录
                 </div>
+                <p v-show="errTip1">账号或者密码不能为空</p>
+                <p v-show="errTip2">账号或密码错误</p>
                 <div class="help">
                     <a href="">忘记密码？
                     </a>
@@ -96,8 +98,7 @@
                         </a>
                     </div>
                 </div>
-                <p v-show="errTip1">账号或者密码不能为空</p>
-                <p v-show="errTip2">账号或密码错误</p>
+
                 <!--<MyNav></MyNav>-->
                 <!--<router-view></router-view>-->
             </div>
@@ -352,6 +353,17 @@
             }
         }
         .count {
+            p{
+                width:600px;
+                height: 160px;
+                border-radius: 10px;
+                line-height: 160px;
+                font-size: 40px;
+                text-align: center;
+                background: grey;
+                color: white;
+                margin: 20px   65px;
+            }
             margin: 24px 22px 0 24px;
             input {
                 padding: 2px 14px;
