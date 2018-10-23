@@ -7,18 +7,18 @@
         <ul class="center">
             <li>
                 <span>收货人</span>
-                <input type="text"  placeholder="请输入收货人的姓名" ><br>
+                <input type="text"  placeholder="请输入收货人的姓名" v-model="consignee" ><br>
             </li>
             <li>
                 <span>手机号码</span>
-                <input type="text"  placeholder="请输入收货人的手机号码" ><br>
+                <input type="text"  placeholder="请输入收货人的手机号码" v-model="mobile" oninput="if(value.length>11)value=value.slice(0,11)"><br>
             </li>
 
             <li>
                 <span>省市区</span>
                 <!--<input type="text"  placeholder="请输入收货人的地址" ><br>-->
                 <div class="right-r">
-                    <div class="city" @click="toAddress">{{city}}</div>
+                    <div class="city" @click="toAddress" ref="address_city">{{city}}</div>
                     <i class="arrow-r"> </i>
                 </div>
                 <v-distpicker type="mobile" @selected='selected' v-show="addInp"  class="ttt">
@@ -29,7 +29,7 @@
 
             <li>
                 <span>详细地址</span>
-                <input type="text"  placeholder="" ><br>
+                <input type="text"  placeholder="" v-model="detailed"><br>
             </li>
         </ul>
         <div class="save">
@@ -63,6 +63,11 @@
                 show:false,
                 success:false,
                 destruction:false,
+                consignee:"",
+                mobile:"",
+                address_city:"",
+                detailed:""
+
             }
         },
         methods: {
@@ -71,16 +76,54 @@
             },
             //点击保存
             save(){
-                this. success=true;
+
+                var mobileNum = this.mobile;
+                var consignee = this.consignee;
+                var address_city = this.address_city;
+                var detailed = this.detailed;
+                var getMenuText = this.$refs.address_city.innerText;
+                if (getMenuText==="请选择"){
+                    getMenuText="";
+                }
+                var detailed_getMenuText = getMenuText + detailed ;
+                if( consignee=="" ){
+                    alert("请输入收货人姓名")
+                }else if(mobileNum == "" || !mobileNum) {
+                    alert("请输入电话号码");
+                } else  if (!(/^1[3456789]\d{9}$/.test(mobileNum))) {
+                    alert("电话号码格式错误,请重新输入");
+                }else if(getMenuText=="" ){
+                    alert("请选择地址")
+                }else if(detailed==""){
+                    alert("请输入详细地址")
+                }else {
+                    this. success=true;
+                    this.show=true;
+                    axios.post("/api/updateAddress",{
+                        mobile:mobileNum,
+                        consignee:consignee,
+                        address_city: address_city,
+                        detailed:detailed,
+                        detailed_getMenuText:detailed_getMenuText,
+                        editor_id:this.data._id
+                    }).then((data)=>{
+
+                    })
+                }
+
             },
             //点击取消
             cancel(){
                 this.success=false;
                 this.destruction=false;
+                this.success=false;
+                this.show=false;
+                this.$router.push({path:"/user/goods"})
             },
             //删除地址
-            eliminate(){
-               this.destruction=true
+            eliminate(person){
+               this.destruction=true;
+
             },
 
             //在methodes中定义方法
@@ -99,6 +142,12 @@
             },
 
 
+        },
+        created(){
+            console.log(this.$route.query.data);
+            this.data = this.$route.query.data;
+            this.mobile = this.data.mobile;
+            this.consignee= this.data.consignee;
         }
 
     }
@@ -192,6 +241,7 @@
             width: 750px;
             margin: 68px 0  30px  0;
             position: relative;
+            z-index: 32;
             span{
                 display: inline-block;
                 width: 456px;
@@ -254,6 +304,7 @@
                 font-size: 40px;
                 border-radius: 20px;
                 border: 10px solid indianred;
+                z-index: 50;
                 .delete-eliminate{
                     width: 50px;
                     height: 50px;

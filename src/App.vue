@@ -1,53 +1,11 @@
 <template>
     <div id="app">
         <div class="nav">
-            <router-link to="/home" tag="div" exact>
-                <div class="nav-list">
-                    <img src="./assets/img/nav/icon_home.png" alt="">
-                    <span>首页</span>
-                </div>
-            </router-link>
-            <router-link to="/category" tag="div" exact>
-                <div class="nav-list">
-                    <img src="./assets/img/nav/icon_category.png" alt="">
-                    <span>分类</span>
-                </div>
-            </router-link>
-            <router-link to="/cart" tag="div">
-                <div class="nav-list">
-                    <img src="./assets/img/nav/icon_cart.png" alt="">
-                    <span>购物车</span>
-                </div>
-            </router-link>
-            <router-link to="/user" tag="div">
-                <div class="nav-list">
-                    <img src="./assets/img/nav/icon_my.png" alt="">
-                    <span>我的</span>
-                </div>
-            </router-link>
             <div class="nav">
-                <router-link to="/home" tag="div">
-                    <div class="nav-list">
-                        <img src="./assets/img/nav/icon_home.png" alt="">
-                        <span>首页</span>
-                    </div>
-                </router-link>
-                <router-link to="/category" tag="div">
-                    <div class="nav-list">
-                        <img src="./assets/img/nav/icon_category.png" alt="">
-                        <span>分类</span>
-                    </div>
-                </router-link>
-                <router-link to="/cart" tag="div">
-                    <div class="nav-list">
-                        <img src="./assets/img/nav/icon_cart.png" alt="">
-                        <span>购物车</span>
-                    </div>
-                </router-link>
-                <router-link to="/user" tag="div">
-                    <div class="nav-list">
-                        <img src="./assets/img/nav/icon_my.png" alt="">
-                        <span>我的</span>
+                <router-link @click.native="selectMapNav(item.text)" :to="item.path" v-for="item in nav">
+                    <div class="nav-list" >
+                        <img :src="isSelect === item.text ? item.activeIcon : item.navIcon" alt="">
+                        <span>{{item.text}}</span>
                     </div>
                 </router-link>
             </div>
@@ -94,21 +52,19 @@
         },
         methods:{
             selectMapNav (text) {
-                this.isSelect = text;
-                // this.$set(this,"isSelect",text);
+                // this.isSelect = text;
+                this.$set(this,"isSelect",text);
             }
         }
     }
-
 </script>
 <style lang="less">
-    #app {
+    #app{
         width: 750px;
-        height: 1334px;
-        overflow: hidden;
-        overflow-y: scroll;
+        /*height: 100vh;*/
+        overflow: scroll;
     }
-    ::-webkit-scrollbar {
+    ::-webkit-scrollbar{
         display: none;
     }
     *{

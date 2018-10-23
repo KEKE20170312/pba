@@ -4,11 +4,21 @@
             <img @click="back" src="../assets/img/home/back2.jpg" alt="">
             <span>购物车</span>
         </div>
+        <!--未登录界面-->
+        <div v-show="noLogin" class="noCartOop">
+            <img src="../assets/img/cart/no-card-oops.png" alt="">
+            <p>您还没登录，请先登录吧</p>
+            <router-link to="/user">
+                <div>去登录</div>
+            </router-link>
+        </div>
         <!--已登录，但还没挑选任何商品-->
         <div v-show="noCarts" class="noCartOop">
             <img src="../assets/img/cart/no-card-oops.png" alt="">
             <p>您的购物车里还没有商品,请先去挑选心爱的宝贝吧</p>
-            <div>去逛逛</div>
+            <router-link to="/home">
+                <div>去逛逛</div>
+            </router-link>
         </div>
         <!--已登录，购物车已有商品-->
         <div v-show="showCarts" class="cartOop">
@@ -63,12 +73,10 @@
         components: {},
         data() {
             return {
-                // isCheckAll:true,
-                // isAllCheck: true,
-                // noAllCheck: false,
                 checkAllFlag:true,
                 data: [],
-                noCarts: true,
+                noCarts:false,
+                noLogin:true,
                 showCarts: false,
                 goodsList: [],
                 delIndex:-1
@@ -93,11 +101,11 @@
             noCheckAll(checkAllFlag){
                 var _this = this;
                 this.goodsList.forEach(function (item,index) {
-                        if(typeof item.isSelected == "undefined"){
-                            _this.$set(item,"checked",false);
-                        }else {
-                            item.isSelected = true;
-                        }
+                    if(typeof item.isSelected == "undefined"){
+                        _this.$set(item,"checked",false);
+                    }else {
+                        item.isSelected = true;
+                    }
                     _this.checkAllFlag = true;
                 });
             },
@@ -149,21 +157,37 @@
             }
         },
         created() {
-            var userId = this.$store.state.userInfo._id;
             axios.get("/api/cart/userId").then((data) => {
                 let res = data.data;
-                var goods = res.result[0];
-                if (res.status === "0") {
-                    this.data = goods;
-                    console.log(goods);
-                    this.goodsList = res.result[0].goodsList;
-                    this.noCarts = false;
-                    this.showCarts = true;
-                } else {
-                    this.noCarts = true;
-                    this.showCarts = false;
+                console.log(res);
+                var goods = data.data.result[0];
+                console.log(goods);
+                if(this.$store.state.userId){
+                    this.noLogin = false;
+                    if(res.status === "0"){
+                        this.data = goods;
+                        if(this.data.goodsList.length == 0){
+                            console.log(2);
+                            this.noCarts = true;
+                            this.showCarts = false;
+                        }else{
+                            this.goodsList = res.result[0].goodsList;
+                            this.noCarts = false;
+                            this.showCarts = true;
+                        }
+                    }
+                    else{
+                        this.noCarts = true;
+                        this.showCarts = false;
+                    }
+                }else{
+                    this.noLogin = true;
                 }
-            })
+            });
+            if(this.$store.state.userId){
+                this.noCarts = false;
+                this.noLogin = false;
+            }
         },
         computed: {
             totalMoney () {
@@ -218,8 +242,8 @@
                 margin-left: 200px;
             }
         }
-        .noCartOop {
-            display: none;
+        .noCartOop{
+            /*display: none;*/
             width: 750px;
             height: 800px;
             padding-top: 380px;

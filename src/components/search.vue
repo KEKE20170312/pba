@@ -3,7 +3,7 @@
         <div class="head">
             <div class="search_k">
                 <input type="text" class="search_val" placeholder="搜索商品" v-model="searchgoods">
-                <router-link :to="'/category/findGoods/' + this.searchgoods" class="search_a">
+                <router-link :to="'/category/find/goods/' + this.searchgoods" class="search_a">
                     <img src="../assets/img/search-input.png" alt="">
                 </router-link>
             </div>

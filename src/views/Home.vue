@@ -86,6 +86,7 @@
                 swipers:[],
                 active:[],
                 goodsId:"",
+                countNum:0
             }
         },
         methods:{
@@ -96,6 +97,35 @@
                         path:`/sp/${i}`
                     }
                 )
+            },
+            handleScroll(){
+                let sw = true;
+                // console.log(window.scrollY);
+                let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                // console.log(scrollTop);
+                let AllHeight= document.documentElement.offsetHeight;
+                // console.log(AllHeight);
+                let wHeight = window.innerHeight;
+                // console.log(wHeight);
+                if(sw == true) {
+                    if(AllHeight==scrollTop+wHeight){
+                        // console.log(1);
+                        sw=false;
+                        this.countNum++;
+                        axios.get("/api/countNum?countNum="+this.countNum).then((data) => {
+                            console.log(data.data);
+                            let newArr = data.data;
+                            // console.log(newArr);
+                            newArr.forEach((item,index)=>{
+                                this.data.push(item);
+                            });
+                            // console.log(this.productArr);
+                        }).catch((err) => {
+                            console.log(err);
+                        });
+                        sw=true;
+                    }
+                }
             }
         },
         computed: {
@@ -103,11 +133,11 @@
                 return this.$refs.mySwiper.swiper
             }
         },
-        created(){
+        mounted(){
+            window.addEventListener("scroll",this.handleScroll);
             axios.get("/api/").then((data)=>{
                 console.log(data.data);
                 this.data = data.data;
-
             })
             axios.get("/api/swiper").then((data)=>{
                 // console.log(data.data);

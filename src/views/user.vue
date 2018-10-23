@@ -15,7 +15,10 @@
                 </div>
                 <div class="enjoy">享受更多贴心服务</div>
             </div>
-            <ul class="money">
+
+
+
+            <ul class="money" v-show="before_after">
                 <li class="wallet">
                     <span class="my">我的钱包</span>
                     <span class="wallet-b">
@@ -57,9 +60,10 @@
                 </router-link>
 
             </div>
+            <!--登录界面-->
             <div class="count">
                 <form method="get">
-                    <input type="text" placeholder="账号" v-model="mobile"><br>
+                    <input type="number" placeholder="账号" v-model="mobile" ><br>
                     <input type="password" placeholder="密码" v-model="pwd">
                 </form>
                 <div to="/user" class="loginbtn" @click="login">
@@ -116,7 +120,8 @@
                 pwd: "",
                 errTip1: false,
                 errTip2: false,
-                userInfo: []
+                userInfo: [],
+                before_after:false
             }
         },
         computed: {
@@ -145,6 +150,7 @@
                         // this.$store.commit("updateUserInfo", res.result.userInfo);
                         this.headShow = true;
                         this.noheadShow = false;
+                        this.before_after = true;
                     }
                 })
             },
@@ -152,6 +158,7 @@
                 if (!this.mobile || !this.pwd) {
                     this.errTip1 = true;
                     return;
+
                 }
                 axios.post("/api/user/login", {
                     mobile: this.mobile,
@@ -168,9 +175,11 @@
                         this.userShow = false;
                         this.headShow = true;
                         this.noheadShow = false;
+                        this.before_after=true;
                     } else {
                         this.errTip1 = false;
                         this.errTip2 = true;
+                        this.before_after = false;
                     }
                 })
             },
@@ -182,23 +191,33 @@
                         this.updateUserInfo("");
                         this.noheadShow = true;
                         this.headShow = false;
+                        this.before_after=false;
                     }
                 })
             },
             change() {
                 this.centerShow = false;
                 this.userShow = true;
+
+            }
+        },
+        created(){
+            if(this.$store.state.userId){
+                this.noheadShow = false;
             }
         }
     }
 </script>
 <style lang="less" scoped>
     .center {
+        width: 750px;
+        height: 1340px;
+        overflow: hidden;
         .head {
             width: 750px;
             height: 500px;
-            background-color: #FFEEF3;
             overflow: hidden;
+             margin-top:300px;
             .immediately {
                 text-decoration: none;
                 display: inline-block;
@@ -245,7 +264,8 @@
                 margin-left: 175px;
                 margin-top: 120px;
                 span {
-                    color: gray;
+                    color: lightseagreen;
+
                 }
             }
             .enjoy {

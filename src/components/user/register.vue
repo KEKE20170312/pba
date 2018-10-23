@@ -9,40 +9,37 @@
                 这是一个神秘的花园，里面有无尽的财富和宝藏等着你去发现，现在就注册账号开启你的美丽探索之旅吧！
             </p>
             <form class="count-form">
-               <ul class="cf">
-                   <li class="cf-phone">
-                       <img src="../../assets/img/user/mobile_icon.png" alt="">
-                       <input type="text" v-model.number="ReginForm.tel" placeholder="输入手机号" >
-                   </li>
-                   <li class="cf-ph">
-                       <img src="../../assets/img/user/email_icon.png" alt="">
-                       <input type="text"  placeholder="输入验证码" v-model="inputInfo">
-                       <span class="code-style" @click="createCode">{{verificationCode}}</span>
-                       <span class="confirm-botton" @click="confirmTheCode">验证</span>
+                <ul class="cf">
+                    <li class="cf-phone">
+                        <img src="../../assets/img/user/mobile_icon.png" alt="">
+                        <input type="number" @blur="disappear" v-model="newPhone"  placeholder="输入手机号" oninput="if(value.length>11)value=value.slice(0,11)" >
+
+                    </li>
+                    <li class="cf-ph">
+                        <img src="../../assets/img/user/email_icon.png" alt="">
+                        <input type="text"  placeholder="输入验证码" @blur="confirmTheCode" v-model="inputInfo">
+                        <span class="code-style" @click="createCode">{{verificationCode}}</span>
+                    </li>
+                    <li class="cf-pw">
+                        <img src="../../assets/img/user/lock_icon.png" alt="">
+                        <input type="password" @blur="disappear" v-model="password" placeholder="输入密码" >
+                    </li>
+
+                    <li class="cf-pw">
+                        <img src="../../assets/img/user/lock_icon.png" alt="">
+                        <input type="password" @blur="disappear" v-model="repeat" placeholder="再次确认密码" >
+                    </li>
 
 
-                   </li>
-                   <li class="cf-pw">
-                       <img src="../../assets/img/user/lock_icon.png" alt="">
-                       <input type="password" v-model="ReginForm.password" placeholder="输入密码" >
-                   </li>
-                   <li class="cf-pw">
-                       <img src="../../assets/img/user/lock_icon.png" alt="">
-                       <input type="password"  placeholder="再次确认密码" >
-                   </li>
-                   <li class="cf-pw">
-                       <img src="../../assets/img/user/email_icon.png" alt="">
-                       <input type="text"  v-model="verification" placeholder="获取手机验证码" >
-                       <span v-show="sendAuthCode" class="auth_text auth_text_blue" @click="getAuthCode">获取验证码</span>
-                       <span v-show="!sendAuthCode" class="auth_text"> <span class="auth_text_blue">{{auth_time}} </span> 秒之后重新发送验证码</span>
-                   </li>
-                   <li class="cf-referees">
-                       <img src="../../assets/img/user/recom_icon.png" alt="">
-                       <input type="text"  placeholder="输入推荐人（非必填）" >
-                   </li>
-               </ul>
+                    <li class="cf-referees">
+                        <img src="../../assets/img/user/recom_icon.png" alt="">
+                        <input type="text"  v-model="referees" placeholder="输入推荐人（非必填）" >
+                    </li>
+                </ul>
             </form>
-            <div class="register-zc"  @click="submit" :loading="logining">注册</div>
+            <div class="register-zc"  @click="submit" >注册</div>
+            <div class="confirm-botton" v-show="judge">{{Right_wrong}}</div>
+
             <div class="agreement">
                 <input type="checkbox" checked="checked">
                 <router-link to="/user/agreement" class="agreement-to">
@@ -50,149 +47,128 @@
                 </router-link>
 
             </div>
+
+        </div>
+        <div class="mongolia" v-show="delete_mongolia">
+            <div>
+                <p>恭喜您注册成功</p>
+                <p>请返回登录</p>
+                <img src="../../assets/img/user/quxiao.png" alt="" class="delete" @click="cancel">
+            </div>
         </div>
     </div>
 </template>
 <script>
+    import axios from "axios"
     export default {
         name: "register",
-        data(){
-          let confirmpasswordCheck = (rule,value,callback)=>{
-              if(value===""){
-                  return callback(new Error('密码是必须的'))
-              }else {
-                  return callback()
-              }
-          }
-            let telCheck = (rule, value, callback) => {
-                if (value === '') {
-                    return callback(new Error('电话号码是必须的'))
-                } else if (!Number.isInteger(value)) {
-                    return callback(new Error('电话号码必须是数字'))
-                } else if (value.toString().length !== 11) {
-                    return callback(new Error('电话号码必须是11位数字'))
-                } else {
-                    callback()
-                }
-            }
+        data() {
             return {
-                verificationCode:"",
-                inputInfo:'',
-                ReginForm: {
-                    password: '',
-                    tel: '',
-                    validate:''
-                },
-                logining: false,
-                sendAuthCode:true,/*布尔值，通过v-show控制显示‘获取按钮'还是‘倒计时' */
-                auth_time: 0, /*倒计时 计数器*/
-                verification:"",//绑定输入验证码框框
-                rule: {
-                    password: [
-                        {
-                            required: true,
-                            message: '密码是必须的！',
-                            trigger: 'blur'
-                        }
-                    ],
-                    tel: [
-                        {
-                            required: true,
-                            validator: telCheck,
-                            trigger: 'blur'
-                        }
-                    ],
-                }
+                verificationCode: "",
+                inputInfo: '',
+                newPhone: '',
+                password: '',
+                repeat: '',
+                referees: '',
+                correct:false,
+                Right_wrong:"输入正确",
+                delete_mongolia:false,
+                //   检测注册
+                judge:false,
+
+
+
             }
         },
-        methods:{
-            back(){
+        methods: {
+            back() {
                 this.$router.go(-1);//返回上一层
             },
-            //  验证
-            getAuthCode() {
-                const verification =this.ReginForm.tel;
-                const url = " "
-                console.log("url",url);
-                this.$http.get(url).then(function (response) {
-                    console.log("请求成功",response)
-                }, function (error) {
-                    console.log("请求失败",error);
-                })
-                this.sendAuthCode = false;
-                //设置倒计时秒
-                this.auth_time = 10;
-                var auth_timetimer = setInterval(()=>{
-                    this.auth_time--;
-                    if(this.auth_time<=0){
-                        this.sendAuthCode = true;
-                        clearInterval(auth_timetimer);
-                    }
-                }, 1000);
-            },
-            // 封装注册发送请求方法
-            thisAjax(){
-                const passwordData=this.ReginForm.password;
-                const phoneData =this.ReginForm.tel;
-                const mCodeData=this.verification;
-                //  手机注册
-//emulateJSON:true设置后post可跨域
-                const url = " 填接口"
-                this.$http.post(url,{填传入的参数},{emulateJSON:true}).then(function (response)
-                {
-                    //登录后跳转的页面
-                    this.$router.push('/user');
-                }, function (error) {
-                    alert("请求失败",error);
-                })
-            },
-            // ...
-            submit () {
+            // 点击注册
+            submit() {
                 console.log(1);
-                this.$refs.ReginForm.validate(valid => {
-                    if (valid) {
-                        this.logining = true
-                        this. thisAjax();
-                        console.log('开始写入后台数据！')
-                    } else {
-                        console.log('submit err')
-                    }
-                })
+                var newPhone = this.newPhone;
+                var password = this.password;
+                var referees = this.referees;
+                var repeat = this.repeat;
+                var inputInfo= this.inputInfo;
+                //   检测注册
+                var judge = judge ;
+
+                //判断电话
+                if(newPhone == "" || !newPhone) {
+                    this.judge = true;
+                    this.Right_wrong="请输入电话号码"
+                } else  if (!(/^1[3456789]\d{9}$/.test(newPhone))) {
+                    this.judge = true;
+                    this.Right_wrong= "电话号码格式错误,请重新输入"
+                }//判断验证码
+                else if (inputInfo==""){
+                    this.judge = true;
+                    this.Right_wrong= "请输入验证码";
+                }
+                //判断密码
+                else if(password==""||!password){
+                    this.judge = true;
+                    this.Right_wrong= "请输入密码";
+                }else if(password!= repeat ){
+                    this.judge = true;
+                    this.Right_wrong= "两次输入密码不一致，请重新输入";
+                } else {
+                    console.log("输入正确")
+                    this.delete_mongolia=true;
+                    axios.post("/api/register", {
+                        newPhone: newPhone,
+                        passworld: password,
+                        repeat: repeat,
+                        referees: referees
+                    }).then((data) => {
+
+                    })
+
+
+                }
+
+
+
+
+
             },
-            reset () {
-                this.$refs.ReginForm.resetFields()
-            },
-            tologin () {
-//已经注册过跳转到登入界面
-                this.$router.push('/phoneLogin')
-            },
-            createCode() {    //通过随机数生成验证码
+            createCode() {
+                //通过随机数生成验证码
                 this.verificationCode = '';
                 var code = '';
                 var codeLength = 4;     //验证码长度
-                var random = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-                for(var i = 0;i<codeLength;i++){
-                    var index = Math.floor(Math.random()*36);
+                var random = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+                for (var i = 0; i < codeLength; i++) {
+                    var index = Math.floor(Math.random() * 36);
                     code += random[index];
                 }
                 this.verificationCode = code
             },
             confirmTheCode() {      //验证函数
                 var customerCode = this.inputInfo.toUpperCase();   //把你输入的小写转化为大写
-                if(customerCode === "0"){
+                if (customerCode === "0") {
                     this.createCode();
                     this.inputInfo = ''
                     alert('请输入验证码')
-                }else if(customerCode !== this.verificationCode){
+                } else if (customerCode !== this.verificationCode) {
                     this.createCode();
                     this.inputInfo = ''
-                    alert('验证码不正确，请重新输入');
+
                 }else {
-                    alert('输入正确')
+
                 }
             },
+            cancel(){
+                this.delete_mongolia=false;
+            },
+            disappear(){
+                this.judge = false;
+            }
+
         },
-        mounted(){
+        mounted() {
             this.createCode()
         }
     }
@@ -200,6 +176,20 @@
 <style lang="less" scoped>
     .register{
         width: 750px;
+        height: 1334px;
+        position: relative;
+        .confirm-botton{
+            width:510px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            background-color:red;
+            border-radius: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            margin: 20px   120px;
+        }
         .head{
             width: 750px;
             height: 90px;
@@ -246,6 +236,7 @@
                         height: 84px;
                         border-bottom: 1px solid #e2e2e2;
                         list-style: none;
+
                     }
                     input{
                         outline:none;
@@ -266,10 +257,10 @@
                     }
                     .cf-pw{
                         position: relative;
-                          img{
-                              width: 48px;
-                              height: 48px;
-                          }
+                        img{
+                            width: 48px;
+                            height: 48px;
+                        }
                         span{
                             display: inline-block;
                             position: absolute;
@@ -309,21 +300,9 @@
                             background-color: white;
                             text-align: center;
                         }
-                        .confirm-botton{
-                            display: inline-block;
-                            width:80px;
-                            height: 84px;
-                            text-align: center;
-                            line-height: 84px;
-                            background-color: #04b4ba;
-                            font-size: 30px;
-                            color: white;
-                            cursor: pointer;
-                            position: absolute;
-                            top: 0px;
-                            right: 0px;
-                        }
+
                     }
+
                 }
             }
             .register-zc{
@@ -353,5 +332,41 @@
                 font-size: 30px;
             }
         }
+        .mongolia{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 750px;
+            height: 1334px;
+            background: rgba(0.3,0.3,0.3,0.7);
+            /*overflow: hidden;*/
+            div{
+                width: 500px;
+                height: 300px;
+                background: white;
+                margin-top: 500px;
+                margin-left: 125px;
+                text-align: center;
+                line-height: 130px;
+                border-radius: 30px;
+                position: relative;
+                p{
+                    font-size: 40px;
+                    color: hotpink;
+
+                }
+                .delete{
+                    width: 50px;
+                    height: 50px;
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+
+                }
+
+            }
+
+        }
+
     }
 </style>

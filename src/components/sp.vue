@@ -143,13 +143,15 @@
             beforeEnter: function (el) {
                 console.log("beforeEnter");
                 el.style = "padding-left:-200px";
-                el.style = "width:300px";
+                el.style = "padding-top:-800px";
+                // el.style = "width:300px";
              },
             enter: function (el, done) {
                 console.log("enter");
                 el.offsetHeight;
                 el.style = "padding-left:100px";
-                el.style = "width:0px";
+                el.style = "padding-top:100px";
+                // el.style = "width:0px";
                 done();
             },
             afterEnter: function (el) {
