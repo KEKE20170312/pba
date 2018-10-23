@@ -142,6 +142,7 @@
     .new {
         width: 750px;
         height: 100vh;
+        position: relative;
         .confirm-botton{
             width:510px;
             height: 100px;
@@ -182,6 +183,7 @@
             }
         }
         .center{
+            position: relative;
             li{
                 width: 750px;
                 height: 90px;
@@ -201,11 +203,10 @@
                     margin-left: 50px;
                 }
                 .right-r{
-
                     width: 580px;
                     position: absolute;
                     left:160px;
-                    top: 270px;
+                    top: 190px;
 
                 }
                 .ttt{
@@ -268,7 +269,7 @@
             top: 0;
             left: 0;
             width: 750px;
-            height: 1334px;
+            height: 100vh;
             background: rgba(0.2,0.2,0.2,0.5);
 
         }

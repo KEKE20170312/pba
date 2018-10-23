@@ -70,8 +70,13 @@
                 <div to="/user" class="loginbtn" @click="login">
                     立即登录
                 </div>
-                <p v-show="errTip1">账号或者密码不能为空</p>
-                <p v-show="errTip2">账号或密码错误</p>
+
+                <!--登录后判断-->
+                <p v-show="errTip1" class="account">{{this.account}}</p>
+
+
+
+
                 <div class="help">
                     <a href="">忘记密码？
                     </a>
@@ -114,6 +119,7 @@
         components: {},
         data() {
             return {
+                account:"",
                 centerShow: true,
                 userShow: false,
                 noheadShow: true,
@@ -121,7 +127,6 @@
                 mobile: "",
                 pwd: "",
                 errTip1: false,
-                errTip2: false,
                 userInfo: [],
                 before_after:false
             }
@@ -159,8 +164,11 @@
             login() {
                 if (!this.mobile || !this.pwd) {
                     this.errTip1 = true;
-                    return;
-
+                    this.account="请输入账号和密码";
+                  setTimeout(()=>{
+                      this.errTip1 = false;
+                  },2000);
+                  return;
                 }
                 axios.post("/api/user/login", {
                     mobile: this.mobile,
@@ -179,8 +187,11 @@
                         this.noheadShow = false;
                         this.before_after=true;
                     } else {
-                        this.errTip1 = false;
-                        this.errTip2 = true;
+                        this.errTip1 = true;
+                        this.account = "账号或密码错误"
+                        setTimeout(()=>{
+                            this.errTip1 = false;
+                        },2000);
                         this.before_after = false;
                     }
                 })
@@ -226,7 +237,7 @@
                 width: 400px;
                 height: 100px;
                 border: 1px solid #ffeef3;
-                background-color: pink;
+                background-color: hotpink;
                 border-radius: 20px;
                 font-size: 50px;
                 text-align: center;
@@ -241,7 +252,7 @@
                 font-size: 60px;
                 text-align: center;
                 line-height: 100px;
-                color: pink;
+                color: hotpink;
                 margin-top: 20px;
             }
         }
@@ -353,16 +364,21 @@
             }
         }
         .count {
-            p{
-                width:600px;
-                height: 160px;
+            position: relative;
+            .account{
+                width:400px;
+                height: 60px;
                 border-radius: 10px;
-                line-height: 160px;
-                font-size: 40px;
+                line-height:60px;
+                font-size: 30px;
                 text-align: center;
-                background: grey;
+                /*background: grey;*/
+                background: rgba(0.5,0.5,0.5,0.5);
                 color: white;
-                margin: 20px   65px;
+                /*margin: 20px   175px;*/
+                position: absolute;
+                left: 175px;
+                top: 50px;
             }
             margin: 24px 22px 0 24px;
             input {

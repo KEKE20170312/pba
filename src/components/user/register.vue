@@ -237,6 +237,12 @@
                         list-style: none;
 
                     }
+                    .cf-phone{
+                        img{
+                            width: 40px;
+                            height: 50px;
+                        }
+                    }
                     input{
                         outline:none;
                         width: 608px;
@@ -250,8 +256,8 @@
                     }
                     img{
                         width: 48px;
-                        height: 62px;
-                        margin-top: 22px;
+                        height: 58px;
+                        margin-top: 18px;
                         margin-left: 10px;
                     }
                     .cf-pw{
@@ -287,17 +293,18 @@
                         }
                         .code-style{
                             display: inline-block;
-                            width: 150px;
-                            height: 84px;
+                            width: 120px;
+                            height: 64px;
                             font-size: 35px;
                             color: red;
-                            line-height: 84px;
+                            line-height: 64px;
                             cursor: pointer;
                             position: absolute;
-                            top: 0px;
-                            right:120px ;
-                            background-color: white;
+                            top: 10px;
+                            right:-30px ;
+                            background-color:gray;
                             text-align: center;
+                            font-weight: bolder;
                         }
 
                     }

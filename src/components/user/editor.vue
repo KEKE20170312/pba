@@ -175,6 +175,7 @@
     @deep: ~'>>>';
     .editor {
         width: 750px;
+        position: relative;
         .confirm-botton{
             width:510px;
             height: 100px;
@@ -223,6 +224,7 @@
                 line-height: 86px;
                 font-size: 30px;
                 color: gray;
+                position: relative;
                 input{
                     outline:none;
                     width: 548px;
@@ -238,7 +240,7 @@
                     width: 580px;
                     position: absolute;
                     left:160px;
-                    top: 270px;
+                    top: 0px;
 
                 }
                 .ttt{
@@ -335,7 +337,7 @@
             top: 0;
             left: 0;
             width: 750px;
-            height: 1334px;
+            height: 100vh;
             background: rgba(0.2,0.2,0.2,0.5);
 
         }
