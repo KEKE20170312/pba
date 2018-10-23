@@ -114,11 +114,9 @@
                 } else {
                     console.log("输入正确")
                     this.delete_mongolia=true;
-                    axios.post("/api/register", {
-                        newPhone: newPhone,
-                        passworld: password,
-                        repeat: repeat,
-                        referees: referees
+                    axios.post("/api/user/register", {
+                        mobile: newPhone,
+                        pwd: password,
                     }).then((data) => {
                     })
                 }
@@ -168,6 +166,7 @@
         height: 100vh;
         background-color: #fff;
         position: relative;
+        background: white;
         .confirm-botton{
             width:510px;
             height: 100px;
