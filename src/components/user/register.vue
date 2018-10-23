@@ -9,33 +9,33 @@
                 这是一个神秘的花园，里面有无尽的财富和宝藏等着你去发现，现在就注册账号开启你的美丽探索之旅吧！
             </p>
             <form class="count-form">
-               <ul class="cf">
-                   <li class="cf-phone">
-                       <img src="../../assets/img/user/mobile_icon.png" alt="">
-                       <input type="number" @blur="disappear" v-model="newPhone"  placeholder="输入手机号" oninput="if(value.length>11)value=value.slice(0,11)" >
+                <ul class="cf">
+                    <li class="cf-phone">
+                        <img src="../../assets/img/user/mobile_icon.png" alt="">
+                        <input type="number" @blur="disappear" v-model="newPhone"  placeholder="输入手机号" oninput="if(value.length>11)value=value.slice(0,11)" >
 
-                   </li>
-                   <li class="cf-ph">
-                       <img src="../../assets/img/user/email_icon.png" alt="">
-                       <input type="text"  placeholder="输入验证码" @blur="confirmTheCode" v-model="inputInfo">
-                       <span class="code-style" @click="createCode">{{verificationCode}}</span>
-                   </li>
-                   <li class="cf-pw">
-                       <img src="../../assets/img/user/lock_icon.png" alt="">
-                       <input type="password" @blur="disappear" v-model="password" placeholder="输入密码" >
-                   </li>
+                    </li>
+                    <li class="cf-ph">
+                        <img src="../../assets/img/user/email_icon.png" alt="">
+                        <input type="text"  placeholder="输入验证码" @blur="confirmTheCode" v-model="inputInfo">
+                        <span class="code-style" @click="createCode">{{verificationCode}}</span>
+                    </li>
+                    <li class="cf-pw">
+                        <img src="../../assets/img/user/lock_icon.png" alt="">
+                        <input type="password" @blur="disappear" v-model="password" placeholder="输入密码" >
+                    </li>
 
-                   <li class="cf-pw">
-                       <img src="../../assets/img/user/lock_icon.png" alt="">
-                       <input type="password" @blur="disappear" v-model="repeat" placeholder="再次确认密码" >
-                   </li>
+                    <li class="cf-pw">
+                        <img src="../../assets/img/user/lock_icon.png" alt="">
+                        <input type="password" @blur="disappear" v-model="repeat" placeholder="再次确认密码" >
+                    </li>
 
 
-                   <li class="cf-referees">
-                       <img src="../../assets/img/user/recom_icon.png" alt="">
-                       <input type="text"  v-model="referees" placeholder="输入推荐人（非必填）" >
-                   </li>
-               </ul>
+                    <li class="cf-referees">
+                        <img src="../../assets/img/user/recom_icon.png" alt="">
+                        <input type="text"  v-model="referees" placeholder="输入推荐人（非必填）" >
+                    </li>
+                </ul>
             </form>
             <div class="register-zc"  @click="submit" >注册</div>
             <div class="confirm-botton" v-show="judge">{{Right_wrong}}</div>
@@ -73,7 +73,7 @@
                 correct:false,
                 Right_wrong:"输入正确",
                 delete_mongolia:false,
-            //   检测注册
+                //   检测注册
                 judge:false,
 
 
@@ -100,10 +100,10 @@
                     this.judge = true;
                     this.Right_wrong="请输入电话号码"
                 } else  if (!(/^1[3456789]\d{9}$/.test(newPhone))) {
-                   this.judge = true;
-                   this.Right_wrong= "电话号码格式错误,请重新输入"
+                    this.judge = true;
+                    this.Right_wrong= "电话号码格式错误,请重新输入"
                 }//判断验证码
-                    else if (inputInfo==""){
+                else if (inputInfo==""){
                     this.judge = true;
                     this.Right_wrong= "请输入验证码";
                 }
@@ -176,6 +176,7 @@
 <style lang="less" scoped>
     .register{
         width: 750px;
+        height: 1334px;
         position: relative;
         .confirm-botton{
             width:510px;
@@ -256,10 +257,10 @@
                     }
                     .cf-pw{
                         position: relative;
-                          img{
-                              width: 48px;
-                              height: 48px;
-                          }
+                        img{
+                            width: 48px;
+                            height: 48px;
+                        }
                         span{
                             display: inline-block;
                             position: absolute;
@@ -338,6 +339,7 @@
             width: 750px;
             height: 1334px;
             background: rgba(0.3,0.3,0.3,0.7);
+            /*overflow: hidden;*/
             div{
                 width: 500px;
                 height: 300px;
@@ -345,7 +347,7 @@
                 margin-top: 500px;
                 margin-left: 125px;
                 text-align: center;
-                 line-height: 130px;
+                line-height: 130px;
                 border-radius: 30px;
                 position: relative;
                 p{
