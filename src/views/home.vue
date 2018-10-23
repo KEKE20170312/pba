@@ -190,6 +190,7 @@
     }
     .classify-column{
         width: 750px;
+        background-color: #fff;
         ul{
             width: 750px;
             padding: 0;

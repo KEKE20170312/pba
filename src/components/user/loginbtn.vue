@@ -56,7 +56,8 @@
 <style lang="less" scoped>
     .user{
         width: 750px;
-        /*height: 1334px;*/
+        height: 100vh;
+        background-color: #fff;
         .head{
             width: 750px;
             img{

@@ -245,7 +245,7 @@
         .noCartOop{
             /*display: none;*/
             width: 750px;
-            height: 800px;
+            height: calc(100vh - 478px);
             padding-top: 380px;
             background-color: #fff;
             text-align: center;
@@ -270,6 +270,7 @@
             }
         }
         .cartOop {
+            height: calc(100vh - 200px);
             padding-bottom: 240px;
             background-color: #F2F2F2;
             .demo {

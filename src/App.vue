@@ -62,7 +62,7 @@
     #app{
         width: 750px;
         margin: 0 auto;
-        /*height: 100vh;*/
+        height: 100vh;
         overflow: scroll;
         /*position: absolute;*/
         /*left: calc(50vw - 375px);*/

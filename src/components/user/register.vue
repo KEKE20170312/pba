@@ -75,9 +75,6 @@
                 delete_mongolia:false,
                 //   检测注册
                 judge:false,
-
-
-
             }
         },
         methods: {
@@ -123,16 +120,8 @@
                         repeat: repeat,
                         referees: referees
                     }).then((data) => {
-
                     })
-
-
                 }
-
-
-
-
-
             },
             createCode() {
                 //通过随机数生成验证码
@@ -176,7 +165,8 @@
 <style lang="less" scoped>
     .register{
         width: 750px;
-        height: 1334px;
+        height: 100vh;
+        background-color: #fff;
         position: relative;
         .confirm-botton{
             width:510px;
