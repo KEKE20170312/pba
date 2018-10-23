@@ -183,7 +183,11 @@
                 }else{
                     this.noLogin = true;
                 }
-            })
+            });
+            if(this.$store.state.userId){
+                this.noCarts = false;
+                this.noLogin = false;
+            }
         },
         computed: {
             totalMoney () {
