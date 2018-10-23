@@ -230,9 +230,9 @@
                     z-index:5;
                     width: 750px;
                     height: 550px;
-                    position: absolute;
-                    top: 428px;
-                    left: -20px;
+                    position: fixed;
+                    bottom: 70px;
+                    left: calc(50vw - 375px);
                     @{deep} .address-container {
                         height: 410px;
                         overflow: scroll;
@@ -247,7 +247,7 @@
                 display: inline-block;
                 width: 456px;
                 height: 66px;
-                background: gray;
+                background: pink;
                 color: white;
                 line-height: 66px;
                 text-align: center;
