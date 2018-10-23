@@ -200,6 +200,11 @@
                 this.userShow = true;
 
             }
+        },
+        created(){
+            if(this.$store.state.userId){
+                this.noheadShow = false;
+            }
         }
     }
 </script>
