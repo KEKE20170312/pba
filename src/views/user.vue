@@ -212,7 +212,7 @@
 <style lang="less" scoped>
     .center {
         width: 750px;
-        height: 1340px;
+        height: 100vh;
         overflow: hidden;
         .head {
             width: 750px;
@@ -327,10 +327,11 @@
             }
             .exit {
                 width: 500px;
-                height:100px;
-                line-height: 100px;
+                height:80px;
+                line-height: 80px;
                 border-radius: 30px;
                 margin-left: 125px;
+                margin-top: 20px;
                 color: white;
                 background: gray;
                 text-align: center;

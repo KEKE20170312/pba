@@ -141,6 +141,7 @@
     @deep: ~'>>>';
     .new {
         width: 750px;
+        height: 100vh;
         .confirm-botton{
             width:510px;
             height: 100px;
@@ -227,7 +228,7 @@
             width: 750px;
             margin: 68px 0  30px  0;
             position: relative;
-            z-index: 20;
+
             span{
                 display: inline-block;
                 width: 456px;
@@ -251,6 +252,7 @@
                 border-radius: 20px;
                 background: white;
                 border: 10px solid indianred;
+                z-index: 20;
                 .delete {
                         width: 50px;
                         height: 50px;
