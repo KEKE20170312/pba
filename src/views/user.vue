@@ -326,7 +326,15 @@
 
             }
             .exit {
+                width: 500px;
+                height:100px;
+                line-height: 100px;
+                border-radius: 30px;
+                margin-left: 125px;
+                color: white;
+                background: gray;
                 text-align: center;
+                font-size: 35px;
                 border-bottom: 1px solid #f1f1f1;
             }
         }

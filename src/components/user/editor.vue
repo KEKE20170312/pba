@@ -130,8 +130,17 @@
             },
             //删除地址
             eliminate(person){
-                this.destruction=true;
-                this.show=true;
+                axios.post("/api/delAddress",{
+                    id:this.data._id
+                }).then((data)=>{
+                    let  res = data.data;
+                    if(res.status == 0){
+                        this.destruction=true;
+                        this.show=true;
+                    }else{
+
+                    }
+                })
 
             },
 
