@@ -61,9 +61,7 @@
                     <span class="calculate-count">( {{totalCount}} )</span>
                 </div>
             </div>
-        <div class="total">
         </div>
-    </div>
     </div>
 </template>
 
@@ -103,11 +101,11 @@
             noCheckAll(checkAllFlag){
                 var _this = this;
                 this.goodsList.forEach(function (item,index) {
-                        if(typeof item.isSelected == "undefined"){
-                            _this.$set(item,"checked",false);
-                        }else {
-                            item.isSelected = true;
-                        }
+                    if(typeof item.isSelected == "undefined"){
+                        _this.$set(item,"checked",false);
+                    }else {
+                        item.isSelected = true;
+                    }
                     _this.checkAllFlag = true;
                 });
             },
