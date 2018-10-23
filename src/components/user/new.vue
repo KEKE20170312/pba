@@ -7,28 +7,26 @@
         <ul class="center">
             <li>
               <span>收货人</span>
-                <input type="text"  placeholder="请输入收货人的姓名" ><br>
+                <input type="text"  placeholder="请输入收货人的姓名" v-model="consignee" ><br>
             </li>
             <li>
                 <span>手机号码</span>
-                <input type="text"  placeholder="请输入收货人的手机号码" ><br>
+                <input type="number"  placeholder="请输入收货人的手机号码" v-model="mobile" oninput="if(value.length>11)value=value.slice(0,11)" ><br>
             </li>
             <li>
                 <span>省市区</span>
                 <!--<input type="text"  placeholder="请输入收货人的地址" ><br>-->
                 <div class="right-r">
-                    <div class="city" @click="toAddress">{{city}}</div>
+                    <div class="city" @click="toAddress" ref="address_city">{{city}}</div>
                     <i class="arrow-r"> </i>
                 </div>
                 <v-distpicker type="mobile" @selected='selected' v-show="addInp"  class="ttt">
                 </v-distpicker>
                 <div class="mask" v-show="mask"></div>
-
-
             </li>
-            <li>
+            <li >
                 <span>详细地址</span>
-                <input type="text"  placeholder="请输入收货人的详细地址" ><br>
+                <input type="text"  placeholder="请输入收货人的详细地址"  v-model="detailed"><br>
             </li>
         </ul>
         <div class="save">
@@ -43,6 +41,7 @@
 </template>
 <script>
     import VDistpicker from 'v-distpicker'
+    import axios from "axios"
     export default {
         components: { VDistpicker },
         name: "new",
@@ -53,22 +52,12 @@
                 mask:false,
                 show:false,
                 success:false,
+                mobile:"",
+                consignee:"",
+                address_city:"",
+                detailed:""
 
             }
-        },
-        //请求数据
-        created(){
-          this.http.get(url)
-              .then(
-                  (data)=>{
-                      console.log(data);
-                  }
-              )
-              .catch(
-                  (err)=>{
-                      console.error(err)
-                  }
-              )
         },
         methods:{
             back(){
@@ -76,11 +65,45 @@
             },
             //点击保存
             save(){
-                this. success=true;
+                var mobileNum = this.mobile;
+                var consignee = this.consignee;
+                var address_city = this.address_city;
+                var detailed = this.detailed;
+                var getMenuText = this.$refs.address_city.innerText;
+                if (getMenuText==="请选择"){
+                    getMenuText="";
+                }
+                var detailed_getMenuText = getMenuText + detailed ;
+                if( consignee=="" ){
+                   alert("请输入收货人姓名")
+                }else if(mobileNum == "" || !mobileNum) {
+                    alert("请输入电话号码");
+                } else  if (!(/^1[3456789]\d{9}$/.test(mobileNum))) {
+                    alert("电话号码格式错误,请重新输入");
+                }else if(getMenuText=="" ){
+                    alert("请选择地址")
+                }else if(detailed==""){
+                    alert("请输入详细地址")
+                }else {
+                    this.success=true;
+                    this.show=true;
+                    axios.post("/api/addAddress",{
+                        mobile:mobileNum,
+                        consignee:consignee,
+                        addressLarge:getMenuText,
+                        addressSmall:detailed,
+                        detailed_getMenuText:detailed_getMenuText,
+                    }).then((data)=>{
+
+                    })
+                }
+
             },
             //点击取消
             cancel(){
-               this.success=false
+               this.success=false;
+                this.show=false;
+                this.$router.push({path:"/user/goods"})
             },
 
 
@@ -92,6 +115,7 @@
                 this.mask = true;
                 this.addInp = true;
                 this.show = true;
+
             },
             // 省市区三级联动
             selected(data){
@@ -183,6 +207,7 @@
             width: 750px;
             margin: 68px 0  30px  0;
             position: relative;
+            z-index: 20;
             span{
                 display: inline-block;
                 width: 456px;

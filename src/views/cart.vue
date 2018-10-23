@@ -61,7 +61,9 @@
                     <span class="calculate-count">( {{totalCount}} )</span>
                 </div>
             </div>
+        <div class="total">
         </div>
+    </div>
     </div>
 </template>
 
