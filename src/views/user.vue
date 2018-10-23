@@ -11,8 +11,9 @@
             <div class="head-two" v-show="headShow">
                 <div class="immediately">
                     欢迎小主
-                    <span>{{this.$store.state.userInfo.name}}</span>
+                    <p class="information">{{this.$store.state.userInfo.name}}</p>
                 </div>
+
                 <div class="enjoy">享受更多贴心服务</div>
             </div>
 
@@ -263,7 +264,8 @@
                 color: white;
                 margin-left: 175px;
                 margin-top: 120px;
-                span {
+                .information {
+
                     color: lightseagreen;
 
                 }
