@@ -11,9 +11,8 @@
             </li>
             <li>
                 <span>手机号码</span>
-                <input type="text"  placeholder="请输入收货人的手机号码" v-model="mobile" oninput="if(value.length>11)value=value.slice(0,11)"><br>
+                <input type="number"  placeholder="请输入收货人的手机号码" v-model="mobile" oninput="if(value.length>11)value=value.slice(0,11)" ><br>
             </li>
-
             <li>
                 <span>省市区</span>
                 <!--<input type="text"  placeholder="请输入收货人的地址" ><br>-->
@@ -24,20 +23,22 @@
                 <v-distpicker type="mobile" @selected='selected' v-show="addInp"  class="ttt">
                 </v-distpicker>
                 <div class="mask" v-show="mask"></div>
-
             </li>
-
-            <li>
+            <li >
                 <span>详细地址</span>
-                <input type="text"  placeholder="" v-model="detailed"><br>
+                <input type="text"  placeholder="请输入收货人的详细地址"  v-model="detailed"><br>
             </li>
         </ul>
+
         <div class="save">
-            <span  @click="save">保存地址</span>
+            <span @click="save">保存地址</span>
             <div v-show="success" class="success" >保存成功
-                <img src="../../assets/img/user/quxiao.png" alt="" class="delete-save" @click="cancel">
+                <img src="../../assets/img/user/quxiao.png" alt="" class="delete" @click="cancel">
             </div>
+
         </div>
+        <div class="confirm-botton" v-show="judge">{{Right_wrong}}</div>
+        <div v-show="show"  class="hazy"></div>
         <div class="delete">
             <span @click="eliminate">删除地址</span>
             <div v-show="destruction" class="eliminate" >删除成功
@@ -45,9 +46,8 @@
             </div>
 
         </div>
-        <div class="hazy"  v-show="show"></div>
-    </div>
 
+    </div>
 </template>
 
 <script>
@@ -58,6 +58,7 @@
         data(){
             return{
                 city:'请选择',
+                Right_wrong:"输入正确",
                 addInp :false,
                 mask:false,
                 show:false,
@@ -66,7 +67,8 @@
                 consignee:"",
                 mobile:"",
                 address_city:"",
-                detailed:""
+                detailed:"",
+                judge:false,
 
             }
         },
@@ -87,18 +89,24 @@
                 }
                 var detailed_getMenuText = getMenuText + detailed ;
                 if( consignee=="" ){
-                    alert("请输入收货人姓名")
+                    this.judge = true;
+                    this.Right_wrong= "请输入收货人姓名";
                 }else if(mobileNum == "" || !mobileNum) {
-                    alert("请输入电话号码");
+                    this.judge = true;
+                    this.Right_wrong="请输入电话号码";
                 } else  if (!(/^1[3456789]\d{9}$/.test(mobileNum))) {
-                    alert("电话号码格式错误,请重新输入");
+                    this.judge = true;
+                    this.Right_wrong= "电话号码格式错误,请重新输入";
                 }else if(getMenuText=="" ){
-                    alert("请选择地址")
+                    this.judge = true;
+                    this.Right_wrong= "请选择地址";
                 }else if(detailed==""){
-                    alert("请输入详细地址")
+                    this.judge = true;
+                    this.Right_wrong= "请输入详细地址";
                 }else {
                     this. success=true;
                     this.show=true;
+                    this.judge=false;
                     axios.post("/api/updateAddress",{
                         mobile:mobileNum,
                         consignee:consignee,
@@ -122,7 +130,17 @@
             },
             //删除地址
             eliminate(person){
-               this.destruction=true;
+                axios.post("/api/delAddress",{
+                    id:this.data._id
+                }).then((data)=>{
+                    let  res = data.data;
+                    if(res.status == 0){
+                        this.destruction=true;
+                        this.show=true;
+                    }else{
+
+                    }
+                })
 
             },
 
@@ -157,37 +175,45 @@
     @deep: ~'>>>';
     .editor {
         width: 750px;
-
-    .head {
-        width: 750px;
-        height: 90px;
-        border-bottom: 1px solid #f1f1f1;
-        text-align: center;
-        line-height: 90px;
-        font-size: 30px;
-        position: relative;
-
-    p {
-        color: #535353;
-    }
-
-    span {
-        display: inline-block;
-        width: 90px;
-        height: 62px;
-        position: absolute;
-        left: 0;
-        top: 0;
-
-    img {
-        padding-left: 30px;
-        margin-top: 22px;
-        width: 44px;
-        height: 34px;
-    }
-
-    }
-    }
+        .confirm-botton{
+            width:510px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            background-color:red;
+            border-radius: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            margin: 20px   120px;
+        }
+        .head {
+            width: 750px;
+            height: 90px;
+            border-bottom: 1px solid #f1f1f1;
+            text-align: center;
+            line-height: 90px;
+            font-size: 30px;
+            position: relative;
+            background-color:pink;
+            p {
+                color: #535353;
+            }
+            span {
+                display: inline-block;
+                width: 90px;
+                height: 62px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                img {
+                    padding-left: 30px;
+                    margin-top: 22px;
+                    width: 44px;
+                    height: 34px;
+                }
+            }
+        }
         .center{
             li{
                 width: 750px;
@@ -197,7 +223,6 @@
                 line-height: 86px;
                 font-size: 30px;
                 color: gray;
-                position: relative;
                 input{
                     outline:none;
                     width: 548px;
@@ -208,76 +233,67 @@
                     line-height: 84px;
                     margin-left: 50px;
                 }
-               .right-r{
-                   width: 580px;
-                   position: absolute;
-                   left:160px;
-                   top: 0px;
+                .right-r{
 
-               }
-            .ttt{
-                   z-index: 5;
-                   width: 750px;
-                   height: 500px;
-                   position: absolute;
-                   top: 550px;
-                   left: -20px;
-                  @{deep} .address-container {
-                    height: 410px;
-                    overflow: scroll;
+                    width: 580px;
+                    position: absolute;
+                    left:160px;
+                    top: 270px;
 
                 }
+                .ttt{
+                    z-index:5;
+                    width: 750px;
+                    height: 550px;
+                    position: absolute;
+                    top: 800px;
+                    left: 0;
+                    @{deep} .address-container {
+                        height: 410px;
+                        overflow: scroll;
 
-
-
-
-
-             }
-
+                    }
+                }
 
             }
         }
         .save{
             width: 750px;
             margin: 68px 0  30px  0;
-            position: relative;
-            z-index: 32;
             span{
                 display: inline-block;
                 width: 456px;
                 height: 66px;
-                background: hotpink;
+                background: gray;
                 color: white;
                 line-height: 66px;
                 text-align: center;
                 margin-left: 150px;
                 border-radius: 30px;
             }
-
             .success{
                 position: absolute;
-                left: 0;
-                top: -80px;
+                left: 150px;
+                top: 500px;
                 background: white;
                 width:456px;
                 height: 200px;
-                margin-left: 150px;
-                margin-top: 50px;
                 line-height: 200px;
                 text-align: center;
                 font-size: 40px;
                 border-radius: 20px;
                 border: 10px solid indianred;
-                .delete-save {
+                z-index: 50;
+                .delete {
                     width: 50px;
                     height: 50px;
                     position: absolute;
-                    top: 30px;
+                    top: -20px;
                     right: 20px;
                 }
             }
-        }
 
+        }
         .delete{
             width: 750px;
             margin: 48px 0  30px  0;
@@ -313,7 +329,7 @@
                     right: 20px;
                 }
             }
-            }
+        }
         .hazy{
             position: absolute;
             top: 0;
@@ -323,7 +339,5 @@
             background: rgba(0.2,0.2,0.2,0.5);
 
         }
-
     }
-
 </style>

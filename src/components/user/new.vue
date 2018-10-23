@@ -7,11 +7,11 @@
         <ul class="center">
             <li>
               <span>收货人</span>
-                <input type="text"  placeholder="请输入收货人的姓名" v-model="consignee" ><br>
+                <input type="text" @blur="disappear"  placeholder="请输入收货人的姓名" v-model="consignee" ><br>
             </li>
             <li>
                 <span>手机号码</span>
-                <input type="number"  placeholder="请输入收货人的手机号码" v-model="mobile" oninput="if(value.length>11)value=value.slice(0,11)" ><br>
+                <input type="number" @blur="disappear" placeholder="请输入收货人的手机号码" v-model="mobile" oninput="if(value.length>11)value=value.slice(0,11)" ><br>
             </li>
             <li>
                 <span>省市区</span>
@@ -26,7 +26,7 @@
             </li>
             <li >
                 <span>详细地址</span>
-                <input type="text"  placeholder="请输入收货人的详细地址"  v-model="detailed"><br>
+                <input type="text"  @blur="disappear" placeholder="请输入收货人的详细地址"  v-model="detailed"><br>
             </li>
         </ul>
         <div class="save">
@@ -36,6 +36,7 @@
             </div>
 
         </div>
+        <div class="confirm-botton" v-show="judge">{{Right_wrong}}</div>
         <div v-show="show"  class="hazy"></div>
     </div>
 </template>
@@ -48,6 +49,7 @@
         data(){
             return{
                 city:'请选择',
+                Right_wrong:"输入正确",
                 addInp :false,
                 mask:false,
                 show:false,
@@ -55,7 +57,8 @@
                 mobile:"",
                 consignee:"",
                 address_city:"",
-                detailed:""
+                detailed:"",
+                judge:false,
 
             }
         },
@@ -75,18 +78,24 @@
                 }
                 var detailed_getMenuText = getMenuText + detailed ;
                 if( consignee=="" ){
-                   alert("请输入收货人姓名")
+                    this.judge = true;
+                    this.Right_wrong= "请输入收货人姓名";
                 }else if(mobileNum == "" || !mobileNum) {
-                    alert("请输入电话号码");
+                    this.judge = true;
+                    this.Right_wrong= "请输入电话号码";
                 } else  if (!(/^1[3456789]\d{9}$/.test(mobileNum))) {
-                    alert("电话号码格式错误,请重新输入");
+                    this.judge = true;
+                    this.Right_wrong= "电话号码格式错误,请重新输入";
                 }else if(getMenuText=="" ){
-                    alert("请选择地址")
+                    this.judge = true;
+                    this.Right_wrong= "请选择地址";
                 }else if(detailed==""){
-                    alert("请输入详细地址")
+                    this.judge = true;
+                    this.Right_wrong= "请输入详细地址";
                 }else {
                     this.success=true;
                     this.show=true;
+                    this.judge = false;
                     axios.post("/api/addAddress",{
                         mobile:mobileNum,
                         consignee:consignee,
@@ -106,11 +115,8 @@
                 this.$router.push({path:"/user/goods"})
             },
 
-
-
-
             //在methodes中定义方法
-// 点击弹出三级联动
+            // 点击弹出三级联动
             toAddress(){
                 this.mask = true;
                 this.addInp = true;
@@ -125,7 +131,9 @@
                 this.city = data.province.value + ' ' + data.city.value +' ' + data.area.value
 
             },
-
+            disappear(){
+                this.judge = false;
+            }
         }
     }
 </script>
@@ -133,6 +141,18 @@
     @deep: ~'>>>';
     .new {
         width: 750px;
+        .confirm-botton{
+            width:510px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            background-color:red;
+            border-radius: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            margin: 20px   120px;
+        }
         .head {
             width: 750px;
             height: 90px;

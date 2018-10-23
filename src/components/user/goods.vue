@@ -26,16 +26,13 @@
                </div>
 
            </li>
-           <p>
-               <img src="../../assets/img/user/jg.png" alt="">
-               最多保存10个有效地址，每月只能新增或修改10次，您本月已新增或修改 <span>0</span>次</p>
-
        </ul>
        <div class="new">
            <router-link to="/user/goods/new" class="new-from">
                新增地址
            </router-link>
        </div>
+
        <router-view></router-view>
    </div>
 
@@ -110,15 +107,10 @@
         }
         .center{
             width: 750px;
-            p{
-                font-size:26px ;
-                color: #999;
-                padding: 10px;
-                img{
-                    width: 24px;
-                    height: 24px;
-                }
-            }
+            height: 1100px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
             li{
                 margin-bottom: 50px;
                 .information{
@@ -167,7 +159,6 @@
                         }
                         color: gray;
                         font-size: 30px;
-                        margin-left: 20px;
                         .editor{
                             span{
                                 display: inline-block;
@@ -188,9 +179,14 @@
                 }
 
             }
+
         }
         .new{
             width: 750px;
+            height: 70px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
             .new-from{
                 display: inline-block;
                 width: 400px;
@@ -206,5 +202,6 @@
                 line-height: 70px;
             }
         }
+
     }
 </style>
