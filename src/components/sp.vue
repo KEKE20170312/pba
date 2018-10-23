@@ -95,12 +95,8 @@
                 <li @click="ModifyPassword()" class="btn0 contact">客服</li>
                 <li class="btn1">分享</li>
             </ul>
-            <div @click="toggle()" class="nojoin">加入购物车</div>
+            <div @click="toggle();addCart()" class="nojoin">加入购物车</div>
         </div>
-        <!--加入购物车的动画-->
-        <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
-            <img v-show="isshow" src="../assets/img/home/bbs.jpg" class="show" alt="">
-        </transition>
     </div>
     </div>
 </template>
@@ -136,27 +132,26 @@
             Hidden(){
                 this.hiddenShow();
             },
-            toggle: function () {//以下是动画
-                this.isshow = !this.isshow;
+            toggle: function () {
                 this.oneAdd++;
             },
-            beforeEnter: function (el) {
-                console.log("beforeEnter");
-                el.style = "padding-left:-200px";
-                el.style = "padding-top:-800px";
-                // el.style = "width:300px";
-             },
-            enter: function (el, done) {
-                console.log("enter");
-                el.offsetHeight;
-                el.style = "padding-left:100px";
-                el.style = "padding-top:100px";
-                // el.style = "width:0px";
-                done();
-            },
-            afterEnter: function (el) {
-                console.log("afterEnter");
-                this.isshow = false;
+            addCart(goodsId) {
+                goodsId = this.data._id;
+                if(this.$store.state.userId){
+                    axios.post("/api/sp/addCart", {goodsId: goodsId}).then((res) => {
+                        if (res.status === "1") {
+                            // alert("失败");
+                        } else {
+                            // alert("成功");
+                            // if(typeof item.isSelected == "undefined"){
+                            //     this.$set(item,"isSelected",true);
+                            // }
+                        }
+                    })
+                }else{
+                    this.tip = true;
+                    this.$router.push({path:"/user"})
+                }
             }
         },
         created(){
@@ -188,14 +183,6 @@
 </script>
 
 <style lang="less" scoped>
-    .show{
-        position: fixed;
-        bottom: 1000px;
-        left: 300px;
-        width: 300px;
-        z-index: 19;
-        transition: all 1s;
-    }
     .blue{
         width: 210.56px;
         height: 38px;
@@ -552,6 +539,7 @@
         }
     }
     .btn-wrap{
+        width: 750px;
         position: fixed;
         bottom: 0px;
         left: 0px;

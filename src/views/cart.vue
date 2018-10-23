@@ -290,7 +290,7 @@
                 background-color: #fff;
                 line-height: 100px;
                 position: fixed;
-                left: 0;
+                left: calc(50vw - 375px);
                 bottom: 98px;
                 img {
                     width: 40px;

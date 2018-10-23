@@ -8,22 +8,22 @@
             </h1>
             <div class="products">
                 <router-link :to="'/category/'+'彩妆'">
-                        <img src="../assets/img/category/makeup.jpg" alt="">
+                    <img src="../assets/img/category/makeup.jpg" alt="">
                 </router-link>
                 <router-link :to="'/category/' + '护肤'">
-                        <img src="../assets/img/category/skin.jpg" alt="">
+                    <img src="../assets/img/category/skin.jpg" alt="">
                 </router-link>
                 <router-link :to="'/category/' + '面膜'">
-                        <img src="../assets/img/category/mask.jpg" alt="">
+                    <img src="../assets/img/category/mask.jpg" alt="">
                 </router-link>
                 <router-link :to="'/category/' + '香水洗护'">
-                        <img src="../assets/img/category/perfume.jpg" alt="">
+                    <img src="../assets/img/category/perfume.jpg" alt="">
                 </router-link>
                 <router-link :to="'/category/' + '工具仪器'">
-                        <img src="../assets/img/category/tools.jpg" alt="">
+                    <img src="../assets/img/category/tools.jpg" alt="">
                 </router-link>
                 <router-link :to="'/category/' + '休闲食品'">
-                        <img src="../assets/img/category/foods.jpg" alt="">
+                    <img src="../assets/img/category/foods.jpg" alt="">
                 </router-link>
             </div>
             <h1>
@@ -107,7 +107,6 @@
         <router-view></router-view>
     </div>
 </template>
-
 <script>
     import Search from "../components/search"
     import MyNav from "../common/myNav"

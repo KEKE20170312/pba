@@ -26,12 +26,13 @@
                 <span>所有商品</span>
             </router-link>
         </ul>
+        <div class="zz"></div>
     </div>
 </template>
 
 <script>
     import Search from "../search";
-    import SearchList from "../../common/searchList";
+    import SearchList from "../../common/searchList"
     export default {
         name: "find",
         data(){
@@ -51,6 +52,8 @@
 <style lang="less" scoped>
     .find{
         position: absolute;
+        left: calc(50vw - 375px);
+        top: 0;
         z-index: 30;
         min-height: 100vh;
         background-color: #fff;
@@ -59,8 +62,8 @@
                 width: 80px;
                 height: 80px;
                 position: fixed;
-                left: 20px;
-                bottom: 30px;
+                left: calc(50vw - 360px);
+                bottom: 20px;
             }
         }
         .litterNav{
@@ -70,8 +73,8 @@
             box-sizing: border-box;
             border: 2px #f1f1f1 solid;
             position: fixed;
-            left: 20px;
-            bottom: 150px;
+            left: calc(50vw - 360px);
+            bottom: 130px;
             background-color: #fff;
             border-radius: 6px;
             hr{
@@ -95,5 +98,14 @@
                 }
             }
         }
+        /*.zz{*/
+            /*width: 750px;*/
+            /*height: 98px;*/
+            /*position: fixed;*/
+            /*left: 0px;*/
+            /*bottom: 0px;*/
+            /*z-index: 3;*/
+            /*background-color: #fff;*/
+        /*}*/
     }
 </style>

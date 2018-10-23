@@ -3,7 +3,7 @@
         <ul>
             <li v-for="(item,index) in data" data-id="">
                 <div class="goods-box" tag="div">
-                    <router-link @click.native="change(item._id)" :to="'/sp/'+item._id"><img :src="item.smallImg" alt=""/></router-link>
+                    <router-link :to="'/sp/'+item._id"><img :src="item.smallImg" alt=""/></router-link>
                 </div>
                 <div class="text">
                     <p class="goods-name">{{item.goodsName}}</p>

@@ -16,7 +16,7 @@
             SearchList,
             MyNav,
             Search
-        },
+        }
     }
 </script>
 
