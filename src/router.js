@@ -5,7 +5,7 @@ import Category from "./views/category"
 import Cart from "./views/cart"
 import Register from "./components/user/register"
 import Agreement from "./components/user/agreement"
-import Loginbtn   from "./components/user/loginbtn"
+import Loginbtn  from "./components/user/loginbtn"
 import User from "./views/user"
 import Sp from "./components/sp"
 import Makeup from "./components/category/makeup"
@@ -95,6 +95,11 @@ export default new Router({
       {
           path:'/category/findGoods/:goodsName',
           component:FindGoods
+      },
+      {
+          path:'/category/find/goods/:goods',
+          component:Find
       }
+
   ]
 })
