@@ -33,6 +33,8 @@
 <style lang="less" scoped>
     .center {
         width: 750px;
+        height: 100vh;
+        background-color: #fff;
         .head {
             width: 750px;
             height: 90px;
@@ -68,7 +70,6 @@
                 border-bottom: 1px solid #e2e2e2;
                 border-top: 1px solid #e2e2e2 ;
                 margin-top: 20px;
-
             }
             .service-my{
                 font-size: 30px;
@@ -76,7 +77,6 @@
             .serve-img{
                 float: right;
                 font-size: 30px;
-
             }
         }
     }

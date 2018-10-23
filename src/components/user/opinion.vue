@@ -30,6 +30,8 @@
 <style lang="less" scoped>
     .opinion {
         width: 750px;
+        height: 100vh;
+        background-color: #fff;
         .head {
             width: 750px;
             height: 90px;
@@ -74,7 +76,6 @@
                     border: none;
                     font-size: 28px;
                     line-height: 84px;
-
                 }
             }
         }

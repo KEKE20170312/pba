@@ -7,9 +7,13 @@ export default new Vuex.Store({
     state: {
         userInfo:[],
         cartCount:0,
-        userId:""
+        userId:"",
+        userMobile:""
     },
     mutations: {
+        updateUserMobile(state,mobile){
+            state.userMobile = mobile;
+        },
         updateUserInfo(state,userInfo){
             state.userInfo = userInfo;
         },

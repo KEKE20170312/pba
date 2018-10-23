@@ -4,7 +4,6 @@
             <router-link to="/home">
                 <img src="../../assets/img/user/pba-slogan.png" alt="">
             </router-link>
-
         </div>
         <div class="count">
             <form  method="get">
@@ -40,23 +39,19 @@
                 </div>
             </div>
         </div>
-        <MyNav> </MyNav>
         <router-view></router-view>
     </div>
 </template>
 <script>
-    import MyNav from "../../common/myNav"
     export default {
-        name: "Loginbtn",
-        components:{
-            MyNav
-        }
+        name: "Loginbtn"
     }
 </script>
 <style lang="less" scoped>
     .user{
         width: 750px;
-        /*height: 1334px;*/
+        height: 100vh;
+        background-color: #fff;
         .head{
             width: 750px;
             img{
@@ -153,7 +148,6 @@
                         color: #969696;
                     }
                 }
-
             }
         }
     }

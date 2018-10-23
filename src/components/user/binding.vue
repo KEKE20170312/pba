@@ -36,7 +36,8 @@
 <style lang="less" scoped>
     .binding {
         width: 750px;
-
+        height: 100vh;
+        background-color: #fff;
         .head {
             width: 750px;
             height: 90px;

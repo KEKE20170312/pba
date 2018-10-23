@@ -29,13 +29,11 @@
                 <input type="text"  placeholder="请输入收货人的详细地址"  v-model="detailed"><br>
             </li>
         </ul>
-
         <div class="save">
             <span @click="save">保存地址</span>
             <div v-show="success" class="success" >保存成功
                 <img src="../../assets/img/user/quxiao.png" alt="" class="delete" @click="cancel">
             </div>
-
         </div>
         <div class="confirm-botton" v-show="judge">{{Right_wrong}}</div>
         <div v-show="show"  class="hazy"></div>
@@ -44,9 +42,7 @@
             <div v-show="destruction" class="eliminate" >删除成功
                 <img src="../../assets/img/user/quxiao.png" alt="" class="delete-eliminate" @click="cancel">
             </div>
-
         </div>
-
     </div>
 </template>
 
@@ -69,7 +65,6 @@
                 address_city:"",
                 detailed:"",
                 judge:false,
-
             }
         },
         methods: {
@@ -78,7 +73,6 @@
             },
             //点击保存
             save(){
-
                 var mobileNum = this.mobile;
                 var consignee = this.consignee;
                 var address_city = this.address_city;
@@ -114,11 +108,8 @@
                         detailed:detailed,
                         detailed_getMenuText:detailed_getMenuText,
                         editor_id:this.data._id
-                    }).then((data)=>{
-
-                    })
+                    }).then((data)=>{})
                 }
-
             },
             //点击取消
             cancel(){
@@ -137,13 +128,9 @@
                     if(res.status == 0){
                         this.destruction=true;
                         this.show=true;
-                    }else{
-
-                    }
+                    }else{}
                 })
-
             },
-
             //在methodes中定义方法
 // 点击弹出三级联动
             toAddress(){
@@ -158,16 +145,12 @@
                 this.city = data.province.value + ' ' + data.city.value +' ' + data.area.value;
                 this.show=false;
             },
-
-
         },
         created(){
-            console.log(this.$route.query.data);
             this.data = this.$route.query.data;
             this.mobile = this.data.mobile;
             this.consignee= this.data.consignee;
         }
-
     }
 </script>
 
@@ -175,6 +158,7 @@
     @deep: ~'>>>';
     .editor {
         width: 750px;
+        height: 100vh;
         position: relative;
         .confirm-botton{
             width:510px;
@@ -236,7 +220,6 @@
                     margin-left: 50px;
                 }
                 .right-r{
-
                     width: 580px;
                     position: absolute;
                     left:160px;
@@ -253,10 +236,8 @@
                     @{deep} .address-container {
                         height: 410px;
                         overflow: scroll;
-
                     }
                 }
-
             }
         }
         .save{
@@ -294,7 +275,6 @@
                     right: 20px;
                 }
             }
-
         }
         .delete{
             width: 750px;
@@ -339,7 +319,6 @@
             width: 750px;
             height: 100vh;
             background: rgba(0.2,0.2,0.2,0.5);
-
         }
     }
 </style>

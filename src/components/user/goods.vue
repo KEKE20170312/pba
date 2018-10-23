@@ -22,9 +22,7 @@
                            <span>编辑地址</span>
                        </router-link>
                    </div>
-
                </div>
-
            </li>
        </ul>
        <div class="new">
@@ -32,10 +30,8 @@
                新增地址
            </router-link>
        </div>
-
        <router-view></router-view>
    </div>
-
 </template>
 
 <script>
@@ -57,13 +53,9 @@
                 let res = data.data;
                 if(res.status == 0){
                     this.addressList = res.result;
-                    // console.log(this.addressList)
-                }else{
-
-                }
+                }else{}
             })
         }
-
     }
 </script>
 
@@ -72,7 +64,6 @@
         width: 750px;
         min-height: 100vh;
         background: white;
-
         left: 0;
         top: 0;
         z-index: 20;
@@ -89,7 +80,6 @@
             p {
                 color: #535353;
             }
-
             span {
                 display: inline-block;
                 width: 90px;
@@ -115,7 +105,6 @@
                 margin-bottom: 50px;
                 .information{
                     margin: 20px;
-
                     overflow: hidden;
                     width: 750px;
                     .information-m{
@@ -147,8 +136,6 @@
                     span{
                         font-size: 36px;
                         color: gray;
-
-
                     }
                     .default{
                         margin: 40px   0 ;
@@ -172,14 +159,11 @@
                                 border-radius: 30px;
                                 float: right;
                                 font-size: 26px;
-
                             }
                         }
                     }
                 }
-
             }
-
         }
         .new{
             width: 750px;
@@ -202,6 +186,5 @@
                 line-height: 70px;
             }
         }
-
     }
 </style>

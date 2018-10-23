@@ -34,7 +34,6 @@
             <div v-show="success" class="success" >保存成功
                 <img src="../../assets/img/user/quxiao.png" alt="" class="delete" @click="cancel">
             </div>
-
         </div>
         <div class="confirm-botton" v-show="judge">{{Right_wrong}}</div>
         <div v-show="show"  class="hazy"></div>
@@ -207,7 +206,6 @@
                     position: absolute;
                     left:160px;
                     top: 190px;
-
                 }
                 .ttt{
                     z-index:5;
@@ -219,17 +217,14 @@
                     @{deep} .address-container {
                         height: 410px;
                         overflow: scroll;
-
                     }
                 }
-
             }
         }
         .save{
             width: 750px;
             margin: 68px 0  30px  0;
             position: relative;
-
             span{
                 display: inline-block;
                 width: 456px;
@@ -255,14 +250,13 @@
                 border: 10px solid indianred;
                 z-index: 20;
                 .delete {
-                        width: 50px;
-                        height: 50px;
-                        position: absolute;
-                        top: 20px;
-                        right: 20px;
+                    width: 50px;
+                    height: 50px;
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
                 }
             }
-
         }
         .hazy{
             position: absolute;
@@ -271,7 +265,6 @@
             width: 750px;
             height: 100vh;
             background: rgba(0.2,0.2,0.2,0.5);
-
         }
     }
 </style>

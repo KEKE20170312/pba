@@ -62,12 +62,9 @@
     #app{
         width: 750px;
         margin: 0 auto;
-        height: 100vh;
+        /*height: 100vh;*/
         background-color: #fff;
         overflow: scroll;
-        /*position: absolute;*/
-        /*left: calc(50vw - 375px);*/
-        /*top: 0px;*/
     }
     ::-webkit-scrollbar{
         display: none;

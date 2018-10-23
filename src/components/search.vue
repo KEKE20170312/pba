@@ -17,11 +17,7 @@
             return{
                 searchgoods:""
             }
-        },
-        methods:{
-
         }
-
     }
 </script>
 <style lang="less" scoped>

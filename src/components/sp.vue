@@ -140,13 +140,7 @@
                 if(this.$store.state.userId){
                     axios.post("/api/sp/addCart", {goodsId: goodsId}).then((res) => {
                         if (res.status === "1") {
-                            // alert("失败");
-                        } else {
-                            // alert("成功");
-                            // if(typeof item.isSelected == "undefined"){
-                            //     this.$set(item,"isSelected",true);
-                            // }
-                        }
+                        } else {}
                     })
                 }else{
                     this.tip = true;
@@ -155,14 +149,11 @@
             }
         },
         created(){
-            // console.log("aaa");
             var goodsId = this.$route.params.id;
             axios.get("/api?id="+goodsId).then((data)=>{
-                console.log(data.data);
                 this.data = data.data[0];
             });
             axios.get("/api/make_up").then((data)=>{
-                console.log(data.data);
                 this.make_up = data.data;
             })
         },
@@ -170,11 +161,9 @@
             $route(){
                 var goodsId = this.$route.params.id;
                 axios.get("/api?id="+goodsId).then((data)=>{
-                    console.log(data.data);
                     this.data = data.data[0];
                 });
                 axios.get("/api/make_up").then((data)=>{
-                    console.log(data.data);
                     this.make_up = data.data;
                 })
             }
