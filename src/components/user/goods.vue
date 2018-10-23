@@ -5,32 +5,34 @@
            <p>地址管理</p>
        </div>
        <ul class="center">
-           <li>
+           <li v-for="(item,index) in this.addressList" >
               <div class="information">
                   <span class="information-m">默认</span>
-                  <span class="information-name">jun</span>
-                  <span class="phone"> 1659564564654</span>
+                  <span class="information-name">{{item.consignee}}</span>
+                  <span class="phone">{{item.mobile}}</span>
               </div>
                <div class="address">
                    <span>
-                       上海市松江区泗泾镇
-                       <router-link to="goods/editor" class="editor">
+                       {{item.address}}
+                   </span>
+                   <div class="default">
+                       <input type="checkbox" checked="checked">
+                       默认地址
+                       <router-link :to="{path:'goods/editor',query:{data:item}}" class="editor">
                            <span>编辑地址</span>
                        </router-link>
+                   </div>
 
-                   </span>
                </div>
-               <div class="default">
-                   <input type="checkbox" checked="checked">
-                   默认地址
-               </div>
+
            </li>
            <p>
                <img src="../../assets/img/user/jg.png" alt="">
-               最多baocun10个有效地址，每月只能新增或修改10次，您本月已新增或修改 <span>0</span>次</p>
+               最多保存10个有效地址，每月只能新增或修改10次，您本月已新增或修改 <span>0</span>次</p>
+
        </ul>
        <div class="new">
-           <router-link to="goods/new" class="new-from">
+           <router-link to="/user/goods/new" class="new-from">
                新增地址
            </router-link>
        </div>
@@ -40,19 +42,44 @@
 </template>
 
 <script>
+    import axios from "axios"
     export default {
         name: "goods",
+        data(){
+            return{
+                addressList:[]
+            }
+        },
         methods:{
             back(){
                 this.$router.go(-1);//返回上一层
             },
+        },
+        created(){
+            axios.get("/api/addressList").then((data)=>{
+                let res = data.data;
+                if(res.status == 0){
+                    this.addressList = res.result;
+                    // console.log(this.addressList)
+                }else{
+
+                }
+            })
         }
+
     }
 </script>
 
 <style lang="less" scoped>
     .goods{
         width: 750px;
+        min-height: 100vh;
+        background: white;
+
+        left: 0;
+        top: 0;
+        z-index: 20;
+        position: relative;
         .head {
             width: 750px;
             height: 90px;
@@ -93,8 +120,10 @@
                 }
             }
             li{
+                margin-bottom: 50px;
                 .information{
                     margin: 20px;
+
                     overflow: hidden;
                     width: 750px;
                     .information-m{
@@ -124,36 +153,40 @@
                     margin: 20px;
                     border-bottom: 1px  solid  #e2e2e2;
                     span{
-                        font-size: 30px;
+                        font-size: 36px;
                         color: gray;
-                       .editor{
-                          span{
-                              display: inline-block;
-                               width:150px;
-                               margin-bottom: 20px;
-                               background: hotpink;
-                               color: white;
-                              line-height: 60px;
-                              text-align: center;
-                              border-radius: 30px;
-                               float: right;
 
-                           }
-                       }
 
                     }
+                    .default{
+                        margin: 40px   0 ;
+                        input{
+                            width: 35px;
+                            height: 35px;
+                            vertical-align: top;
+                        }
+                        color: gray;
+                        font-size: 30px;
+                        margin-left: 20px;
+                        .editor{
+                            span{
+                                display: inline-block;
+                                width:145px;
+                                height: 50px;
+                                /*margin: 30px  0;*/
+                                background: hotpink;
+                                color: white;
+                                line-height: 50px;
+                                text-align: center;
+                                border-radius: 30px;
+                                float: right;
+                                font-size: 26px;
+
+                            }
+                        }
+                    }
                 }
-              .default{
-                  input{
-                      width: 35px;
-                      height: 35px;
-                      vertical-align: top;
-                  }
-                  color: gray;
-                  font-size: 30px;
-                  margin-bottom: 20px;
-                  margin-left: 20px;
-              }
+
             }
         }
         .new{
