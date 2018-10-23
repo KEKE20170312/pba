@@ -1,7 +1,6 @@
 <template>
     <div class="category">
         <Search/>
-        <MyNav/>
         <div class="column">
             <h1>
                 <img src="../assets/img/category/caption-all.jpg" alt="">
@@ -103,18 +102,15 @@
                 </router-link>
             </div>
         </div>
-        <MyNav/>
         <router-view></router-view>
     </div>
 </template>
 <script>
     import Search from "../components/search"
-    import MyNav from "../common/myNav"
     export default {
         name: "Category",
         components:{
-            Search,
-            MyNav
+            Search
         }
     }
 </script>
@@ -126,7 +122,6 @@
         background-color: #F2F2F2;
         .column{
             width: 750px;
-            /*height: 2300px;*/
             background-color: #ffffff;
             h1{
                 width: 705px;
@@ -139,7 +134,6 @@
             }
             .products{
                 width: 750px;
-                /*height: 350px;*/
                 margin-top: 16px;
                 a{
                     width: 338px;

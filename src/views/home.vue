@@ -2,8 +2,6 @@
     <div>
         <!-- 1 搜索框-->
         <Search></Search>
-        <!-- 2 轮播图部分-->
-        <MyNav/>
         <!--轮播图部分-->
         <template>
             <swiper class="container" :options="swiperOption" ref="mySwiper">
@@ -50,7 +48,6 @@
                 </li>
             </ul>
         </div>
-        <MyNav/>
         <router-view goodsId="data.goodsId" ></router-view>
     </div>
 </template>
@@ -58,7 +55,6 @@
     import Search from "../components/search";
     import { swiper, swiperSlide } from 'vue-awesome-swiper';
     import Sp from "../components/sp";
-    import MyNav from "../common/myNav";
     import axios from "axios";
     export default {
         name: "Home",
@@ -66,8 +62,7 @@
             Search,
             swiper,
             swiperSlide,
-            Sp,
-            MyNav
+            Sp
         },
         data() {
             return {
@@ -91,7 +86,6 @@
         },
         methods:{
             change(i){
-                // console.log(i);
                 this.$router.push(
                     {
                         path:`/sp/${i}`
@@ -100,26 +94,20 @@
             },
             handleScroll(){
                 let sw = true;
-                // console.log(window.scrollY);
                 let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                // console.log(scrollTop);
                 let AllHeight= document.documentElement.offsetHeight;
-                // console.log(AllHeight);
                 let wHeight = window.innerHeight;
-                // console.log(wHeight);
                 if(sw == true) {
                     if(AllHeight==scrollTop+wHeight){
-                        // console.log(1);
+                        console.log(1);
                         sw=false;
                         this.countNum++;
                         axios.get("/api/countNum?countNum="+this.countNum).then((data) => {
                             console.log(data.data);
                             let newArr = data.data;
-                            // console.log(newArr);
                             newArr.forEach((item,index)=>{
                                 this.data.push(item);
                             });
-                            // console.log(this.productArr);
                         }).catch((err) => {
                             console.log(err);
                         });
@@ -136,15 +124,12 @@
         mounted(){
             window.addEventListener("scroll",this.handleScroll);
             axios.get("/api/").then((data)=>{
-                console.log(data.data);
                 this.data = data.data;
             })
             axios.get("/api/swiper").then((data)=>{
-                // console.log(data.data);
                 this.swipers = data.data;
             })
             axios.get("/api/active").then((data)=>{
-                // console.log(data.data);
                 this.active = data.data;
             })
         }

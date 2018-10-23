@@ -36,12 +36,10 @@
                 var goods = this.$route.params.goods;
                 if(types){
                     axios.get("/api/type?type=" + types).then((data)=>{
-                        console.log(data.data);
                         this.data = data.data;
                     })
                 }else {
                     axios.get("/api/test?goods=" + goods).then((data)=>{
-                        console.log(data.data);
                         this.data = data.data;
                     })
                 }
@@ -52,16 +50,13 @@
             var goods = this.$route.params.goods;
             if(types){
                 axios.get("/api/type?type=" + types).then((data)=>{
-                    console.log(data.data);
                     this.data = data.data;
                 })
             }else {
                 axios.get("/api/test?goods=" + goods).then((data)=>{
-                    console.log(data.data);
                     this.data = data.data;
                 })
             }
-
         }
     }
 </script>

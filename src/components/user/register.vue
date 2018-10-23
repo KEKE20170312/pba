@@ -12,42 +12,36 @@
                 <ul class="cf">
                     <li class="cf-phone">
                         <img src="../../assets/img/user/mobile_icon.png" alt="">
-                        <input type="number" @blur="disappear" v-model="newPhone"  placeholder="输入手机号" oninput="if(value.length>11)value=value.slice(0,11)" >
-
+                        <input type="number" @blur="disappear" v-model="newPhone" placeholder="输入手机号"
+                               oninput="if(value.length>11)value=value.slice(0,11)">
                     </li>
                     <li class="cf-ph">
                         <img src="../../assets/img/user/email_icon.png" alt="">
-                        <input type="text"  placeholder="输入验证码" @blur="confirmTheCode" v-model="inputInfo">
+                        <input type="text" placeholder="输入验证码" @blur="confirmTheCode" v-model="inputInfo">
                         <span class="code-style" @click="createCode">{{verificationCode}}</span>
                     </li>
                     <li class="cf-pw">
                         <img src="../../assets/img/user/lock_icon.png" alt="">
-                        <input type="password" @blur="disappear" v-model="password" placeholder="输入密码" >
+                        <input type="password" @blur="disappear" v-model="password" placeholder="输入密码">
                     </li>
-
                     <li class="cf-pw">
                         <img src="../../assets/img/user/lock_icon.png" alt="">
-                        <input type="password" @blur="disappear" v-model="repeat" placeholder="再次确认密码" >
+                        <input type="password" @blur="disappear" v-model="repeat" placeholder="再次确认密码">
                     </li>
-
-
                     <li class="cf-referees">
                         <img src="../../assets/img/user/recom_icon.png" alt="">
-                        <input type="text"  v-model="referees" placeholder="输入推荐人（非必填）" >
+                        <input type="text" v-model="referees" placeholder="输入推荐人（非必填）">
                     </li>
                 </ul>
             </form>
-            <div class="register-zc"  @click="submit" >注册</div>
+            <div class="register-zc" @click="submit">注册</div>
             <div class="confirm-botton" v-show="judge">{{Right_wrong}}</div>
-
             <div class="agreement">
                 <input type="checkbox" checked="checked">
                 <router-link to="/user/agreement" class="agreement-to">
                     同意用户协议
                 </router-link>
-
             </div>
-
         </div>
         <div class="mongolia" v-show="delete_mongolia">
             <div>
@@ -60,6 +54,7 @@
 </template>
 <script>
     import axios from "axios"
+
     export default {
         name: "register",
         data() {
@@ -70,11 +65,11 @@
                 password: '',
                 repeat: '',
                 referees: '',
-                correct:false,
-                Right_wrong:"输入正确",
-                delete_mongolia:false,
+                correct: false,
+                Right_wrong: "输入正确",
+                delete_mongolia: false,
                 //   检测注册
-                judge:false,
+                judge: false,
             }
         },
         methods: {
@@ -83,37 +78,35 @@
             },
             // 点击注册
             submit() {
-                console.log(1);
                 var newPhone = this.newPhone;
                 var password = this.password;
                 var referees = this.referees;
                 var repeat = this.repeat;
-                var inputInfo= this.inputInfo;
+                var inputInfo = this.inputInfo;
                 //   检测注册
-                var judge = judge ;
+                var judge = judge;
 
                 //判断电话
-                if(newPhone == "" || !newPhone) {
+                if (newPhone == "" || !newPhone) {
                     this.judge = true;
-                    this.Right_wrong="请输入电话号码"
-                } else  if (!(/^1[3456789]\d{9}$/.test(newPhone))) {
+                    this.Right_wrong = "请输入电话号码"
+                } else if (!(/^1[3456789]\d{9}$/.test(newPhone))) {
                     this.judge = true;
-                    this.Right_wrong= "电话号码格式错误,请重新输入"
+                    this.Right_wrong = "电话号码格式错误,请重新输入"
                 }//判断验证码
-                else if (inputInfo==""){
+                else if (inputInfo == "") {
                     this.judge = true;
-                    this.Right_wrong= "请输入验证码";
+                    this.Right_wrong = "请输入验证码";
                 }
                 //判断密码
-                else if(password==""||!password){
+                else if (password == "" || !password) {
                     this.judge = true;
-                    this.Right_wrong= "请输入密码";
-                }else if(password!= repeat ){
+                    this.Right_wrong = "请输入密码";
+                } else if (password != repeat) {
                     this.judge = true;
-                    this.Right_wrong= "两次输入密码不一致，请重新输入";
+                    this.Right_wrong = "两次输入密码不一致，请重新输入";
                 } else {
-                    console.log("输入正确")
-                    this.delete_mongolia=true;
+                    this.delete_mongolia = true;
                     axios.post("/api/user/register", {
                         mobile: newPhone,
                         pwd: password,
@@ -142,18 +135,14 @@
                 } else if (customerCode !== this.verificationCode) {
                     this.createCode();
                     this.inputInfo = ''
-
-                }else {
-
-                }
+                } else {}
             },
-            cancel(){
-                this.delete_mongolia=false;
+            cancel() {
+                this.delete_mongolia = false;
             },
-            disappear(){
+            disappear() {
                 this.judge = false;
             }
-
         },
         mounted() {
             this.createCode()
@@ -161,25 +150,24 @@
     }
 </script>
 <style lang="less" scoped>
-    .register{
+    .register {
         width: 750px;
         height: 100vh;
         background-color: #fff;
         position: relative;
-        background: white;
-        .confirm-botton{
-            width:510px;
+        .confirm-botton {
+            width: 510px;
             height: 100px;
             text-align: center;
             line-height: 100px;
-            background-color:red;
+            background-color: red;
             border-radius: 20px;
             font-size: 30px;
             color: white;
             cursor: pointer;
-            margin: 20px   120px;
+            margin: 20px 120px;
         }
-        .head{
+        .head {
             width: 750px;
             height: 90px;
             border-bottom: 1px solid #f1f1f1;
@@ -187,48 +175,48 @@
             line-height: 90px;
             font-size: 30px;
             position: relative;
-            background-color:pink;
-            p{
-                color:#535353;
+            background-color: pink;
+            p {
+                color: #535353;
             }
-            span{
+            span {
                 display: inline-block;
                 width: 90px;
                 height: 62px;
                 position: absolute;
                 left: 0;
                 top: 0;
-                img{
+                img {
                     padding-left: 30px;
-                    margin-top:22px ;
+                    margin-top: 22px;
                     width: 44px;
                     height: 34px;
                 }
             }
         }
-        .count{
+        .count {
             width: 750px;
-            .count-p{
+            .count-p {
                 color: #555555;
                 margin: 10px 18px;
                 font-size: 28px;
             }
-            .count-form{
+            .count-form {
                 width: 750px;
-                .cf{
+                .cf {
                     width: 710px;
 
                     background-color: #f1f1f1;
                     margin-left: 20px;
-                    li{
+                    li {
                         width: 676px;
                         height: 84px;
                         border-bottom: 1px solid #e2e2e2;
                         list-style: none;
 
                     }
-                    input{
-                        outline:none;
+                    input {
+                        outline: none;
                         width: 608px;
                         height: 84px;
                         vertical-align: top;
@@ -238,44 +226,44 @@
                         line-height: 84px;
                         margin-left: 10px;
                     }
-                    img{
+                    img {
                         width: 48px;
                         height: 62px;
                         margin-top: 22px;
                         margin-left: 10px;
                     }
-                    .cf-pw{
+                    .cf-pw {
                         position: relative;
-                        img{
+                        img {
                             width: 48px;
                             height: 48px;
                         }
-                        span{
+                        span {
                             display: inline-block;
                             position: absolute;
                             right: 0px;
                             top: 20px;
                             width: 200px;
                             text-align: center;
-                            line-height:64px;
+                            line-height: 64px;
                             background: white;
                             /*letter-spacing:20px;*/
                             color: crimson;
                         }
                     }
-                    .cf-referees{
-                        img{
+                    .cf-referees {
+                        img {
                             width: 48px;
                             height: 56px;
                         }
                     }
-                    .cf-ph{
+                    .cf-ph {
                         position: relative;
-                        img{
+                        img {
                             width: 46px;
                             height: 40px;
                         }
-                        .code-style{
+                        .code-style {
                             display: inline-block;
                             width: 150px;
                             height: 84px;
@@ -285,51 +273,48 @@
                             cursor: pointer;
                             position: absolute;
                             top: 0px;
-                            right:120px ;
+                            right: 120px;
                             background-color: white;
                             text-align: center;
                         }
-
                     }
-
                 }
             }
-            .register-zc{
-                margin:20px 18px  10px 18px;
+            .register-zc {
+                margin: 20px 18px 10px 18px;
                 width: 709px;
                 height: 72px;
                 background-color: #ff498c;
                 font-size: 30px;
                 text-align: center;
                 line-height: 72px;
-                border: 1px solid  #ff498c;
+                border: 1px solid #ff498c;
                 border-radius: 10px;
                 color: white;
             }
         }
-        .agreement{
+        .agreement {
             float: right;
             margin-right: 18px;
-            input{
+            input {
                 width: 34px;
                 height: 30px;
                 vertical-align: bottom;
                 margin-right: 10px;
             }
-            .agreement-to{
+            .agreement-to {
                 color: #969696;
                 font-size: 30px;
             }
         }
-        .mongolia{
+        .mongolia {
             position: absolute;
             top: 0;
             left: 0;
             width: 750px;
             height: 1334px;
-            background: rgba(0.3,0.3,0.3,0.7);
-            /*overflow: hidden;*/
-            div{
+            background: rgba(0.3, 0.3, 0.3, 0.7);
+            div {
                 width: 500px;
                 height: 300px;
                 background: white;
@@ -339,23 +324,18 @@
                 line-height: 130px;
                 border-radius: 30px;
                 position: relative;
-                p{
+                p {
                     font-size: 40px;
                     color: hotpink;
-
                 }
-                .delete{
+                .delete {
                     width: 50px;
                     height: 50px;
                     position: absolute;
                     top: 20px;
                     right: 20px;
-
                 }
-
             }
-
         }
-
     }
 </style>

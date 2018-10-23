@@ -27,9 +27,7 @@
         },
         created(){
             var goodsName = this.$route.params.goodsName;
-            // console.log(goodsName);
             axios.get("/api/goodsName?goodsName=" + goodsName).then((data)=>{
-                console.log(data.data);
                 this.data = data.data;
             })
         }
@@ -48,7 +46,6 @@
             }
         }
         .litterNav{
-            /*display: none;*/
             width: 216px;
             height: 280px;
             box-sizing: border-box;

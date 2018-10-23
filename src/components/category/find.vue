@@ -57,8 +57,6 @@
         z-index: 30;
         min-height: 100vh;
         background-color: #fff;
-        /*border-left: 2px #ccc solid;*/
-        /*border-right: 2px #ccc solid;*/
         .menu{
             img{
                 width: 80px;
@@ -69,7 +67,6 @@
             }
         }
         .litterNav{
-            /*display: none;*/
             width: 216px;
             height: 280px;
             box-sizing: border-box;
@@ -100,14 +97,5 @@
                 }
             }
         }
-        /*.zz{*/
-            /*width: 750px;*/
-            /*height: 98px;*/
-            /*position: fixed;*/
-            /*left: 0px;*/
-            /*bottom: 0px;*/
-            /*z-index: 3;*/
-            /*background-color: #fff;*/
-        /*}*/
     }
 </style>

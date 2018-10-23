@@ -143,7 +143,6 @@
 
                     })
                 }
-
             },
             del(item,index){
                 var id = item._id;
@@ -151,23 +150,18 @@
                 this.goodsList.splice(this.delIndex,1);
                 axios.post("/api/delGoods",{
                     id:id
-                }).then((data) => {
-
-                })
+                }).then((data) => {})
             }
         },
         created() {
             axios.get("/api/cart/userId").then((data) => {
                 let res = data.data;
-                console.log(res);
                 var goods = data.data.result[0];
-                console.log(goods);
                 if(this.$store.state.userId){
                     this.noLogin = false;
                     if(res.status === "0"){
                         this.data = goods;
                         if(this.data.goodsList.length == 0){
-                            console.log(2);
                             this.noCarts = true;
                             this.showCarts = false;
                         }else{
@@ -223,7 +217,7 @@
 <style lang="less" scoped>
     .cart {
         width: 750px;
-        height: 1334px;
+        height: 100vh;
         background-color: #F2F2F2;
         .header {
             width: 750px;
@@ -243,7 +237,6 @@
             }
         }
         .noCartOop{
-            /*display: none;*/
             width: 750px;
             height: calc(100vh - 478px);
             padding-top: 380px;
@@ -387,7 +380,6 @@
                     .counts {
                         margin: 0 10px
                     }
-
                 }
                 .del {
                     color: #888;

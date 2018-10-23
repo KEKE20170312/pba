@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="users">
         <div class="center" v-show="centerShow">
             <div class="head" v-show="noheadShow">
                 <div class="immediately" @click="change">
@@ -11,7 +11,7 @@
             <div class="head-two" v-show="headShow">
                 <div class="immediately">
                     欢迎小主
-                    <p class="information">{{this.$store.state.userInfo.name}}</p>
+                    <p class="information">{{this.$store.state.userMobile}}</p>
                 </div>
 
                 <div class="enjoy">享受更多贴心服务</div>
@@ -49,19 +49,17 @@
                 </router-link>
                 <li class="exit" @click="logout">退出登录</li>
             </ul>
-            <!--<router-view></router-view>-->
         </div>
         <div class="user" v-show="userShow">
             <div class="head">
                 <router-link to="/home">
                     <img src="./../assets/img/user/pba-slogan.png" alt="">
                 </router-link>
-
             </div>
             <!--登录界面-->
             <div class="count">
                 <form method="get">
-                    <input type="number" placeholder="账号" v-model="mobile" ><br>
+                    <input type="number" placeholder="账号" v-model="mobile"><br>
                     <input type="password" placeholder="密码" v-model="pwd">
                 </form>
                 <div to="/user" class="loginbtn" @click="login">
@@ -95,9 +93,6 @@
                         </a>
                     </div>
                 </div>
-
-                <!--<MyNav></MyNav>-->
-                <!--<router-view></router-view>-->
             </div>
         </div>
     </div>
@@ -120,7 +115,7 @@
                 errTip1: false,
                 errTip2: false,
                 userInfo: [],
-                before_after:false
+                before_after: false
             }
         },
         computed: {
@@ -140,13 +135,12 @@
             this.checkLogin();
         },
         methods: {
-            ...mapMutations(["updateUserInfo","updateUserId"]),
+            ...mapMutations(["updateUserInfo", "updateUserId","updateUserMobile"]),
             checkLogin() {
                 axios.get("/api/user/checklogin").then((data) => {
                     let res = data.data;
                     if (res.status === "0") {
-                        // this.userInfo = res.result.userInfo;
-                        // this.$store.commit("updateUserInfo", res.result.userInfo);
+                        this.updateUserMobile(res.result);
                         this.headShow = true;
                         this.noheadShow = false;
                         this.before_after = true;
@@ -157,24 +151,21 @@
                 if (!this.mobile || !this.pwd) {
                     this.errTip1 = true;
                     return;
-
                 }
                 axios.post("/api/user/login", {
                     mobile: this.mobile,
                     pwd: this.pwd
                 }).then((data) => {
                     let res = data.data;
-                    console.log(res);
-                    // console.log("res" + res);
                     if (res.status === "0") {
-                        this.errTip = false;
+                        this.updateUserMobile(res.result.userInfo.mobile);
                         this.updateUserId(res.result.userInfo._id);
-                        this.updateUserInfo(res.result.userInfo);
+                        this.errTip = false;
                         this.centerShow = true;
                         this.userShow = false;
                         this.headShow = true;
                         this.noheadShow = false;
-                        this.before_after=true;
+                        this.before_after = true;
                     } else {
                         this.errTip1 = false;
                         this.errTip2 = true;
@@ -190,7 +181,7 @@
                         this.updateUserInfo("");
                         this.noheadShow = true;
                         this.headShow = false;
-                        this.before_after=false;
+                        this.before_after = false;
                     }
                 })
             },
@@ -200,256 +191,257 @@
 
             }
         },
-        created(){
-            if(this.$store.state.userId){
+        created() {
+            if (this.$store.state.userId) {
                 this.noheadShow = false;
             }
         }
     }
 </script>
 <style lang="less" scoped>
-    .center {
+    .users {
         width: 750px;
         height: 100vh;
-        overflow: hidden;
-        .head {
+        background-color: #fff;
+        .center {
             width: 750px;
-            height: 500px;
+            height: 100vh;
             overflow: hidden;
-             margin-top:300px;
-            .immediately {
-                text-decoration: none;
-                display: inline-block;
-                width: 400px;
-                height: 100px;
-                border: 1px solid #ffeef3;
-                background-color: pink;
-                border-radius: 20px;
-                font-size: 50px;
-                text-align: center;
-                line-height: 100px;
-                color: white;
-                margin-left: 175px;
-                margin-top: 120px;
-            }
-            .enjoy {
+            .head {
                 width: 750px;
-                height: 100px;
-                font-size: 60px;
-                text-align: center;
-                line-height: 100px;
-                color: pink;
-                margin-top: 20px;
-            }
-        }
-        .head-two {
-            /*display: none;*/
-            width: 750px;
-            height: 500px;
-            background-color: #FFEEF3;
-            overflow: hidden;
-            .immediately {
-                text-decoration: none;
-                display: inline-block;
-                width: 400px;
-                height: 100px;
-                border: 1px solid #ffeef3;
-                background-color: pink;
-                border-radius: 20px;
-                font-size: 50px;
-                text-align: center;
-                line-height: 100px;
-                color: white;
-                margin-left: 175px;
-                margin-top: 120px;
-                .information {
-
-                    color: lightseagreen;
-
-                }
-            }
-            .enjoy {
-                width: 750px;
-                height: 100px;
-                font-size: 60px;
-                text-align: center;
-                line-height: 100px;
-                color: pink;
-                margin-top: 20px;
-            }
-        }
-        .money {
-            width: 750px;
-            height: 200px;
-            border-top: 1px solid #f1f1f1;
-            border-bottom: 1px solid #f1f1f1;
-            margin-top: 20px;
-            li {
-                padding: 0 20px;
-                width: 710px;
-                height: 100px;
-                border-bottom: 1px solid #f1f1f1;
-                line-height: 100px;
-                font-size: 30px;
+                height: 500px;
                 overflow: hidden;
-                .wallet-b {
-                    float: right;
-                    overflow: hidden;
-                    .balance {
-                        color: gray;
-                    }
-                    img {
-                        width: 25px;
-                        height: 25px;
-                        margin-left: 10px;
-                        margin-top: 20px;
-                    }
+                margin-top: 300px;
+                .immediately {
+                    text-decoration: none;
+                    display: inline-block;
+                    width: 400px;
+                    height: 100px;
+                    border: 1px solid #ffeef3;
+                    background-color: pink;
+                    border-radius: 20px;
+                    font-size: 50px;
+                    text-align: center;
+                    line-height: 100px;
+                    color: white;
+                    margin-left: 175px;
+                    margin-top: 120px;
                 }
-                .my {
-                    color: hotpink;
+                .enjoy {
+                    width: 750px;
+                    height: 100px;
+                    font-size: 60px;
+                    text-align: center;
+                    line-height: 100px;
+                    color: pink;
+                    margin-top: 20px;
                 }
             }
-            .collection {
+            .head-two {
+                width: 750px;
+                height: 500px;
+                background-color: #FFEEF3;
+                overflow: hidden;
+                .immediately {
+                    text-decoration: none;
+                    display: inline-block;
+                    width: 400px;
+                    height: 100px;
+                    border: 1px solid #ffeef3;
+                    background-color: pink;
+                    border-radius: 20px;
+                    font-size: 50px;
+                    text-align: center;
+                    line-height: 100px;
+                    color: white;
+                    margin-left: 175px;
+                    margin-top: 120px;
+                    .information {
+                        color: lightseagreen;
+                    }
+                }
+                .enjoy {
+                    width: 750px;
+                    height: 100px;
+                    font-size: 60px;
+                    text-align: center;
+                    line-height: 100px;
+                    color: pink;
+                    margin-top: 20px;
+                }
+            }
+            .money {
+                width: 750px;
+                height: 200px;
+                border-top: 1px solid #f1f1f1;
+                border-bottom: 1px solid #f1f1f1;
+                margin-top: 20px;
                 li {
-                    span {
+                    padding: 0 20px;
+                    width: 710px;
+                    height: 100px;
+                    border-bottom: 1px solid #f1f1f1;
+                    line-height: 100px;
+                    font-size: 30px;
+                    overflow: hidden;
+                    .wallet-b {
+                        float: right;
+                        overflow: hidden;
+                        .balance {
+                            color: gray;
+                        }
+                        img {
+                            width: 25px;
+                            height: 25px;
+                            margin-left: 10px;
+                            margin-top: 20px;
+                        }
+                    }
+                    .my {
                         color: hotpink;
                     }
-                    img {
+                }
+                .collection {
+                    li {
+                        span {
+                            color: hotpink;
+                        }
+                        img {
+                            float: right;
+                            width: 25px;
+                            height: 25px;
+                            margin-top: 35px;
+                        }
+                    }
+
+                }
+                .exit {
+                    width: 500px;
+                    height: 80px;
+                    line-height: 80px;
+                    border-radius: 30px;
+                    margin-left: 125px;
+                    margin-top: 20px;
+                    color: white;
+                    background: gray;
+                    text-align: center;
+                    font-size: 35px;
+                    border-bottom: 1px solid #f1f1f1;
+                }
+            }
+        }
+
+        .user {
+            width: 750px;
+            .head {
+                width: 750px;
+                img {
+                    margin: 60px 150px 0px 150px;
+                    width: 450px;
+                }
+            }
+            .count {
+                p {
+                    width: 600px;
+                    height: 160px;
+                    border-radius: 10px;
+                    line-height: 160px;
+                    font-size: 40px;
+                    text-align: center;
+                    background: grey;
+                    color: white;
+                    margin: 20px 65px;
+                }
+                margin: 24px 22px 0 24px;
+                input {
+                    padding: 2px 14px;
+                    width: 672px;
+                    height: 76px;
+                    font-size: 28px;
+                    border: 1px solid #e2e2e2;
+                    outline: none;
+                }
+                .loginbtn {
+                    display: inline-block;
+                    width: 702px;
+                    height: 72px;
+                    margin: 20px 0 10px 0;
+                    background-color: #ff498c;
+                    text-align: center;
+                    line-height: 72px;
+                    color: white;
+                    font-size: 28px;
+                    border: 1px solid #ff498c;
+                    border-radius: 6px;
+                    text-decoration: none;
+                }
+                .help {
+                    overflow: hidden;
+                    margin-bottom: 20px;
+                    a {
+                        color: #969696;
+                        font-size: 24px;
+                        text-decoration: none;
                         float: right;
-                        width: 25px;
-                        height: 25px;
-                        margin-top: 35px;
                     }
                 }
-
-            }
-            .exit {
-                width: 500px;
-                height:80px;
-                line-height: 80px;
-                border-radius: 30px;
-                margin-left: 125px;
-                margin-top: 20px;
-                color: white;
-                background: gray;
-                text-align: center;
-                font-size: 35px;
-                border-bottom: 1px solid #f1f1f1;
-            }
-        }
-    }
-
-    .user {
-        width: 750px;
-        /*height: 1334px;*/
-        .head {
-            width: 750px;
-            img {
-                margin: 60px 150px 0px 150px;
-                width: 450px;
-            }
-        }
-        .count {
-            p{
-                width:600px;
-                height: 160px;
-                border-radius: 10px;
-                line-height: 160px;
-                font-size: 40px;
-                text-align: center;
-                background: grey;
-                color: white;
-                margin: 20px   65px;
-            }
-            margin: 24px 22px 0 24px;
-            input {
-                padding: 2px 14px;
-                width: 672px;
-                height: 76px;
-                font-size: 28px;
-                border: 1px solid #e2e2e2;
-                outline: none;
-            }
-            .loginbtn {
-                display: inline-block;
-                width: 702px;
-                height: 72px;
-                margin: 20px 0 10px 0;
-                background-color: #ff498c;
-                text-align: center;
-                line-height: 72px;
-                color: white;
-                font-size: 28px;
-                border: 1px solid #ff498c;
-                border-radius: 6px;
-                text-decoration: none;
-            }
-            .help {
-                overflow: hidden;
-                margin-bottom: 20px;
-                a {
-                    color: #969696;
-                    font-size: 24px;
+                .register {
+                    width: 690px;
+                    height: 72px;
+                    border: 1px solid #e2e2e2;
+                    color: #535353;
                     text-decoration: none;
-                    float: right;
-                }
-            }
-            .register {
-                width: 690px;
-                height: 72px;
-                border: 1px solid #e2e2e2;
-                color: #535353;
-                text-decoration: none;
-                display: block;
-                text-align: center;
-                font-size: 28px;
-                line-height: 72px;
-            }
-            .thirdparty {
-                width: 422px;
-                height: 1px;
-                margin: 70px 40px 40px 140px;
-                text-align: center;
-                .left-line {
-                    width: 84px;
-                    float: left;
-                }
-                .right-line {
-                    float: right;
-                    width: 84px;
-                }
-                span {
+                    display: block;
                     text-align: center;
-                    line-height: 1px;
-                    font-size: 24px;
-                    color: #969696;
-                    vertical-align: top;
+                    font-size: 28px;
+                    line-height: 72px;
                 }
-            }
-            .third-log {
-                width: 508px;
-                height: 160px;
-                margin: 0 100px;
-                text-align: center;
-                div {
-                    width: 120px;
-                    height: 160px;
-                    display: inline-block;
+                .thirdparty {
+                    width: 422px;
+                    height: 1px;
+                    margin: 70px 40px 40px 140px;
                     text-align: center;
-                    padding: 0 30px;
-                }
-                a {
-                    text-decoration: none;
-                    img {
-                        width: 120px;
-                        height: 120px;
+                    .left-line {
+                        width: 84px;
+                        float: left;
+                    }
+                    .right-line {
+                        float: right;
+                        width: 84px;
                     }
                     span {
+                        text-align: center;
+                        line-height: 1px;
                         font-size: 24px;
                         color: #969696;
+                        vertical-align: top;
                     }
                 }
+                .third-log {
+                    width: 508px;
+                    height: 160px;
+                    margin: 0 100px;
+                    text-align: center;
+                    div {
+                        width: 120px;
+                        height: 160px;
+                        display: inline-block;
+                        text-align: center;
+                        padding: 0 30px;
+                    }
+                    a {
+                        text-decoration: none;
+                        img {
+                            width: 120px;
+                            height: 120px;
+                        }
+                        span {
+                            font-size: 24px;
+                            color: #969696;
+                        }
+                    }
 
+                }
             }
         }
     }
