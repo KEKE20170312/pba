@@ -275,7 +275,6 @@
                 width: 456px;
                 height: 66px;
                 background: green;
-                background: pink;
                 color: white;
                 line-height: 66px;
                 text-align: center;
