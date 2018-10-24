@@ -2,7 +2,7 @@
     <div class="classify-column">
         <ul>
             <li v-for="(item,index) in data">
-                <router-link @click.native="change(item._id)" :to="'/sp/'+item._id">
+                <router-link :to="'/sp/'+item._id">
                     <div class="goods-box" tag="div" data-id="">
                         <img class="smallImg" :src="item.smallImg" alt=""/>
                         <img class="newProduct" :src="item.new" alt=""/>
