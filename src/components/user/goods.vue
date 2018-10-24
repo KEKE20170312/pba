@@ -7,7 +7,7 @@
        <ul class="center">
            <li v-for="(item,index) in this.addressList" >
               <div class="information">
-                  <span class="information-m">默认</span>
+                  <!--<span class="information-m">默认</span>-->
                   <span class="information-name">{{item.consignee}}</span>
                   <span class="phone">{{item.mobile}}</span>
               </div>
@@ -15,9 +15,9 @@
                    <span>
                        {{item.address}}
                    </span>
-                   <div class="default">
-                       <input type="checkbox" checked="checked">
-                       默认地址
+                   <div class="default" >
+                       <!--<input type="checkbox"  >-->
+                       <span @click="default_m(index)"  class="bael_1" :class="{bcolor:bael==index}" v-text="isClass"></span>
                        <router-link :to="{path:'goods/editor',query:{data:item}}" class="editor">
                            <span>编辑地址</span>
                        </router-link>
@@ -40,13 +40,18 @@
         name: "goods",
         data(){
             return{
-                addressList:[]
+                addressList:[],
+                bael:-1,
+                isClass:"默认地址"
             }
         },
         methods:{
             back(){
                 this.$router.go(-1);//返回上一层
             },
+            default_m(index){
+                this.bael = index;
+            }
         },
         created(){
             axios.get("/api/addressList").then((data)=>{
@@ -118,7 +123,7 @@
                          border-radius: 10px;
                     }
                     .information-name{
-                        color: gray;
+                        color: hotpink;
                         font-size: 30px;
                         margin-left: 20px;
                     }
@@ -139,6 +144,26 @@
                     }
                     .default{
                         margin: 40px   0 ;
+                        .bael_1{
+                            display: inline-block;
+                            width:145px;
+                            height: 50px;
+                            line-height: 50px;
+                            text-align: center;
+                            border-radius: 30px;
+                            font-size: 26px;
+                        }
+                        .bcolor{
+                            display: inline-block;
+                            width:140px;
+                            height: 44px;
+                            line-height: 44px;
+                            border:3px  solid hotpink;
+                            color: red;
+                            text-align: center;
+                            border-radius: 30px;
+                            font-size: 26px;
+                        }
                         input{
                             width: 35px;
                             height: 35px;
