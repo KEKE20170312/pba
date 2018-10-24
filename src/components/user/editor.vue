@@ -284,7 +284,7 @@
             .success{
                 position: absolute;
                 left: 150px;
-                top: 500px;
+                top: 550px;
                 background: white;
                 width:456px;
                 height: 200px;
