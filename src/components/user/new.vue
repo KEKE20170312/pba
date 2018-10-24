@@ -7,11 +7,11 @@
         <ul class="center">
             <li>
               <span>收货人</span>
-                <input type="text" @blur="disappear"  placeholder="请输入收货人的姓名" v-model="consignee" ><br>
+                <input type="text"  placeholder="请输入收货人的姓名" v-model="consignee" ><br>
             </li>
             <li>
                 <span>手机号码</span>
-                <input type="number" @blur="disappear" placeholder="请输入收货人的手机号码" v-model="mobile" oninput="if(value.length>11)value=value.slice(0,11)" ><br>
+                <input type="number"  placeholder="请输入收货人的手机号码" v-model="mobile" oninput="if(value.length>11)value=value.slice(0,11)" ><br>
             </li>
             <li>
                 <span>省市区</span>
@@ -24,9 +24,9 @@
                 </v-distpicker>
                 <div class="mask" v-show="mask"></div>
             </li>
-            <li >
+            <li class="detailed">
                 <span>详细地址</span>
-                <input type="text"  @blur="disappear" placeholder="请输入收货人的详细地址"  v-model="detailed"><br>
+                <input type="text"   placeholder="请输入收货人的详细地址"  v-model="detailed"><br>
             </li>
         </ul>
         <div class="save">
@@ -48,7 +48,7 @@
         data(){
             return{
                 city:'请选择',
-                Right_wrong:"输入正确",
+                Right_wrong:"",
                 addInp :false,
                 mask:false,
                 show:false,
@@ -76,21 +76,37 @@
                     getMenuText="";
                 }
                 var detailed_getMenuText = getMenuText + detailed ;
-                if( consignee=="" ){
-                    this.judge = true;
+                if( consignee==""||!consignee ){
                     this.Right_wrong= "请输入收货人姓名";
+                    this.judge = true;
+                    setTimeout(()=>{
+                        this.judge= false;
+                    },2000)
+
                 }else if(mobileNum == "" || !mobileNum) {
                     this.judge = true;
                     this.Right_wrong= "请输入电话号码";
+                    setTimeout(()=>{
+                        this.judge= false;
+                    },2000)
                 } else  if (!(/^1[3456789]\d{9}$/.test(mobileNum))) {
                     this.judge = true;
                     this.Right_wrong= "电话号码格式错误,请重新输入";
+                    setTimeout(()=>{
+                        this.judge= false;
+                    },2000)
                 }else if(getMenuText=="" ){
                     this.judge = true;
                     this.Right_wrong= "请选择地址";
+                    setTimeout(()=>{
+                        this.judge= false;
+                    },2000)
                 }else if(detailed==""){
                     this.judge = true;
                     this.Right_wrong= "请输入详细地址";
+                    setTimeout(()=>{
+                        this.judge= false;
+                    },2000)
                 }else {
                     this.success=true;
                     this.show=true;
@@ -129,10 +145,8 @@
                 this.show = false;
                 this.city = data.province.value + ' ' + data.city.value +' ' + data.area.value
 
-            },
-            disappear(){
-                this.judge = false;
             }
+
         }
     }
 </script>
@@ -143,16 +157,17 @@
         height: 100vh;
         position: relative;
         .confirm-botton{
-            width:510px;
+            position: absolute;
+            width: 400px;
             height: 100px;
+            background-color: rgba(0.5,0.5,0.5,0.5);
             text-align: center;
             line-height: 100px;
-            background-color:red;
-            border-radius: 20px;
+            border-radius: 10px;
             font-size: 30px;
             color: white;
-            cursor: pointer;
-            margin: 20px   120px;
+            top: 460px;
+            left: 175px;
         }
         .head {
             width: 750px;
@@ -205,7 +220,7 @@
                     width: 580px;
                     position: absolute;
                     left:160px;
-                    top: 190px;
+                    top: 180px;
                 }
                 .ttt{
                     z-index:5;
@@ -220,6 +235,10 @@
                     }
                 }
             }
+            .detailed{
+                height: 150px;
+
+            }
         }
         .save{
             width: 750px;
@@ -229,7 +248,7 @@
                 display: inline-block;
                 width: 456px;
                 height: 66px;
-                background: hotpink;
+                background: green;
                 color: white;
                 line-height: 66px;
                 text-align: center;
