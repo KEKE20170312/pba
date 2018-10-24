@@ -151,6 +151,10 @@
                 axios.post("/api/delGoods",{
                     id:id
                 }).then((data) => {})
+                if(this.goodsList.length == 0){
+                    this.noCarts = true;
+                    this.showCarts = false;
+                }
             }
         },
         created() {

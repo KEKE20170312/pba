@@ -226,9 +226,9 @@
                     z-index:5;
                     width: 750px;
                     height: 550px;
-                    position: absolute;
-                    top: 620px;
-                    left: 0;
+                    position: fixed;
+                    bottom: 70px;
+                    left: calc(50vw - 375px);
                     @{deep} .address-container {
                         height: 410px;
                         overflow: scroll;

@@ -52,8 +52,22 @@
         },
         methods:{
             selectMapNav (text) {
-                // this.isSelect = text;
+                var path = window.location.pathname;
+                if(path == "/home"){
+                    text = "首页"
+                }else if(path.slice(0,5) == "/cate"){
+                    text = "分类"
+                }else if(path == "/cart"){
+                    text = "购物车"
+                }else if(path.slice(0,5) == "/user"){
+                    text = "我的"
+                }
                 this.$set(this,"isSelect",text);
+            }
+        },
+        watch:{
+            $route(){
+                this.selectMapNav();
             }
         }
     }
