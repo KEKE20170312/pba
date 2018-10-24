@@ -66,10 +66,10 @@
                 repeat: '',
                 referees: '',
                 correct: false,
-                Right_wrong: "输入正确",
+                Right_wrong: "",
                 delete_mongolia: false,
                 //   检测注册
-                judge: false,
+                judge:false,
             }
         },
         methods: {
@@ -88,29 +88,53 @@
 
                 //判断电话
                 if (newPhone == "" || !newPhone) {
-                    this.judge = true;
                     this.Right_wrong = "请输入电话号码"
+                    this.judge = true;
+                   setTimeout(()=>{
+                       this.judge=false;
+                   },2000)
                 } else if (!(/^1[3456789]\d{9}$/.test(newPhone))) {
                     this.judge = true;
                     this.Right_wrong = "电话号码格式错误,请重新输入"
+                    setTimeout(()=>{
+                        this.judge=false;
+                    },2000)
                 }//判断验证码
                 else if (inputInfo == "") {
                     this.judge = true;
                     this.Right_wrong = "请输入验证码";
+                    setTimeout(()=>{
+                        this.judge=false;
+                    },2000)
                 }
                 //判断密码
                 else if (password == "" || !password) {
                     this.judge = true;
                     this.Right_wrong = "请输入密码";
-                } else if (password != repeat) {
+                    setTimeout(()=>{
+                        this.judge=false;
+                    },2000)
+                } else if (password != repeat || password=="") {
                     this.judge = true;
                     this.Right_wrong = "两次输入密码不一致，请重新输入";
-                } else {
-                    this.delete_mongolia = true;
+                    setTimeout(()=>{
+                        this.judge=false;
+                    },2000)
+                }
+                else {
                     axios.post("/api/user/register", {
                         mobile: newPhone,
                         pwd: password,
                     }).then((data) => {
+                        let res = data.data;
+                        if (res.status ==0){
+                            // this.judge= true;
+                            // this.Right_wrong = "账号注册成功"
+                            this.delete_mongolia = true;
+                        } else if(res.status==2){
+                            this.judge= true;
+                            this.Right_wrong = "账号已存在"
+                        }
                     })
                 }
             },
@@ -157,16 +181,17 @@
         background-color: #fff;
         position: relative;
         .confirm-botton {
-            width: 510px;
+            position: absolute;
+            width: 400px;
             height: 100px;
+            background-color: rgba(0.5,0.5,0.5,0.5);
             text-align: center;
             line-height: 100px;
-            background-color: red;
-            border-radius: 20px;
+            border-radius: 10px;
             font-size: 30px;
             color: white;
-            cursor: pointer;
-            margin: 20px 120px;
+            top: 550px;
+            left: 175px;
         }
         .head {
             width: 750px;
@@ -290,7 +315,7 @@
                 }
             }
             .register-zc {
-                margin: 20px 18px 10px 18px;
+                margin: 60px 18px 10px 18px;
                 width: 709px;
                 height: 72px;
                 background-color: #ff498c;

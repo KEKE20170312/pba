@@ -10,11 +10,12 @@
             <!--登录后的页面-->
             <div class="head-two" v-show="headShow">
                 <div class="immediately">
-                    欢迎小主
                     <p class="information">{{this.$store.state.userMobile}}</p>
+                    <p class="welcome">欢迎小主回家</p>
+
                 </div>
 
-                <div class="enjoy">享受更多贴心服务</div>
+                <!--<div class="enjoy">享受更多贴心服务</div>-->
             </div>
             <ul class="money" v-show="before_after">
                 <li class="wallet">
@@ -111,7 +112,7 @@
             return {
                 account: "",
                 centerShow: true,
-                userShow: false,
+                userShow: true,
                 noheadShow: true,
                 headShow: false,
                 mobile: "",
@@ -198,7 +199,6 @@
             change() {
                 this.centerShow = false;
                 this.userShow = true;
-
             }
         },
         created() {
@@ -216,31 +216,6 @@
             width: 750px;
             height: 100vh;
             overflow: hidden;
-            /*margin-top: 300px;*/
-            /*.immediately {*/
-                /*text-decoration: none;*/
-                /*display: inline-block;*/
-                /*width: 400px;*/
-                /*height: 100px;*/
-                /*border: 1px solid #ffeef3;*/
-                /*background-color: hotpink;*/
-                /*border-radius: 20px;*/
-                /*font-size: 50px;*/
-                /*text-align: center;*/
-                /*line-height: 100px;*/
-                /*color: white;*/
-                /*margin-left: 175px;*/
-                /*margin-top: 120px;*/
-            /*}*/
-            /*.enjoy {*/
-                /*width: 750px;*/
-                /*height: 100px;*/
-                /*font-size: 60px;*/
-                /*text-align: center;*/
-                /*line-height: 100px;*/
-                /*color: hotpink;*/
-                /*margin-top: 20px;*/
-            /*}*/
             .head {
                 width: 750px;
                 height: 500px;
@@ -268,41 +243,52 @@
                     text-align: center;
                     line-height: 100px;
                     color:hotpink;
-                    margin-top: 20px;
+                    margin-top: 60px;
                 }
             }
             .head-two {
                 width: 750px;
                 height: 500px;
-                background-color: #FFEEF3;
+                background-color: pink;
                 overflow: hidden;
                 .immediately {
-                    text-decoration: none;
-                    display: inline-block;
-                    width: 400px;
-                    height: 100px;
-                    border: 1px solid #ffeef3;
-                    background-color: pink;
-                    border-radius: 20px;
-                    font-size: 50px;
-                    text-align: center;
-                    line-height: 100px;
-                    color: white;
-                    margin-left: 175px;
-                    margin-top: 120px;
                     .information {
+                        text-decoration: none;
+                        display: inline-block;
+                        width: 400px;
+                        height: 100px;
+                        border: 1px solid #ffeef3;
+                        border-radius: 50%;
+                        background-color: white;
+                        font-size: 40px;
+                        text-align: center;
+                        line-height: 100px;
+                        /*color: white;*/
+                        margin-left: 175px;
+                        margin-top: 120px;
                         color: lightseagreen;
                     }
+                    .welcome{
+                        width: 750px;
+                        height: 70px;
+                        text-align: center;
+                        line-height: 70px;
+                        font-size: 40px;
+                        color: darkorchid;
+                        font-weight: bolder;
+                        margin-top: 30px;
+                       font-family: "YouYuan";
+                    }
                 }
-                .enjoy {
-                    width: 750px;
-                    height: 100px;
-                    font-size: 60px;
-                    text-align: center;
-                    line-height: 100px;
-                    color: pink;
-                    margin-top: 20px;
-                }
+                /*.enjoy {*/
+                    /*width: 750px;*/
+                    /*height: 100px;*/
+                    /*font-size: 60px;*/
+                    /*text-align: center;*/
+                    /*line-height: 100px;*/
+                    /*color:white;*/
+                    /*margin-top: 20px;*/
+                /*}*/
             }
             .money {
                 width: 750px;
@@ -356,7 +342,7 @@
                     margin-left: 125px;
                     margin-top: 20px;
                     color: white;
-                    background: gray;
+                    background: orangered;
                     text-align: center;
                     font-size: 35px;
                     border-bottom: 1px solid #f1f1f1;

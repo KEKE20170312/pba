@@ -24,9 +24,9 @@
                 </v-distpicker>
                 <div class="mask" v-show="mask"></div>
             </li>
-            <li >
+            <li class="detailed">
                 <span>详细地址</span>
-                <input type="text"  placeholder="请输入收货人的详细地址"  v-model="detailed"><br>
+                <input type="text"     placeholder="请输入收货人的详细地址"  v-model="detailed"><br>
             </li>
         </ul>
         <div class="save">
@@ -54,7 +54,7 @@
         data(){
             return{
                 city:'请选择',
-                Right_wrong:"输入正确",
+                Right_wrong:"",
                 addInp :false,
                 mask:false,
                 show:false,
@@ -82,21 +82,42 @@
                     getMenuText="";
                 }
                 var detailed_getMenuText = getMenuText + detailed ;
-                if( consignee=="" ){
-                    this.judge = true;
+                if( consignee==""||!consignee ){
                     this.Right_wrong= "请输入收货人姓名";
+                    this.judge = true;
+                    setTimeout(() => {
+                        this.judge = false;
+                    }, 2000);
+                    return;
+
                 }else if(mobileNum == "" || !mobileNum) {
                     this.judge = true;
                     this.Right_wrong="请输入电话号码";
+                    setTimeout(() => {
+                        this.judge = false;
+                    }, 2000);
+                    return;
                 } else  if (!(/^1[3456789]\d{9}$/.test(mobileNum))) {
                     this.judge = true;
                     this.Right_wrong= "电话号码格式错误,请重新输入";
+                    setTimeout(() => {
+                        this.judge = false;
+                    }, 2000);
+                    return;
                 }else if(getMenuText=="" ){
                     this.judge = true;
                     this.Right_wrong= "请选择地址";
+                    setTimeout(() => {
+                        this.judge = false;
+                    }, 2000);
+                    return;
                 }else if(detailed==""){
                     this.judge = true;
                     this.Right_wrong= "请输入详细地址";
+                    setTimeout(() => {
+                        this.judge = false;
+                    }, 2000);
+                    return;
                 }else {
                     this. success=true;
                     this.show=true;
@@ -161,16 +182,19 @@
         height: 100vh;
         position: relative;
         .confirm-botton{
-            width:510px;
+            position: absolute;
+            width: 400px;
             height: 100px;
+            background-color: rgba(0.5,0.5,0.5,0.5);
             text-align: center;
             line-height: 100px;
-            background-color:red;
-            border-radius: 20px;
+            border-radius: 10px;
             font-size: 30px;
             color: white;
-            cursor: pointer;
-            margin: 20px   120px;
+            top: 450px;
+            left: 175px;
+
+
         }
         .head {
             width: 750px;
@@ -239,6 +263,9 @@
                     }
                 }
             }
+            .detailed{
+                height: 150px;
+            }
         }
         .save{
             width: 750px;
@@ -247,6 +274,7 @@
                 display: inline-block;
                 width: 456px;
                 height: 66px;
+                background: green;
                 background: pink;
                 color: white;
                 line-height: 66px;
@@ -283,7 +311,7 @@
                 display: inline-block;
                 width: 456px;
                 height: 66px;
-                background: gray;
+                background: orangered;
                 color: white;
                 line-height: 66px;
                 text-align: center;
@@ -293,7 +321,7 @@
             .eliminate{
                 position: absolute;
                 left: 150px;
-                top: 500px;
+                top: 550px;
                 background: white;
                 width:456px;
                 height: 200px;
