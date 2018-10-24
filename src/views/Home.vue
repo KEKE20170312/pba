@@ -7,12 +7,12 @@
             <swiper class="container" :options="swiperOption" ref="mySwiper">
                 <!-- slides图片 -->
                 <swiper-slide class="imgBox" v-for="(item,index) in swipers" data-id="">
-                    <router-link @click.native="change(item._id)" :to="'/sp/'+item._id" >
+                    <router-link @click.native="change(item._id)" :to="'/sp/'+item._id">
                         <img :src="item.swiperImg" alt=""/>
                     </router-link>
                 </swiper-slide>
                 <!-- 三个小按钮 -->
-                <div class="swiper-pagination"  slot="pagination"></div>
+                <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
         </template>
         <!-- 3 三个活动图-->
@@ -21,7 +21,8 @@
                 <router-link @click.native="change(item._id)" :to="'/sp/'+item._id" tag="li">
                     <img :src="item.actImg" alt="">
                 </router-link>
-            </li>>
+            </li>
+            >
         </ul>
         <!-- 4 人气商品-->
         <div class="banner">
@@ -48,17 +49,18 @@
                 </li>
             </ul>
         </div>
-        <router-view goodsId="data.goodsId" ></router-view>
+        <router-view goodsId="data.goodsId"></router-view>
     </div>
 </template>
 <script>
     import Search from "../components/search";
-    import { swiper, swiperSlide } from 'vue-awesome-swiper';
+    import {swiper, swiperSlide} from 'vue-awesome-swiper';
     import Sp from "../components/sp";
     import axios from "axios";
+
     export default {
         name: "Home",
-        components:{
+        components: {
             Search,
             swiper,
             swiperSlide,
@@ -67,51 +69,51 @@
         data() {
             return {
                 swiperOption: {
-                    pagination:{
-                        el:'.swiper-pagination'
+                    pagination: {
+                        el: '.swiper-pagination'
                     },
-                    slidesPerView:1,
-                    autoplay:{
-                        delay:2000,
-                        disableOnInteraction:false,
+                    slidesPerView: 1,
+                    autoplay: {
+                        delay: 2000,
+                        disableOnInteraction: false,
 
                     }
                 },
-                data:[],
-                swipers:[],
-                active:[],
-                goodsId:"",
-                countNum:0
+                data: [],
+                swipers: [],
+                active: [],
+                goodsId: "",
+                countNum: 0
             }
         },
-        methods:{
-            change(i){
+        methods: {
+            change(i) {
                 this.$router.push(
                     {
-                        path:`/sp/${i}`
+                        path: `/sp/${i}`
                     }
                 )
             },
-            handleScroll(){
+            handleScroll() {
                 let sw = true;
                 let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                let AllHeight= document.documentElement.offsetHeight;
+                let AllHeight = document.documentElement.offsetHeight;
                 let wHeight = window.innerHeight;
-                if(sw == true) {
-                    if(AllHeight==scrollTop+wHeight){
+                if (sw == true) {
+                    if (AllHeight == scrollTop + wHeight) {
                         console.log(1);
-                        sw=false;
+                        sw = false;
                         this.countNum++;
-                        axios.get("/api/countNum?countNum="+this.countNum).then((data) => {
+                        axios.get("/api/countNum?countNum=" + this.countNum).then((data) => {
                             console.log(data.data);
                             let newArr = data.data;
-                            newArr.forEach((item,index)=>{
+                            newArr.forEach((item, index) => {
                                 this.data.push(item);
                             });
                         }).catch((err) => {
                             console.log(err);
                         });
-                        sw=true;
+                        sw = true;
                     }
                 }
             }
@@ -121,15 +123,15 @@
                 return this.$refs.mySwiper.swiper
             }
         },
-        mounted(){
-            window.addEventListener("scroll",this.handleScroll);
-            axios.get("/api/").then((data)=>{
+        mounted() {
+            window.addEventListener("scroll", this.handleScroll);
+            axios.get("/api/").then((data) => {
                 this.data = data.data;
             })
-            axios.get("/api/swiper").then((data)=>{
+            axios.get("/api/swiper").then((data) => {
                 this.swipers = data.data;
             })
-            axios.get("/api/active").then((data)=>{
+            axios.get("/api/active").then((data) => {
                 this.active = data.data;
             })
         }
@@ -139,106 +141,112 @@
     * {
         list-style: none;
     }
-    .container{
+
+    .container {
         width: 750px;
         height: 280px;
-        .imgBox{
+        .imgBox {
             width: 750px;
-            img{
+            img {
                 width: 750px;
             }
         }
     }
-    .main-product{
+
+    .main-product {
         width: 750px;
         height: 300px;
         border-bottom: 1px solid #e2e2e2;
         display: flex;
-        li{
+        li {
             width: 250px;
             height: 298px;
             border-right: 2px solid #e2e2e2;
-            img{
+            img {
                 width: 250px;
                 height: 298px;
             }
         }
     }
-    .banner{
+
+    .banner {
         width: 750px;
         height: 125px;
         border-bottom: 2px solid #f1f1f1;
-        img{
+        img {
             width: 750px;
             height: 125px;
         }
     }
-    .classify-column{
+
+    .classify-column {
         width: 750px;
         background-color: #fff;
-        ul{
+        ul {
             width: 750px;
             padding: 0;
             margin-bottom: 120px;
-            li{
+            li {
                 width: 750px;
-                zoom:1;
+                zoom: 1;
                 padding: 30px 22.5px;
                 list-style: none;
                 box-sizing: border-box;
                 border-bottom: 2px solid #f1f1f1;
                 height: 280px;
-                .goods-box{
+                .goods-box {
                     width: 225px;
                     display: inline-block;
                     vertical-align: middle;
                     position: relative;
-                    .smallImg{
+                    .smallImg {
                         border: none;
                         height: 211.5px;
                     }
-                    a{
+                    a {
                         display: inline-block;
                         text-decoration: none;
 
                     }
-                    .newProduct{
+                    .newProduct {
                         position: absolute;
                         left: 0;
                         top: 0;
                         width: 84.6px;
                     }
                 }
-                .text{
+                .text {
                     display: inline-block;
                     margin-left: 22.5px;
                     width: 457px;
                     vertical-align: middle;
                     position: relative;
-                    p{
+                    p {
                         display: inline-block;
                         width: 348px;
                     }
-                    .goods-name{
+                    .goods-name {
                         font-size: 28px;
                         margin-bottom: 15px;
                         color: #000;
                     }
-                    .goods-tag{
+                    .goods-tag {
                         font-size: 26px;
                         margin-bottom: 15px;
                         color: #969696;
                     }
-                    .goods-price{
+                    .goods-price {
                         font-size: 26px;
                         color: #585858;
-                        .price{color: #FD4688;}
+                        .price {
+                            color: #FD4688;
+                        }
                     }
-                    .joinCart{
+                    .joinCart {
                         position: absolute;
                         right: 22.5px;
                         width: 59.56px;
-                        img{
+                        img {
                             width: 59.56px;
                         }
                     }

@@ -267,7 +267,8 @@
             }
         }
         .cartOop {
-            height: calc(100vh - 200px);
+            height: calc(100vh - 400px);
+            overflow: scroll;
             padding-bottom: 240px;
             background-color: #F2F2F2;
             .demo {

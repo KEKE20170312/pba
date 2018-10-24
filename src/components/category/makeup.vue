@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="makeUp">
         <Search/>
         <SearchList/>
     </div>
@@ -18,5 +18,8 @@
 </script>
 
 <style lang="less" scoped>
-
+    .makeUp{
+        height: 100vh;
+        background-color: #fff;
+    }
 </style>
