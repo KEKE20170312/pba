@@ -112,7 +112,7 @@
             return {
                 account: "",
                 centerShow: true,
-                userShow: true,
+                userShow: false,
                 noheadShow: true,
                 headShow: false,
                 mobile: "",
